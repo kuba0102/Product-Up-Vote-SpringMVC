@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <head th:insert="frontend/fragments/fragment-head.html">
+  </head>
+
+  <body class="bg-dark">
+
+    <div class="container">
+      <div class="card card-register mx-auto mt-5">
+        <div class="card-header">Register an Account</div>
+        <div class="card-body">
+          <div th:if="${error != null}">
+            <div class="alert alert-warning" th:text="${error}">
+            </div>
+          </div>
+          <form th:object="${user}" method="POST">
+            <div class="form-group">
+              <div class="form-label-group">
+                <input type="text" id="inputUsername" class="form-control" placeholder="Username" required="required" autofocus="autofocus" th:field="*{username}">
+                <label for="inputUsername">Username</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-row">
+                <div class="col-md-6">
+                  <div class="form-label-group">
+                    <input type="text" id="firstName" class="form-control" placeholder="First name" required="required" th:field="*{name}">
+                    <label for="firstName">First name</label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-label-group">
+                    <input type="text" id="surname" class="form-control" placeholder="Last name" required="required" th:field="*{surname}">
+                    <label for="surname">Last name</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-label-group">
+                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="required" th:field="*{email}">
+                <label for="inputEmail">Email address</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-row">
+                <div class="col-md-6">
+                  <div class="form-label-group">
+                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="required" th:field="*{password}">
+                    <label for="inputPassword">Password</label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-label-group">
+                    <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm password" required="required" th:field="*{salt}">
+                    <label for="confirmPassword">Confirm password</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <input type="submit" value="Register">
+          </form>
+          <div class="text-center">
+            <a class="d-block small mt-3" href="login.html">Login Page</a>
+            <a class="d-block small" href="forgot-password.html">Forgot Password?</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  </body>
+
+</html>
