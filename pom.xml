@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.2.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.ProductUpVote</groupId>
+    <artifactId>productupvote</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>productupvote</name>
+    <description>The main goal for the Product Up Vote app is to allow users to vote on a product that they like and get
+        rewarded for their help. As users votes for the products and engages more with the website that will open the
+        opportunity for them to win the product they have voted for. Product Up Vote will also allow users to submit
+        products they have created or products they have found only that are not yet seen on Product Up Vote. The
+        backend user will have an option to either accept, decline or put on hold the product that was submitted. On the
+        website there is going to be a rewarding system if user is taking part on the website by submitting new
+        products, users than will be rewarded with votes that they can be spent by either voting up more products or
+        spend it on other features of the website. Product Up Vote is not only a product voting app but also it will
+        provide shopping cart like functionality that will provide backend user with options such as listing products,
+        allowing online payments, importing list of products from other sources e.g. eBay, amazon or other shopping
+        cart. Every part of the website will be able to be modified by backend user for example: changing font, managing
+        layout of the website, changing CSS or adding new functionalities. Application will also have analytics
+        functionality that will record every user movement on front and backend. When enough data is collected than that
+        information will be used to improve the websites performance. Plan for application is to allow website to be
+        self-managing which means that little or none presence of the backend user will be need for the website to
+        function.
+    </description>
+
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>mysql</groupId>-->
+        <!--<artifactId>mysql-connector-java</artifactId>-->
+        <!--</dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-jdbc</artifactId>
+            <version>2.1.3.RELEASE</version>
+            <type>pom</type>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
