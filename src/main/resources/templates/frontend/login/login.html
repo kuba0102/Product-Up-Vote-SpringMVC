@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <head th:insert="frontend/fragments/fragment-head.html">
+  </head>
+
+  <body class="bg-dark">
+
+    <div class="container">
+      <div class="card card-login mx-auto mt-5">
+        <div class="card-header">Login</div>
+        <div class="card-body">
+          <div th:if="${message != null}">
+            <div class="alert alert-warning" th:text="${message}">
+            </div>
+          </div>
+          <form th:object="${user}" method="POST">
+            <div class="form-group">
+              <div class="form-label-group">
+                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="required" autofocus="autofocus" th:field="*{email}">
+                <label for="inputEmail">Email address</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-label-group">
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="required" th:field="*{password}">
+                <label for="inputPassword">Password</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" value="remember-me">
+                  Remember Password
+                </label>
+              </div>
+            </div>
+            <input type="submit" value="Login">
+          </form>
+          <div class="text-center">
+            <a class="d-block small mt-3" th:href="@{'/register'}">Register an Account</a>
+            <a class="d-block small" th:href="@{'/forgot-password'}">Forgot Password?</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!--Java Script-->
+    <head th:insert="frontend/fragments/fragment-js.html">
+  </body>
+
+</html>
