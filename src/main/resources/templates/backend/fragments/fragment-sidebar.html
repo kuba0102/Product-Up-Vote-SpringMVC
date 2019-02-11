@@ -1,0 +1,79 @@
+<!-- Sidebar -->
+    <ul class="sidebar navbar-nav">
+        <li class="nav-item active">
+            <a class="nav-link" th:href="@{/backend/}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Submitted Products</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                <h6 class="dropdown-header">Submitted Products:</h6>
+                <a class="dropdown-item" href="login.html">All Submitted Products</a>
+                <a class="dropdown-item" href="login.html">Approved Products</a>
+                <a class="dropdown-item" href="register.html">Disapproved products</a>
+                <a class="dropdown-item" href="register.html">Amend Products</a>
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Products</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                <h6 class="dropdown-header">Products:</h6>
+                <a class="dropdown-item" href="#">Add Product</a>
+                <a class="dropdown-item" href="#">Remove Product</a>
+                <div class="dropdown-divider"></div>
+                <h6 class="dropdown-header">Orders:</h6>
+                <a class="dropdown-item" href="404.html">Orders</a>
+                <a class="dropdown-item" href="blank.html">Blank Page</a>
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Orders</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                <h6 class="dropdown-header">Orders:</h6>
+                <a class="dropdown-item" href="404.html">All orders</a>
+                <a class="dropdown-item" href="blank.html">New Orders</a>
+                <a class="dropdown-item" href="blank.html">Create Order</a>
+                <a class="dropdown-item" href="blank.html">Cancle Order</a>
+                <a class="dropdown-item" href="blank.html">Returns</a>
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Users</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                <h6 class="dropdown-header">Users:</h6>
+                <a class="dropdown-item" th:href="@{/backend/add-user}">Add New User</a>
+                <a class="dropdown-item" href="blank.html">Set User Permissions</a>
+                <a class="dropdown-item" href="blank.html">All Users</a>
+                <a class="dropdown-item" href="blank.html">User History</a>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Rewards</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Import/Export</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>History</span></a>
+        </li>
+    </ul>

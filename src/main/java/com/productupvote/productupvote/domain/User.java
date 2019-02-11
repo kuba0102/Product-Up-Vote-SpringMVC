@@ -2,7 +2,6 @@ package com.productupvote.productupvote.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -27,6 +26,7 @@ public class User {
     private Date dateCreated;
     private Date dateUpdated;
     private Date dateOnline;
+    private boolean backend;
 
     //Getters and Setters
     public Integer getId() {
@@ -107,6 +107,14 @@ public class User {
 
     public void setDateOnline(Date dateOnline) {
         this.dateOnline = dateOnline;
+    }
+
+    public boolean isBackend() {
+        return backend;
+    }
+
+    public void setBackend(boolean backend) {
+        this.backend = backend;
     }
 
     @Override
