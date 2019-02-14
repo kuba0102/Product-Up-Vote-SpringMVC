@@ -1,0 +1,12 @@
+<%@ form:taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<form:form action="/backend/update-perm" modelAttribute="perm" method="POST">
+    <div class="form-group">
+        <div class="form-row">
+            <div class="col-md-6">
+                <form:radiobuttons path="userEdit" items="${bools}"/>
+            </div>
+
+        </div>
+    </div>
+    <input type="submit" value="Set Permissions"/>
+</form:form>

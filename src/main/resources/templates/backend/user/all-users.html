@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/head.html">
+
+</head>
+<body>
+<div th:insert="fragments/nav-bar.html"></div>
+
+<div class="container">
+    <h2>All Users</h2>
+    <div class="panel panel-default">
+        <div class="panel-body">
+                <h2>User List</h2>
+                <ul class="list-group" th:if="${!users.isEmpty()}">
+                    <a th:each="user: ${users}" class="list-group-item" th:href="@{'/user/details/' + ${user.id}}"
+                       th:text=" 'User ID: ' + ${user.id} + ' -------- Name: ' + ${user.name} + ' -------- Last Name: '+ ${user.lastName} "></a>
+                </ul>
+                <ul class="list-group" th:if="${users.isEmpty()}">
+                    <a>No Users Found</a>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

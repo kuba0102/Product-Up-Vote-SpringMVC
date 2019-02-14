@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<html lang="en">
+<head>
+    <div th:insert="frontend/fragments/fragment-head.html">
+    </div>
+
+<body id="page-top">
+<!--Navbar insert-->
+<div th:insert="backend/fragments/fragment-navbar.html"></div>
+
+<div id="wrapper">
+    <!--Sidebar insert-->
+    <div th:insert="backend/fragments/fragment-sidebar.html"></div>
+    <div id="content-wrapper">
+        <div class="container-fluid">
+            <!--Breadcrumb insert-->
+            <div th:insert="backend/fragments/fragment-breadcrumb.html"></div>
+
+
+            <!-- New user forms -->
+            <div class="row">
+                <div class="col-xl-3 col-sm-6 mb-3">
+                    <div class="container">
+                        <div class="card card-register mx-auto mt-5">
+                            <div class="card-header">Set Permission</div>
+                            <div class="card-body">
+                                <div th:if="${error != null}">
+                                    <div class="alert alert-warning" th:text="${error}">
+                                    </div>
+                                </div>
+                                <div th:insert="backend/fragments/forms/fragment-perm-form"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sticky Footer -->
+            <footer class="sticky-footer">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright © ProductUpVote 2018</span>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+        <!-- /.content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <div th:insert="backend/fragments/fragment-footer.html"></div>
+    <div th:insert="backend/fragments/fragment-js.html"></div>
+</body>
+
+</html>
