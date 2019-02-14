@@ -4,10 +4,8 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface PermissionRepository extends CrudRepository<Permission, Integer> {
+public interface UserTypeRepository extends CrudRepository<UserType, Integer> {
 
     @Override
-    List<Permission> findAll();
-    Permission findPermissionByUser(User user);
-
+    List<UserType> findAll();
 }

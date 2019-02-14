@@ -7,22 +7,20 @@ import com.productupvote.productupvote.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import java.util.List;
+
 
 /**
- * UserWebController
+ * BackUserWebController
  * This class controls requests for:
  *
  * @author U1554969 Jakub Chruslicki
  */
 @RequestMapping("/backend")
 @Controller
-public class UserWebController extends AppController {
+public class BackUserWebController extends AppController {
 
     @Autowired
     private UserService userService;
@@ -55,5 +53,26 @@ public class UserWebController extends AppController {
         model.addAttribute("message", "User updated!");
         System.out.println("Successful: Permission updated.");
         return displayeditPermissionForm(model, userId);
+    }
+
+    @GetMapping("/all-users")
+    public String displayAllUsers(Model model) {
+        if (!userService.checkLogin(true)) return super.BACKEND_LOGIN_REDIRECT;
+        if (!permissionService.getUserPermissions(userService.getCurrentUser().getId()).isUserView())
+            return super.BACKEND_HOMEPAGE_REDIRECT;
+        model.addAttribute(super.PAGE_TITLE_ID, "All Users");
+
+        model.addAttribute("users", userService.findAllUsers());
+
+
+        return "backend/user/all-users";
+    }
+
+    @PostMapping("/all-users/{search}")
+    public String displaySearchUsers(Model model, @PathVariable("search") String search) {
+
+        System.out.println(search);
+        model.addAttribute("users", userService.userSearch(search));
+        return "backend/fragments/ajax/ajax-all-users.html";
     }
 }

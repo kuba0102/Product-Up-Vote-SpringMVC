@@ -1,62 +1,42 @@
 package com.productupvote.productupvote.service;
 
-import com.productupvote.productupvote.domain.User;
-import com.productupvote.productupvote.domain.UserRepository;
+import com.productupvote.productupvote.domain.Permission;
+import com.productupvote.productupvote.domain.PermissionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Service
-public class UserService {
+public class PermissionService {
     @Autowired
-    UserRepository userRepository;
+    private PermissionRepository permissionRepository;
 
     /**
      * This method saves new user in database.
-     * @param user user object to save in database.
-     */
-    public void save(User user) {
-        userRepository.save(user);
-    }
-
-    /**
-     * This method finds user by using email.
-     * @param email email to log in.
-     * @return user if one is found.
-     */
-    public User findUserByEmail(String email) {
-        return userRepository.findUserByEmail(email);
-    }
-
-    /**
-     * This method returns all users.
-     * @return list of all users.
-     */
-    public List<User> findAllUsers() {
-       return userRepository.findAll();
-    }
-
-    /**
-     * This method looks for User in session and returns User.
      *
-     * @return User from the session.
+     * @param permission permission object to save in database.
      */
-    public User getCurrentUser() {
-        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        HttpSession session = attr.getRequest().getSession();
-        return (User) session.getAttribute("user");
+    public void save(Permission permission) {
+        permissionRepository.save(permission);
+    }
+
+
+    /**
+     * This method returns all Permission.
+     *
+     * @return list of all Permission.
+     */
+    public List<Permission> findAllPermissions() {
+        return permissionRepository.findAll();
     }
 
     /**
-     * This method checks if User is logged in and returns true or false.
-     *
-     * @return returns false if user is not logged in and true if User is.
+     * This method finds user permission by user id and returns Permission object.
+     * @param id user id.
+     * @return Permission object.
      */
-    public boolean checkLogin() {
-        return getCurrentUser() != null;
+    public Permission getUserPermissions(Integer id) {
+        return permissionRepository.FindPermWithDescriptionQuery(id);
     }
 }

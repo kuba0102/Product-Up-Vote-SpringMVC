@@ -1,37 +1,28 @@
 package com.productupvote.productupvote.service;
 
-import com.productupvote.productupvote.domain.Permission;
-import com.productupvote.productupvote.domain.PermissionRepository;
-import com.productupvote.productupvote.domain.User;
-import com.productupvote.productupvote.domain.UserRepository;
+import com.productupvote.productupvote.domain.UserType;
+import com.productupvote.productupvote.domain.UserTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Service
-public class PermissionService {
+public class UserTypeService {
     @Autowired
-    PermissionRepository permissionRepository;
+    private UserTypeRepository userTypeRepository;
 
     /**
      * This method saves new user in database.
-     * @param user user object to save in database.
+     *
+     * @param userType UserType object to save in database.
      */
-    public void save(Permission permission) {
-        permissionRepository.save(permission);
+    public void save(UserType userType) {
+        userTypeRepository.save(userType);
     }
 
-
-    /**
-     * This method returns all Permission.
-     * @return list of all Permission.
-     */
-    public List<Permission> findAllPermmsions() {
-       return permissionRepository.findAll();
+    public List<UserType> findAll(){
+        return userTypeRepository.findAll();
     }
 
 }

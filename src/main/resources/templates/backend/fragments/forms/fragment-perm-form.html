@@ -1,12 +1,228 @@
-<%@ form:taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<form:form action="/backend/update-perm" modelAttribute="perm" method="POST">
-    <div class="form-group">
-        <div class="form-row">
-            <div class="col-md-6">
-                <form:radiobuttons path="userEdit" items="${bools}"/>
-            </div>
+<div class="alert alert-success" role="alert" th:if="${message != null}" th:text="${message}">
+</div>
+<form th:object="${perm}" method="POST">
+    <input type="hidden" th:field="*{id}"/>
+    <input type="hidden" th:field="*{user}"/>
 
-        </div>
-    </div>
+    <!--User Settings-->
+    <table class="table table-hover">
+        <h3><label>User Settings</label></h3>
+        <thead>
+        <tr>
+            <th style="width: 30%">Permission</th>
+            <th>Setting</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <label>User Edit: </label>
+            </td>
+            <td>
+                <label class="radio-inline" th:each="radioValue: ${bools}">
+                    <input type="radio" th:field="*{userEdit}" th:value="${radioValue}" th:text="${radioValue}+ ' '"/>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>User View: </label>
+            </td>
+            <td>
+                <label class="radio-inline" th:each="radioValue: ${bools}">
+                    <input type="radio" th:field="*{userView}" th:value="${radioValue}" th:text="${radioValue}+ ' '"/>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td><label>User Delete: </label></td>
+            <td>
+                <label class="radio-inline" th:each="radioValue: ${bools}">
+                    <input type="radio" th:field="*{userDelete}" th:value="${radioValue}"
+                           th:text="${radioValue}+ ' '"/>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>User Add: </label>
+            </td>
+            <td>
+                <label class="radio-inline" th:each="radioValue: ${bools}">
+                    <input type="radio" th:field="*{userAdd}" th:value="${radioValue}" th:text="${radioValue}+ ' '"/>
+                </label>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!--Product Settings-->
+    <table class="table table-hover">
+        <h3><label>Product Settings</label></h3>
+        <thead>
+        <tr>
+            <th style="width: 30%">Permission</th>
+            <th>Setting</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <label>Product Edit: </label>
+            </td>
+            <td>
+                <label class="radio-inline" th:each="radioValue: ${bools}">
+                    <input type="radio" th:field="*{productEdit}" th:value="${radioValue}"
+                           th:text="${radioValue}+ ' '"/>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Product View: </label>
+            </td>
+            <td>
+                <label class="radio-inline" th:each="radioValue: ${bools}">
+                    <input type="radio" th:field="*{productView}" th:value="${radioValue}"
+                           th:text="${radioValue}+ ' '"/>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td><label>Product Delete: </label></td>
+            <td>
+                <label class="radio-inline" th:each="radioValue: ${bools}">
+                    <input type="radio" th:field="*{productDelete}" th:value="${radioValue}"
+                           th:text="${radioValue}+ ' '"/>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Product Add: </label>
+            </td>
+            <td>
+                <label class="radio-inline" th:each="radioValue: ${bools}">
+                    <input type="radio" th:field="*{productAdd}" th:value="${radioValue}" th:text="${radioValue}+ ' '"/>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Product Approve: </label>
+            </td>
+            <td>
+                <label class="radio-inline" th:each="radioValue: ${bools}">
+                    <input type="radio" th:field="*{productApprove}" th:value="${radioValue}"
+                           th:text="${radioValue}+ ' '"/>
+                </label>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!--Order Settings-->
+    <table class="table table-hover">
+        <h3><label>Order Settings</label></h3>
+        <thead>
+        <tr>
+            <th style="width: 30%">Permission</th>
+            <th>Setting</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <label>Order Edit: </label>
+            </td>
+            <td>
+                <label class="radio-inline" th:each="radioValue: ${bools}">
+                    <input type="radio" th:field="*{orderEdit}" th:value="${radioValue}" th:text="${radioValue}+ ' '"/>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Order View: </label>
+            </td>
+            <td>
+                <label class="radio-inline" th:each="radioValue: ${bools}">
+                    <input type="radio" th:field="*{orderView}" th:value="${radioValue}" th:text="${radioValue}+ ' '"/>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td><label>Order Delete: </label></td>
+            <td>
+                <label class="radio-inline" th:each="radioValue: ${bools}">
+                    <input type="radio" th:field="*{orderDelete}" th:value="${radioValue}"
+                           th:text="${radioValue}+ ' '"/>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Order Add: </label>
+            </td>
+            <td>
+                <label class="radio-inline" th:each="radioValue: ${bools}">
+                    <input type="radio" th:field="*{orderAdd}" th:value="${radioValue}" th:text="${radioValue}+ ' '"/>
+                </label>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!--Customer Settings-->
+    <table class="table table-hover">
+        <h3><label>Customer Settings</label></h3>
+        <thead>
+        <tr>
+            <th style="width: 30%">Permission</th>
+            <th>Setting</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <label>Customer Edit: </label>
+            </td>
+            <td>
+                <label class="radio-inline" th:each="radioValue: ${bools}">
+                    <input type="radio" th:field="*{customerEdit}" th:value="${radioValue}" th:text="${radioValue}+ ' '"/>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Customer View: </label>
+            </td>
+            <td>
+                <label class="radio-inline" th:each="radioValue: ${bools}">
+                    <input type="radio" th:field="*{customerView}" th:value="${radioValue}" th:text="${radioValue}+ ' '"/>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td><label>Customer Delete: </label></td>
+            <td>
+                <label class="radio-inline" th:each="radioValue: ${bools}">
+                    <input type="radio" th:field="*{customerDelete}" th:value="${radioValue}"
+                           th:text="${radioValue}+ ' '"/>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Customer Add: </label>
+            </td>
+            <td>
+                <label class="radio-inline" th:each="radioValue: ${bools}">
+                    <input type="radio" th:field="*{customerAdd}" th:value="${radioValue}" th:text="${radioValue}+ ' '"/>
+                </label>
+            </td>
+        </tr>
+        </tbody>
+    </table>
     <input type="submit" value="Set Permissions"/>
-</form:form>
+</form>

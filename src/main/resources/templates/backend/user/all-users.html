@@ -1,27 +1,81 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
-<head th:insert="fragments/head.html">
+<html lang="en">
 
+<head>
+    <div th:insert="backend/fragments/fragment-head.html">
+    </div>
 </head>
-<body>
-<div th:insert="fragments/nav-bar.html"></div>
 
-<div class="container">
-    <h2>All Users</h2>
-    <div class="panel panel-default">
-        <div class="panel-body">
-                <h2>User List</h2>
-                <ul class="list-group" th:if="${!users.isEmpty()}">
-                    <a th:each="user: ${users}" class="list-group-item" th:href="@{'/user/details/' + ${user.id}}"
-                       th:text=" 'User ID: ' + ${user.id} + ' -------- Name: ' + ${user.name} + ' -------- Last Name: '+ ${user.lastName} "></a>
-                </ul>
-                <ul class="list-group" th:if="${users.isEmpty()}">
-                    <a>No Users Found</a>
-                </ul>
+<body id="page-top">
+<!--Navbar insert-->
+<div th:insert="backend/fragments/fragment-navbar.html"></div>
+
+<div id="wrapper">
+    <!--Sidebar insert-->
+    <div th:insert="backend/fragments/fragment-sidebar.html"></div>
+    <div id="content-wrapper">
+        <div class="container-fluid">
+            <!--Breadcrumb insert-->
+            <div th:insert="backend/fragments/fragment-breadcrumb.html"></div>
+
+
+            <!-- New user forms -->
+            <div class="row">
+                <div class="col-xl-6 col-sm-6 mb-3">
+                    <div class="container">
+                        <div class="card card-register mx-auto mt-5">
+                            <div class="card-body">
+                                <form >
+                                    <div class="input-group">
+                                        <h3><span class="label label-primary">Search User: </span></h3>
+                                        <input type="text" id="demo" onkeypress="loadSearch()">
+                                    </div>
+                                </form>
+                                <div id="allUsers">
+                                    <div th:insert="backend/fragments/ajax/ajax-all-users.html"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <!-- Sticky Footer -->
+            <footer class="sticky-footer">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright © ProductUpVote 2018</span>
+                    </div>
+                </div>
+            </footer>
+
         </div>
     </div>
-</div>
+    <!-- /.content-wrapper -->
 
+</div>
+<!-- /#wrapper -->
+
+
+<div th:insert="backend/fragments/fragment-footer.html"></div>
+<div th:insert="backend/fragments/fragment-js.html"></div>
+
+
+<script>
+    function loadSearch() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("allUsers").innerHTML =
+                    this.responseText;
+            }
+        };
+        setTimeout(function(){
+            xhttp.open("POST", "/backend/all-users/" + document.getElementById("demo").value, true);
+        xhttp.send();},500);
+    }
+
+</script>
 </body>
+
 </html>

@@ -29,7 +29,7 @@ public class FrontLoginWebController extends AppController {
     UserService userService;
 
     /**
-     * This method returns register form.
+     * This method returns register forms.
      *
      * @param model supply attributes used for rendering views.
      * @param user  empty user object ready to store data.
@@ -47,7 +47,7 @@ public class FrontLoginWebController extends AppController {
      *
      * @param model         supply attributes used for rendering views.
      * @param user          user object which stores user input.
-     * @param bindingResult result of the object binding with form input.
+     * @param bindingResult result of the object binding with forms input.
      * @return directory path of the html page to render.
      */
     @PostMapping("/register")
@@ -68,7 +68,7 @@ public class FrontLoginWebController extends AppController {
     }
 
     /**
-     * This method returns login form.
+     * This method returns login forms.
      *
      * @param model supply attributes used for rendering views.
      * @param user  user object which stores user input.

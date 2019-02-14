@@ -53,10 +53,22 @@ public class UserService {
 
     /**
      * This method checks if User is logged in and returns true or false.
-     *
+     * It also takes boolean param which will make the method also check if user has backend access.
+     * @param backend boolean param to check for backend permissions.
      * @return returns false if user is not logged in and true if User is.
      */
-    public boolean checkLogin() {
-        return getCurrentUser() != null;
+    public boolean checkLogin(Boolean backend) {
+        User user = getCurrentUser();
+        if(backend)
+        {
+            if(user!= null){
+                if(user.isBackend()) return true; // returns true if user is logged in and has backend access.
+            }else return false;
+        }
+        return user != null;
+    }
+
+    public List<User> userSearch(String search) {
+        return userRepository.findUserByNameLike(search);
     }
 }

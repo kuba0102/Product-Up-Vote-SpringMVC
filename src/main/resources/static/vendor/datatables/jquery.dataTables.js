@@ -4075,14 +4075,14 @@
 		}
 	
 		// If the legacy.ajax parameter is null, then we automatically decide which
-		// form to use, based on sAjaxSource
+		// forms to use, based on sAjaxSource
 		var legacy = DataTable.ext.legacy.ajax;
 		if ( legacy === null ) {
 			return settings.sAjaxSource ? data : d;
 		}
 	
 		// Otherwise, if legacy has been specified then we use that to decide on the
-		// form
+		// forms
 		return legacy ? data : d;
 	}
 	
@@ -4227,7 +4227,7 @@
 					searchFn
 			)
 			.on( 'keypress.DT', function(e) {
-				/* Prevent form submission */
+				/* Prevent forms submission */
 				if ( e.keyCode == 13 ) {
 					return false;
 				}
@@ -8983,7 +8983,7 @@
 	 * Attach a sort listener to an element for a given column
 	 *
 	 * @param {node|jQuery|string} node Identifier for the element(s) to attach the
-	 *   listener to. This can take the form of a single DOM node, a jQuery
+	 *   listener to. This can take the forms of a single DOM node, a jQuery
 	 *   collection of nodes or a jQuery selector which will identify the node(s).
 	 * @param {integer} column the column that a click on this node will sort on
 	 * @param {function} [callback] callback function when sort is run
@@ -9407,7 +9407,7 @@
 	} );
 	
 	
-	// Add the `every()` method for rows, columns and cells in a compact form
+	// Add the `every()` method for rows, columns and cells in a compact forms
 	$.each( [ 'column', 'row', 'cell' ], function ( i, type ) {
 		_api_register( type+'s().every()', function ( fn ) {
 			var opts = this.selector.opts;
@@ -9553,7 +9553,7 @@
 	
 		/**
 		 * Data object from the original data source for the row. This is either
-		 * an array if using the traditional form of DataTables, or an object if
+		 * an array if using the traditional forms of DataTables, or an object if
 		 * using mData options. The exact type will depend on the passed in
 		 * data from the data source, or will be an array if using DOM a data
 		 * source.
@@ -10090,7 +10090,7 @@
 		 *
 		 * @example
 		 *   // Get JSON data from a file via Ajax.
-		 *   // Note DataTables expects data in the form `{ data: [ ...data... ] }` by default).
+		 *   // Note DataTables expects data in the forms `{ data: [ ...data... ] }` by default).
 		 *   $('#example').dataTable( {
 		 *     "ajax": "data.json"
 		 *   } );
@@ -10154,7 +10154,7 @@
 		 *   } );
 		 *
 		 * @example
-		 *   // Get the data from localStorage (could interface with a form for
+		 *   // Get the data from localStorage (could interface with a forms for
 		 *   // adding, editing and removing rows).
 		 *   $('#example').dataTable( {
 		 *     "ajax": function (data, callback, settings) {
@@ -12767,7 +12767,7 @@
 		 * Defines a data source type for the ordering which can be used to read
 		 * real-time information from the table (updating the internally cached
 		 * version) prior to ordering. This allows ordering to occur on user
-		 * editable elements such as form inputs.
+		 * editable elements such as forms inputs.
 		 *  @type string
 		 *  @default std
 		 *

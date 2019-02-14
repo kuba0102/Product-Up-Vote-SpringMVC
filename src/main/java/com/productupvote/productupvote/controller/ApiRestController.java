@@ -1,16 +1,14 @@
 package com.productupvote.productupvote.controller;
 
-import com.appsdeveloperblog.encryption.PassUtil;
+import com.productupvote.productupvote.domain.Permission;
 import com.productupvote.productupvote.domain.User;
+import com.productupvote.productupvote.domain.UserType;
+import com.productupvote.productupvote.service.PermissionService;
 import com.productupvote.productupvote.service.UserService;
+import com.productupvote.productupvote.service.UserTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,7 +22,12 @@ import java.util.List;
 public class ApiRestController extends AppController{
 
     @Autowired
-    UserService userService;
+    private UserService userService;
+    @Autowired
+    private PermissionService permissionService;
+
+    @Autowired
+    private UserTypeService userTypeService;
 
     @GetMapping("/all-users")
     public List<User> allUsers()
@@ -32,4 +35,22 @@ public class ApiRestController extends AppController{
         return userService.findAllUsers();
     }
 
+    @GetMapping("/all-perms")
+    public List<Permission> allPermission()
+    {
+        return permissionService.findAllPermissions();
+    }
+
+    @GetMapping("/all-user-types")
+    public List<UserType> allUserTypes()
+    {
+        return userTypeService.findAll();
+    }
+
+    @GetMapping("/user-perm")
+    public String userPerm(){
+        System.out.println(userService.getCurrentUser().getId());
+        permissionService.getUserPermissions(userService.getCurrentUser().getId());
+        return "Done: check log";
+    }
 }

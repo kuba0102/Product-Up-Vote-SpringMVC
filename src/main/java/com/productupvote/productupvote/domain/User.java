@@ -3,7 +3,15 @@ package com.productupvote.productupvote.domain;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.Date;
-
+/**
+ * User
+ * This is a User class that will be used to store and return User information.
+ * It has variables and each variable has a getter and setter.
+ * Variables: Integer id, String username, String name, String surname, String email, String password,
+ * String salt, Date dateCreated, Date dateUpdated, Date dateOnline and boolean backend.
+ *
+ * @author U1554969 Jakub Chruslicki
+ */
 @Entity
 @Table(name = "users")
 public class User {
