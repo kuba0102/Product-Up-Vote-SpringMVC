@@ -40,14 +40,18 @@ public class UserService {
        return userRepository.findAll();
     }
 
+    public HttpSession getSession(){
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session = attr.getRequest().getSession();
+        return session;
+    }
     /**
      * This method looks for User in session and returns User.
      *
      * @return User from the session.
      */
     public User getCurrentUser() {
-        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        HttpSession session = attr.getRequest().getSession();
+        HttpSession session = getSession();
         return (User) session.getAttribute("user");
     }
 
@@ -68,7 +72,29 @@ public class UserService {
         return user != null;
     }
 
+    /**
+     * This method sets user search.
+     * @param search name to search for.
+     * @return returns list of found users.
+     */
     public List<User> userSearch(String search) {
         return userRepository.findUserByNameLike(search);
+    }
+
+    /**
+     * Setts new user in session.
+     * @param user user to set into session.
+     */
+    public void setUserSession(User user) {
+        HttpSession session = getSession();
+        session.setAttribute("user", user);
+    }
+
+    /**
+     * This method invalidates current session.
+     */
+    public void cleanSession(){
+        HttpSession session = getSession();
+        session.invalidate();
     }
 }

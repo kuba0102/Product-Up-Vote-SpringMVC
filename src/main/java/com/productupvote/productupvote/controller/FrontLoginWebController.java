@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Date;
 
@@ -91,7 +90,7 @@ public class FrontLoginWebController extends AppController {
      * @return directory path of the html page to render.
      */
     @PostMapping("/login")
-    public String loginForm(Model model, @ModelAttribute("user") User user, HttpServletRequest request) {
+    public String loginForm(Model model, @ModelAttribute("user") User user) {
         try {
             System.out.println("Starting Login");
             User tempUser = userService.findUserByEmail(user.getEmail());
@@ -101,7 +100,7 @@ public class FrontLoginWebController extends AppController {
                     model.addAttribute("message", "Success");
                     tempUser.setDateOnline(new Date());
                     userService.save(tempUser);
-                    request.getSession().setAttribute("user", tempUser);
+                    userService.setUserSession(tempUser);
                     System.out.println("Message: Success Login");
                     return super.HOMEPAGE_REDIRECT;
                 } else {
@@ -116,5 +115,17 @@ public class FrontLoginWebController extends AppController {
             return this.displayLoginForm(model, user);
         }
         return super.LOGIN_REDIRECT;
+    }
+
+    /**
+     * This method logs current user out.
+     *
+     * @param model supply attributes used for rendering views.
+     * @return directory path of the html page to render.
+     */
+    @GetMapping("/logout")
+    public String logoutUser(Model model) {
+        userService.cleanSession();
+        return displayLoginForm(model, new User());
     }
 }

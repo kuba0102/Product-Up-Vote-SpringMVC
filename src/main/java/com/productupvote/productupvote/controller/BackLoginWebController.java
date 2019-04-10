@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Date;
 
@@ -101,7 +100,7 @@ public class BackLoginWebController extends AppController {
      * @return directory path of the html page to render.
      */
     @PostMapping("/login")
-    public String loginForm(Model model, @ModelAttribute("user") User user, HttpServletRequest request) {
+    public String loginForm(Model model, @ModelAttribute("user") User user) {
         if (userService.checkLogin(true)) return super.BACKEND_HOMEPAGE_REDIRECT;
         try {
             System.out.println("Positive Result: Starting Login");
@@ -109,10 +108,10 @@ public class BackLoginWebController extends AppController {
             System.out.println("Positive Result: User found: " + tempUser.getEmail());
             if (tempUser != null) {
                 if (PassUtil.verifyUserPassword(user.getPassword(), tempUser.getPassword(), tempUser.getSalt()) && tempUser.isBackend()) {
-                    model.addAttribute("message", "Success");
+                    model.addAttribute("message", "Success Login");
                     tempUser.setDateOnline(new Date());
                     userService.save(tempUser);
-                    request.getSession().setAttribute("user", tempUser);
+                    userService.setUserSession(tempUser);
                     System.out.println("Message: Success Login");
                     return BACKEND_HOMEPAGE_REDIRECT;
                 } else {
@@ -129,6 +128,13 @@ public class BackLoginWebController extends AppController {
         return super.BACKEND_LOGIN_REDIRECT;
     }
 
+    /**
+     * This method displays backend home page.
+     *
+     * @param model supply attributes used for rendering views.
+     * @param user  current user.
+     * @return directory path of the html page to render.
+     */
     @GetMapping("/")
     public String displayHome(Model model, User user) {
         if (!userService.checkLogin(true)) return super.BACKEND_LOGIN_REDIRECT;
@@ -138,7 +144,20 @@ public class BackLoginWebController extends AppController {
     }
 
     /**
+     * This method logs current user out.
+     *
+     * @param model supply attributes used for rendering views.
+     * @return directory path of the html page to render.
+     */
+    @GetMapping("/logout")
+    public String logoutUser(Model model) {
+        userService.cleanSession();
+        return displayBackendLoginForm(model, new User());
+    }
+
+    /**
      * This method saves new user and sets permissions.
+     *
      * @param user user object to save in the database.
      */
     private void addBasicUser(User user) {
