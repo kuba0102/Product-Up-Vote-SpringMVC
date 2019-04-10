@@ -11,6 +11,8 @@ import java.util.List;
 public class PermissionService {
     @Autowired
     private PermissionRepository permissionRepository;
+    @Autowired
+    private UserService userService;
 
     /**
      * This method saves new user in database.
@@ -38,5 +40,13 @@ public class PermissionService {
      */
     public Permission getUserPermissions(Integer id) {
         return permissionRepository.FindPermWithDescriptionQuery(id);
+    }
+
+    /**
+     * This method returns current users permissions.
+     * @return user Permissions.
+     */
+    public Permission getCurrentUserPermission(){
+        return getUserPermissions(userService.getCurrentUser().getId());
     }
 }
