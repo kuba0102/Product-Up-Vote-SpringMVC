@@ -154,7 +154,7 @@ public class BackLoginWebController extends AppController {
     @GetMapping("/logout")
     public String logoutUser(Model model) {
         userService.cleanSession();
-        return displayBackendLoginForm(model, new User());
+        return BACKEND_HOMEPAGE_REDIRECT;
     }
 
     /**
