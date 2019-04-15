@@ -49,9 +49,10 @@ public class BackLoginWebController extends AppController {
     public String displayAddUserForm(Model model, User user) {
         if (!userService.checkLogin(true)) return super.BACKEND_LOGIN_REDIRECT;
         if(!permissionService.getCurrentUserPermission().isUserAdd()) return super.displayUnauthorised(model, "Unauthorised to add user");
+        model.addAttribute(super.DIRECTORY, "backend/user/add-user-form");
         model.addAttribute(super.PAGE_TITLE_ID, "Add New User");
         model.addAttribute(super.USER, user);
-        return "backend/user/add-user-form";
+        return "backend/index/index-backend";
     }
 
     /**
@@ -141,6 +142,7 @@ public class BackLoginWebController extends AppController {
     @GetMapping("/")
     public String displayHome(Model model, User user) {
         if (!userService.checkLogin(true)) return super.BACKEND_LOGIN_REDIRECT;
+        model.addAttribute(super.DIRECTORY, "backend/index/index");
         model.addAttribute(super.PAGE_TITLE_ID, "Home");
         model.addAttribute(super.USER, user);
         return "backend/index/index-backend";

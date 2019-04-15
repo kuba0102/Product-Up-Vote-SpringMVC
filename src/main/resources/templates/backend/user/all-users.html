@@ -1,75 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <div th:insert="backend/fragments/fragment-head.html">
-    </div>
-</head>
-
-<body id="page-top">
-<!--Navbar insert-->
-<div th:insert="backend/fragments/fragment-navbar.html"></div>
-
-<div id="wrapper">
-    <!--Sidebar insert-->
-    <div th:insert="backend/fragments/fragment-sidebar.html"></div>
-    <div id="content-wrapper">
-        <div class="container-fluid">
-            <!--Breadcrumb insert-->
-            <div th:insert="backend/fragments/fragment-breadcrumb.html"></div>
-
-
-            <!-- New user forms -->
-            <div class="row">
-                <div class="col-xl-6 col-sm-6 mb-3">
-                    <div class="container">
-                        <div class="card card-register mx-auto mt-5">
-                            <div class="card-body">
-                                <form >
-                                    <div class="input-group">
-                                        <h3><span class="label label-primary">Search User: </span></h3>
-                                        <input type="text" id="demo" onkeypress="loadSearch()">
-                                    </div>
-                                </form>
-                                <div id="allUsers">
-                                    <div th:insert="backend/fragments/ajax/ajax-all-users.html"></div>
-                                </div>
-                            </div>
+<!-- New user forms -->
+<div class="row">
+    <div class="col-xl-6 col-sm-6 mb-3">
+        <div class="container">
+            <div class="card card-register mx-auto mt-5">
+                <div class="card-body">
+                    <form>
+                        <div class="input-group">
+                            <h3><span class="label label-primary">Search User: </span></h3>
+                            <input type="text" id="demo" onkeypress="loadSearch()">
                         </div>
+                    </form>
+                    <div id="allUsers">
+                        <div th:insert="backend/fragments/ajax/ajax-all-users.html"></div>
                     </div>
                 </div>
             </div>
-
-            <!-- Sticky Footer -->
-            <div th:insert="backend/fragments/fragment-sticky-footer.html"></div>
-
         </div>
     </div>
-    <!-- /.content-wrapper -->
-
 </div>
-<!-- /#wrapper -->
-
-
-<div th:insert="backend/fragments/fragment-footer.html"></div>
-<div th:insert="backend/fragments/fragment-js.html"></div>
 
 
 <script>
     function loadSearch() {
         var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
+        xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("allUsers").innerHTML =
                     this.responseText;
             }
         };
-        setTimeout(function(){
+        setTimeout(function () {
             xhttp.open("POST", "/backend/all-users/" + document.getElementById("demo").value, true);
-        xhttp.send();},500);
+            xhttp.send();
+        }, 500);
     }
-
 </script>
-</body>
-
-</html>

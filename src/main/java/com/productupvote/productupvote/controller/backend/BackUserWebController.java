@@ -40,11 +40,12 @@ public class BackUserWebController extends AppController {
         if (!permissionService.getUserPermissions(userService.getCurrentUser().getId()).isUserEdit())
             return super.BACKEND_HOMEPAGE_REDIRECT;
         String[] bools = {"false", "true"};
+        model.addAttribute(super.DIRECTORY, "backend/user/edit-permissions-form");
         model.addAttribute(super.PAGE_TITLE_ID, "Set User Permission");
         model.addAttribute(super.PERM, permissionService.getUserPermissions(userId));
         model.addAttribute("bools", bools);
 
-        return "backend/user/edit-permissions-form";
+        return "backend/index/index-backend";
     }
 
     /**
@@ -79,11 +80,11 @@ public class BackUserWebController extends AppController {
         if (!userService.checkLogin(true)) return super.BACKEND_LOGIN_REDIRECT;
         if (!permissionService.getUserPermissions(userService.getCurrentUser().getId()).isUserView())
             return super.BACKEND_HOMEPAGE_REDIRECT;
+        model.addAttribute(super.DIRECTORY, "backend/user/all-users");
         model.addAttribute(super.PAGE_TITLE_ID, "All Users");
-
         model.addAttribute("users", userService.findAllUsers());
 
-        return "backend/user/all-users";
+        return "backend/index/index-backend";
     }
 
     /**
