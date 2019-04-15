@@ -1,5 +1,6 @@
-package com.productupvote.productupvote.controller;
+package com.productupvote.productupvote.controller.backend;
 
+import com.productupvote.productupvote.controller.AppController;
 import com.productupvote.productupvote.domain.Permission;
 import com.productupvote.productupvote.service.PermissionService;
 import com.productupvote.productupvote.service.UserService;

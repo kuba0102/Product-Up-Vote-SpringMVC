@@ -1,6 +1,7 @@
-package com.productupvote.productupvote.controller;
+package com.productupvote.productupvote.controller.backend;
 
 import com.appsdeveloperblog.encryption.PassUtil;
+import com.productupvote.productupvote.controller.AppController;
 import com.productupvote.productupvote.domain.Permission;
 import com.productupvote.productupvote.domain.User;
 import com.productupvote.productupvote.domain.UserType;

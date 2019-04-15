@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <head th:insert="frontend/fragments/fragment-head.html">
+  </head>
+
+  <body>
+  <!-- Navigation -->
+  <div th:insert="frontend/fragments/fragment-navbar.html"></div>
+
+    <!-- Page Content -->
+  <div th:insert="${directory}"></div>
+
+
+    <!-- Footer -->
+  <div th:insert="frontend/fragments/fragment-footer.html"></div>
+
+    <!-- Bootstrap core JavaScript -->
+
+  <div th:insert="frontend/fragments/fragment-js.html"></div>
+  </body>
+
+</html>

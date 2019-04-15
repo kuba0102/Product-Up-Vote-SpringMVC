@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 public class AppController {
 
     // Protected variables
+    protected String DIRECTORY = "directory";
     protected String PAGE_TITLE_ID = "title";
     protected String USER = "user";
     protected String PERM = "perm";
