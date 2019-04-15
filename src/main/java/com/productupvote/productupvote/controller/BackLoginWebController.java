@@ -71,7 +71,7 @@ public class BackLoginWebController extends AppController {
             System.out.println(user.toString());
         } else {
             model.addAttribute("error", "Password did not match.");
-            System.out.println("Negative Result : Binding result error");
+            System.out.println("BackLoginWebController - Negative Result : Binding result error");
             return this.displayAddUserForm(model, user);
         }
         return displayAddUserForm(model, new User());
@@ -107,18 +107,18 @@ public class BackLoginWebController extends AppController {
         try {
             System.out.println("Positive Result: Starting Login");
             User tempUser = userService.findUserByEmail(user.getEmail());
-            System.out.println("Positive Result: User found: " + tempUser.getEmail());
+            System.out.println("BackLoginWebController - Positive Result: User found: " + tempUser.getEmail());
             if (tempUser != null) {
                 if (PassUtil.verifyUserPassword(user.getPassword(), tempUser.getPassword(), tempUser.getSalt()) && tempUser.isBackend()) {
                     model.addAttribute("message", "Success Login");
                     tempUser.setDateOnline(new Date());
                     userService.save(tempUser);
                     userService.setUserSession(tempUser);
-                    System.out.println("Message: Success Login");
+                    System.out.println("BackLoginWebController - Message: Success Login");
                     return BACKEND_HOMEPAGE_REDIRECT;
                 } else {
                     model.addAttribute("message", "Password did not match.");
-                    System.out.println("Password result error");
+                    System.out.println("BackLoginWebController - Password result error");
                     return this.displayBackendLoginForm(model, user);
                 }
             }
@@ -169,7 +169,7 @@ public class BackLoginWebController extends AppController {
         UserType userType = new UserType("Basic");
         userTypeService.save(userType);
         permissionService.save(new Permission(user, userType, false));
-        System.out.println("Positive Result : User successfully set with basic permissions.");
+        System.out.println("BackLoginWebController - Positive Result : User successfully set with basic permissions.");
     }
 
 }

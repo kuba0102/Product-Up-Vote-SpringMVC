@@ -60,7 +60,7 @@ public class FrontLoginWebController extends AppController {
             System.out.println(user.toString());
         } else {
             model.addAttribute("error", "Password did not match.");
-            System.out.println("Binding result error");
+            System.out.println("FrontLoginWebController - Binding result error");
             return this.displayRegisterForm(model, user);
         }
         return super.LOGIN_REDIRECT;
@@ -94,24 +94,24 @@ public class FrontLoginWebController extends AppController {
         try {
             System.out.println("Starting Login");
             User tempUser = userService.findUserByEmail(user.getEmail());
-            System.out.println("User found" + tempUser.getEmail());
+            System.out.println("FrontLoginWebController - User found" + tempUser.getEmail());
             if (tempUser != null) {
                 if (PassUtil.verifyUserPassword(user.getPassword(), tempUser.getPassword(), tempUser.getSalt())) {
                     model.addAttribute("message", "Success");
                     tempUser.setDateOnline(new Date());
                     userService.save(tempUser);
                     userService.setUserSession(tempUser);
-                    System.out.println("Message: Success Login");
+                    System.out.println("FrontLoginWebController - Message: Success Login");
                     return super.HOMEPAGE_REDIRECT;
                 } else {
                     model.addAttribute("message", "Password did not match.");
-                    System.out.println("Password result error");
+                    System.out.println("FrontLoginWebController - Password result error");
                     return this.displayLoginForm(model, user);
                 }
             }
         } catch (Exception e) {
             model.addAttribute("message", "Can't find user with this email address.");
-            System.out.println("Email result error");
+            System.out.println("FrontLoginWebController - Email result error");
             return this.displayLoginForm(model, user);
         }
         return super.LOGIN_REDIRECT;
