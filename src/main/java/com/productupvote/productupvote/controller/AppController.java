@@ -13,6 +13,8 @@ public class AppController {
     protected String BACKEND_LOGIN_REDIRECT = "redirect:/backend/login";
     protected String HOMEPAGE_REDIRECT = "redirect:/";
     protected String BACKEND_HOMEPAGE_REDIRECT = "redirect:/backend/";
+    protected String FRONTEND_INDEX = "frontend/index/index-frontend";
+    protected String BACKEND_INDEX = "backend/index/index-backend";
 
 
     /**

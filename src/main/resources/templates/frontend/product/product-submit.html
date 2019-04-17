@@ -1,0 +1,55 @@
+<!-- New product idea form -->
+<div class="container">
+    <div class="row">
+        <div class="col-xl-6 col-sm-6 mb-6">
+            <div class="container">
+                <div class="card card-register mx-auto mt-5">
+                    <div class="card-header">Submit new Product</div>
+                    <div class="card-body">
+                        <div th:if="${error != null}">
+                            <div class="alert alert-warning" th:text="${error}">
+                            </div>
+                        </div>
+                        <div th:if="${msg != null}">
+                            <div class="alert alert-success" th:text="${msg}">
+                            </div>
+                        </div>
+                        <form th:object="${product}" method="POST" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-label-group">
+                                            <label for="name">Product Name</label>
+                                            <input type="text" id="name" name="name" class="form-control"
+                                                   placeholder="Product Name" required="required"
+                                            th:value="*{name}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-label-group">
+                                            <label for="description">Description</label>
+                                            <input type="text" id="description" name="description" class="form-control"
+                                                   placeholder="Description" required="required"
+                                                   th:value="*{description}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-label-group">
+                                            <label for="imageFile">Image Upload</label>
+                                            <input type="file" id="imageFile" name="imageFile" class="form-control"
+                                                   placeholder="Image Upload" required="required">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="submit" value="Submit Product">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

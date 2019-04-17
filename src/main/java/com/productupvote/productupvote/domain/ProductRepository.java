@@ -8,5 +8,6 @@ public interface ProductRepository extends CrudRepository<Product, Integer> {
 
     @Override
     List<Product> findAll();
+    List<Product> findByApproved(String approved);
 
 }

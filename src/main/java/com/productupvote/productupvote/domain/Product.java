@@ -7,10 +7,11 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
-/** !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/**
+ * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  * Product
  * This is a User class that will be used to store and return User information.
  * It has variables and each variable has a getter and setter.
@@ -28,11 +29,8 @@ public class Product {
     @Column(name = "product_id")
     private Integer id;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    @NotNull
     private User user;
 
     @OneToMany(cascade = CascadeType.ALL,
@@ -46,6 +44,14 @@ public class Product {
     private String description;
     @NotEmpty
     private String image;
+    @NotEmpty
+    private String approved;
+
+    public Product() {
+        List<Tag> newTags = new ArrayList<>();
+        this.tags = newTags;
+        this.approved = "no";
+    }
 
     //Getters and Setters
     public Integer getId() {
@@ -86,5 +92,21 @@ public class Product {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getApproved() {
+        return approved;
+    }
+
+    public void setApproved(String approved) {
+        this.approved = approved;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
     }
 }
