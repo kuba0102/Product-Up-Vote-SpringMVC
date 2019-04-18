@@ -51,9 +51,22 @@ public class ProductService {
         return productRepository.findByApproved(approved);
     }
 
-    public void update(String id) {
+    /**
+     * This method updates approve column in the row.
+     * @param id product id to update approve status.
+     */
+    public void updateApproveStatus(String id) {
         Product product = productRepository.findById(Integer.parseInt(id));
         product.setApproved("yes");
         productRepository.save(product);
+    }
+
+    /**
+     * This method gets user submitted products.
+     * @return list of products.
+     */
+    public List<Product> myProducts() {
+
+        return productRepository.findByUser(userService.getCurrentUser());
     }
 }

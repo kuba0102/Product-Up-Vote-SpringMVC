@@ -10,7 +10,7 @@ INSERT INTO permissions (user_id, user_type_id, user_edit, user_view,user_delete
 
 INSERT INTO products (name, description, approved, user_id, image) VALUES ('Test', 'Test Description', 'yes', 1, 'src/products_img/1555438511170Camila_web.png');
 INSERT INTO products (name, description, approved, user_id, image) VALUES ('Test2', 'As BigInt: There is no theoretical limit. The BigInteger class allocates as much ', 'yes', 1, 'src/products_img/1555442938992Barnali_web.png');
-INSERT INTO products (name, description, approved, user_id, image) VALUES ('Test3', 'Test3 Description', 'no', 1, 'src/products_img/1555438511170Camila_web.png');
+INSERT INTO products (name, description, approved, user_id, image) VALUES ('Test3', 'Test3 Description', 'no', 2, 'src/products_img/1555438511170Camila_web.png');
 INSERT INTO products (name, description, approved, user_id, image) VALUES ('Test4', 'Test4 Description', 'no', 1, 'src/products_img/1555438511170Camila_web.png');
 INSERT INTO products (name, description, approved, user_id, image) VALUES ('Test5', 'Test5 Description', 'no', 1, 'src/products_img/1555438511170Camila_web.png');
 

@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 /**
  * FrontLoginWebController
  * This class controls requests for:
- * login, logout, register and delete user.
+ * displayProductForm, displayProductForm, displayProducts and displayMyProducts.
  *
  * @author U1554969 Jakub Chruslicki
  */
@@ -83,9 +83,23 @@ public class FrontProductWebController extends AppController {
         model.addAttribute(super.PAGE_TITLE_ID, "ProductUpVote");
         model.addAttribute(super.USER, userService.getCurrentUser());
         model.addAttribute("products", productService.approvedProducts("yes"));
-        for(Product p : productService.approvedProducts("yes")){
-            System.out.println(p.getImage());
-        }
+        return this.FRONTEND_INDEX;
+    }
+
+    /**
+     * This method display my product page for users.
+     *
+     * @param model supply attributes used for rendering views.
+     * @return directory path of the html page to render.
+     */
+    @GetMapping("/product-my")
+    public String displayMyProducts(Model model) {
+        if (!userService.checkLogin(false)) return this.LOGIN_REDIRECT;
+        model.addAttribute(super.DIRECTORY, "frontend/product/product-my-products");
+        model.addAttribute(super.PAGE_TITLE_ID, "My Products");
+        model.addAttribute(super.USER, userService.getCurrentUser());
+        model.addAttribute("products", productService.myProducts());
+
         return this.FRONTEND_INDEX;
     }
 

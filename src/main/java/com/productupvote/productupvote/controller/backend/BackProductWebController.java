@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @RequestMapping("/backend")
 @Controller
-public class BackendProductWebController extends AppController {
+public class BackProductWebController extends AppController {
 
     @Autowired
     UserService userService;
@@ -65,7 +65,7 @@ public class BackendProductWebController extends AppController {
         if (!permissionService.getUserPermissions(userService.getCurrentUser().getId()).isProductApprove())
             return super.displayUnauthorised(model, "No permission to approve product.");
         System.out.println("BackendProductWebController: Approving product with id: " + id);
-        productService.update(id);
+        productService.updateApproveStatus(id);
         if (page.equals("approve")) model.addAttribute("products", productService.approvedProducts("no"));
         else if (page.equals("all")) model.addAttribute("products", productService.approvedProducts("*"));
         return "backend/product/fragment-products";
