@@ -37,8 +37,7 @@ public class BackUserWebController extends AppController {
     @RequestMapping(value = "/permission/{userId}")
     public String displayeditPermissionForm(Model model, @PathVariable("userId") Integer userId) {
         if (!userService.checkLogin(true)) return super.BACKEND_LOGIN_REDIRECT;
-        if (!permissionService.getUserPermissions(userService.getCurrentUser().getId()).isUserEdit())
-            return super.BACKEND_HOMEPAGE_REDIRECT;
+        if (!permissionService.getUserPermissions(userService.getCurrentUser().getId()).isUserEdit()) return super.displayUnauthorised(model, "No permission for user edit.");
         String[] bools = {"false", "true"};
         model.addAttribute(super.DIRECTORY, "backend/user/edit-permissions-form");
         model.addAttribute(super.PAGE_TITLE_ID, "Set User Permission");
@@ -60,7 +59,7 @@ public class BackUserWebController extends AppController {
     public String updatingPermissions(Model model, @ModelAttribute("perm") Permission perm, @PathVariable("userId") Integer userId) {
         if (!userService.checkLogin(true)) return super.BACKEND_LOGIN_REDIRECT;
         if (!permissionService.getUserPermissions(userService.getCurrentUser().getId()).isUserEdit())
-            return super.BACKEND_HOMEPAGE_REDIRECT;
+            return super.displayUnauthorised(model, "No permission for user edit.");
         Permission tempPerm = permissionService.getUserPermissions(userId);
         perm.setUserType(tempPerm.getUserType());
         permissionService.save(perm);
@@ -79,7 +78,7 @@ public class BackUserWebController extends AppController {
     public String displayAllUsers(Model model) {
         if (!userService.checkLogin(true)) return super.BACKEND_LOGIN_REDIRECT;
         if (!permissionService.getUserPermissions(userService.getCurrentUser().getId()).isUserView())
-            return super.BACKEND_HOMEPAGE_REDIRECT;
+            return super.displayUnauthorised(model, "No permission for user view.");
         model.addAttribute(super.DIRECTORY, "backend/user/all-users");
         model.addAttribute(super.PAGE_TITLE_ID, "All Users");
         model.addAttribute("users", userService.findAllUsers());
