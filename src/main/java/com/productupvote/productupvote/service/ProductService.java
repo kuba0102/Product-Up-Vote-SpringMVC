@@ -1,4 +1,5 @@
 package com.productupvote.productupvote.service;
+
 import com.productupvote.productupvote.domain.Product;
 import com.productupvote.productupvote.domain.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,15 +22,16 @@ public class ProductService {
 
     /**
      * This method saves new product to the database.
+     *
      * @param product new product to be saved in the database.
-     * @param image image for the product.
+     * @param image   image for the product.
      * @throws Exception saving image to the local space.
      */
     public void save(Product product, MultipartFile image) throws Exception {
         Date date = new Date();
         String imgTime = String.valueOf(date.getTime());
-        String dir = System.getProperty("user.dir")+"\\src\\main\\resources\\static\\src\\products_img\\";
-        String springPath = "src/products_img/"+ imgTime + image.getOriginalFilename();
+        String dir = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\src\\products_img\\";
+        String springPath = "src/products_img/" + imgTime + image.getOriginalFilename();
         byte[] bytes = image.getBytes();
         Path path = Paths.get(dir + imgTime + image.getOriginalFilename());
         Files.write(path, bytes);
@@ -40,10 +42,18 @@ public class ProductService {
 
     /**
      * This method returns list of products.
+     *
      * @param approved search term for approved column.
      * @return param: yes = all approved, no = not approved, wait = on wait list.
      */
     public List<Product> approvedProducts(String approved) {
+        if (approved.equals("*")) return productRepository.findAll();
         return productRepository.findByApproved(approved);
+    }
+
+    public void update(String id) {
+        Product product = productRepository.findById(Integer.parseInt(id));
+        product.setApproved("yes");
+        productRepository.save(product);
     }
 }

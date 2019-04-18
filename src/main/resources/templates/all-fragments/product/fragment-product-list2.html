@@ -1,0 +1,46 @@
+<input type="hidden" id="page" th:value="${page}">
+<div id="products">
+    <div class="row">
+        <div class="col col-lg-4">
+                <ul class="list-group" th:if="${!products.isEmpty()}" th:each="product: ${products}">
+                <li class="list-group-item" th:text="${product.name}"></li>
+                <li class="list-group-item" th:text="${product.approved}"></li>
+                <li class="list-group-item">
+                    <div class="col">
+                        <button type="button" class="btn btn-info" data-toggle="collapse"
+                                th:data-target="'#description'+${product.id}">Description
+                        </button>
+                    </div>
+                    <div class="col">
+                        <a th:if="${product.approved == 'no'}" class="btn btn-primary" role="button"
+                           th:id="${product.getId()}"
+                           onclick="update(this.id)">Approve</a>
+                    </div>
+                    <div th:id="'description'+${product.id}" class="collapse"
+                         th:text="${product.description}"></div>
+
+                </li>
+            </ul>
+            <ul class="list-group" th:if="${products.isEmpty()}">
+                <a>No Products found</a>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    function update(id) {
+        page = document.getElementById("page").value;
+        alert(page);
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("products").innerHTML =
+                    this.responseText;
+            }
+        };
+        setTimeout(function () {
+            xhttp.open("GET", "/backend/product-approve/" + id + "/" + page, true);
+            xhttp.send();
+        }, 500);
+    }
+</script>

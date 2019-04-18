@@ -13,7 +13,8 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                 <h6 class="dropdown-header">Submitted Products:</h6>
-                <a class="dropdown-item" href="login.html">All Submitted Products</a>
+                <a class="dropdown-item" th:href="@{/backend/product-submitted}">All Submitted Products</a>
+                <a class="dropdown-item" th:href="@{/backend/product-approve}">To Approve Products</a>
                 <a class="dropdown-item" href="login.html">Approved Products</a>
                 <a class="dropdown-item" href="register.html">Disapproved products</a>
                 <a class="dropdown-item" href="register.html">Amend Products</a>
