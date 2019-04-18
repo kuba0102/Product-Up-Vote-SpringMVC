@@ -1,0 +1,24 @@
+<input type="hidden" id="page" th:value="${page}">
+<div id="products">
+    <div class="row">
+        <div class="col-sm-4" th:if="${!products.isEmpty()}" th:each="product : ${products}">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title" th:text="${product.name}"></h4>
+                    <img th:src="@{'/'+${product.getImage()}}" class="img-responsive" style="width:100%" alt="Image">
+                </div>
+                <button type="button" class="btn btn-info" data-toggle="collapse"
+                        th:data-target="'#description'+${product.id}">Description
+                </button>
+                <div th:id="'description'+${product.id}" class="collapse"
+                     th:text="${product.description}"></div>
+                <div class="card-footer">
+                    <h5 class="card-title" th:text="'Approved: '+${product.approved}"></h5>
+                    <a th:if="${product.approved == 'no'}" class="btn btn-success" role="button"
+                       th:id="${product.getId()}"
+                       onclick="update(this.id)">Approve</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

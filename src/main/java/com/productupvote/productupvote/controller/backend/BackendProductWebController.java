@@ -41,7 +41,7 @@ public class BackendProductWebController extends AppController {
         if (!userService.checkLogin(true)) return this.BACKEND_LOGIN_REDIRECT;
         if (!permissionService.getUserPermissions(userService.getCurrentUser().getId()).isProductApprove())
             return super.displayUnauthorised(model, "No permission to approve product.");
-        model.addAttribute(super.DIRECTORY, "all-fragments/product/fragment-product-list");
+        model.addAttribute(super.DIRECTORY, "backend/product/fragment-products");
         model.addAttribute(super.PAGE_TITLE_ID, "Approve Product");
         model.addAttribute("page", "approve");
         model.addAttribute("products", productService.approvedProducts("no"));
@@ -68,7 +68,7 @@ public class BackendProductWebController extends AppController {
         productService.update(id);
         if (page.equals("approve")) model.addAttribute("products", productService.approvedProducts("no"));
         else if (page.equals("all")) model.addAttribute("products", productService.approvedProducts("*"));
-        return "all-fragments/product/fragment-product-list";
+        return "backend/product/fragment-products";
     }
 
     /**
@@ -82,7 +82,7 @@ public class BackendProductWebController extends AppController {
         if (!userService.checkLogin(true)) return this.BACKEND_LOGIN_REDIRECT;
         if (!permissionService.getUserPermissions(userService.getCurrentUser().getId()).isProductView())
             return super.displayUnauthorised(model, "No permission to view product.");
-        model.addAttribute(super.DIRECTORY, "all-fragments/product/fragment-product-list");
+        model.addAttribute(super.DIRECTORY, "backend/product/fragment-products");
         model.addAttribute(super.PAGE_TITLE_ID, "Submitted Products");
         model.addAttribute("page", "all");
         model.addAttribute("products", productService.approvedProducts("*"));

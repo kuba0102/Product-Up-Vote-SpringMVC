@@ -1,0 +1,20 @@
+<input type="hidden" id="page" th:value="${page}">
+<div id="products">
+    <div th:insert="all-fragments/product/fragment-product-list.html"></div>
+</div>
+<script>
+    function update(id) {
+        page = document.getElementById("page").value;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("products").innerHTML =
+                    this.responseText;
+            }
+        };
+        setTimeout(function () {
+            xhttp.open("GET", "/backend/product-approve/" + id + "/" + page, true);
+            xhttp.send();
+        }, 500);
+    }
+</script>
