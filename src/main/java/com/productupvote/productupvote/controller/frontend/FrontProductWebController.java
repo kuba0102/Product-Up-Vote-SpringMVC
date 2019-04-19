@@ -7,10 +7,7 @@ import com.productupvote.productupvote.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -82,6 +79,8 @@ public class FrontProductWebController extends AppController {
         model.addAttribute(super.DIRECTORY, "frontend/index/index-products");
         model.addAttribute(super.PAGE_TITLE_ID, "ProductUpVote");
         model.addAttribute(super.USER, userService.getCurrentUser());
+        model.addAttribute("page", "approved");
+        model.addAttribute("url", "/product-search/");
         model.addAttribute("products", productService.approvedProducts("yes", ""));
         return this.FRONTEND_INDEX;
     }
@@ -101,6 +100,23 @@ public class FrontProductWebController extends AppController {
         model.addAttribute("products", productService.myProducts());
 
         return this.FRONTEND_INDEX;
+    }
+
+    /**
+     * This method searches for product and returns a list of products.
+     *
+     * @param model      supply attributes used for rendering views.
+     * @param searchType type product to search.
+     * @param search     product search term.
+     * @return directory path of the html page to render.
+     */
+    @PostMapping("/product-search/{searchType}/{search}")
+    public String searchProduct(Model model, @PathVariable("searchType") String searchType, @PathVariable("search") String search) {
+
+        if (searchType.equals("approved")) {
+            model.addAttribute("products", productService.approvedProducts("yes", search));
+        }
+        return "all-fragments/product/fragment-product-list-index";
     }
 
 }

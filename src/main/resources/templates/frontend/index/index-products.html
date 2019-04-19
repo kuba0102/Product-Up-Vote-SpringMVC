@@ -1,15 +1,17 @@
 <!-- Page Content -->
+<input type="hidden" id="page" th:value="${page}">
+<input type="hidden" id="url" th:value="${url}">
 <div class="container">
-
-    <h1 class="my-4 text-center text-lg-left">UpVoting Products</h1>
-    <div class="row text-center text-lg-left">
-
-        <div th:each="product : ${products}" class="col-lg-3 col-md-4 col-xs-6">
-            <a href="#" class="d-block mb-4 h-100">
-                <img class="img-fluid img-thumbnail" th:src="@{${product.getImage()}}" alt="" th:text="${product.getName()}">
-                <img width="30px" height="30px" src="src/img/upVote.png" alt="UpVote"></a>
+    <div class="row">
+        <div class="col-md-12">
+            <div th:insert="all-fragments/product/fragment-product-search.html"></div>
         </div>
-
+    </div>
+</div>
+<div class="container">
+    <h1 class="my-4 text-center text-lg-left">UpVoting Products</h1>
+    <div id="products">
+        <div th:insert="all-fragments/product/fragment-product-list-index.html"></div>
     </div>
 </div>
 
