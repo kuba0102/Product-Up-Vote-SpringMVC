@@ -46,13 +46,14 @@ public class ProductService {
      * @param approved search term for approved column.
      * @return param: yes = all approved, no = not approved, wait = on wait list.
      */
-    public List<Product> approvedProducts(String approved) {
-        if (approved.equals("*")) return productRepository.findAll();
-        return productRepository.findByApproved(approved);
+    public List<Product> approvedProducts(String approved, String search) {
+        if (approved.equals("*")) return productRepository.findAllByNameIsContainingIgnoreCase(search);
+        return productRepository.findByApprovedAndNameIsContainingIgnoreCase(approved, search);
     }
 
     /**
      * This method updates approve column in the row.
+     *
      * @param id product id to update approve status.
      */
     public void updateApproveStatus(String id) {
@@ -63,6 +64,7 @@ public class ProductService {
 
     /**
      * This method gets user submitted products.
+     *
      * @return list of products.
      */
     public List<Product> myProducts() {

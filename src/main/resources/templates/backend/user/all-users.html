@@ -7,7 +7,7 @@
                     <form>
                         <div class="input-group">
                             <h3><span class="label label-primary">Search User: </span></h3>
-                            <input type="text" id="demo" onkeypress="loadSearch()">
+                            <input type="text" id="search" onkeypress="loadSearch()">
                         </div>
                     </form>
                     <div id="allUsers">
@@ -30,7 +30,7 @@
             }
         };
         setTimeout(function () {
-            xhttp.open("POST", "/backend/all-users/" + document.getElementById("demo").value, true);
+            xhttp.open("POST", "/backend/all-users/" + document.getElementById("search").value, true);
             xhttp.send();
         }, 500);
     }

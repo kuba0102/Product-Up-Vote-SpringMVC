@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -44,7 +45,8 @@ public class BackProductWebController extends AppController {
         model.addAttribute(super.DIRECTORY, "backend/product/fragment-products");
         model.addAttribute(super.PAGE_TITLE_ID, "Approve Product");
         model.addAttribute("page", "approve");
-        model.addAttribute("products", productService.approvedProducts("no"));
+        model.addAttribute("url", "/backend/product-search/");
+        model.addAttribute("products", productService.approvedProducts("no", ""));
         model.addAttribute(super.USER, userService.getCurrentUser());
         return this.BACKEND_INDEX;
     }
@@ -66,9 +68,9 @@ public class BackProductWebController extends AppController {
             return super.displayUnauthorised(model, "No permission to approve product.");
         System.out.println("BackendProductWebController: Approving product with id: " + id);
         productService.updateApproveStatus(id);
-        if (page.equals("approve")) model.addAttribute("products", productService.approvedProducts("no"));
-        else if (page.equals("all")) model.addAttribute("products", productService.approvedProducts("*"));
-        return "backend/product/fragment-products";
+        if (page.equals("approve")) model.addAttribute("products", productService.approvedProducts("no", ""));
+        else if (page.equals("all")) model.addAttribute("products", productService.approvedProducts("*", ""));
+        return "all-fragments/product/fragment-product-list";
     }
 
     /**
@@ -85,7 +87,28 @@ public class BackProductWebController extends AppController {
         model.addAttribute(super.DIRECTORY, "backend/product/fragment-products");
         model.addAttribute(super.PAGE_TITLE_ID, "Submitted Products");
         model.addAttribute("page", "all");
-        model.addAttribute("products", productService.approvedProducts("*"));
+        model.addAttribute("url", "/backend/product-search/");
+        model.addAttribute("products", productService.approvedProducts("*", ""));
         return this.BACKEND_INDEX;
+    }
+
+    /**
+     * This method searches for product and returns a list of products.
+     *
+     * @param model      supply attributes used for rendering views.
+     * @param searchType type product to search.
+     * @param search     product search term.
+     * @return directory path of the html page to render.
+     */
+    @PostMapping("/product-search/{searchType}/{search}")
+    public String searchProduct(Model model, @PathVariable("searchType") String searchType, @PathVariable("search") String search) {
+        if (!userService.checkLogin(true)) return this.BACKEND_LOGIN_REDIRECT;
+        if (!permissionService.getUserPermissions(userService.getCurrentUser().getId()).isProductView())
+            return super.displayUnauthorised(model, "No permission to view product.");
+        if (searchType.equals("approve")) {
+            model.addAttribute("products", productService.approvedProducts("no", search));
+        }
+        if (searchType.equals("all")) model.addAttribute("products", productService.approvedProducts("*", search));
+        return "all-fragments/product/fragment-product-list";
     }
 }

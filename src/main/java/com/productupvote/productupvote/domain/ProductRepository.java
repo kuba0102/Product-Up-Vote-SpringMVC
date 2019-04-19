@@ -8,8 +8,13 @@ public interface ProductRepository extends CrudRepository<Product, Integer> {
 
     @Override
     List<Product> findAll();
-    List<Product> findByApproved(String approved);
+
+    List<Product> findAllByNameIsContainingIgnoreCase(String name);
+
+    List<Product> findByApprovedAndNameIsContainingIgnoreCase(String approved, String name);
+
     Product findById(int id);
+
     List<Product> findByUser(User id);
 
 }

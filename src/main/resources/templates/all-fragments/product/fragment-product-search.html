@@ -1,0 +1,28 @@
+<!-- Search form for product -->
+<div class="card">
+    <div class="card-body">
+        <form>
+            <div class="input-group">
+                <h3><span class="label label-primary">Search Product: </span></h3>
+                <input type="text" id="search" onkeypress="loadSearch()">
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function loadSearch() {
+        var xhttp = new XMLHttpRequest();
+        url = document.getElementById("url").value;
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("products").innerHTML =
+                    this.responseText;
+            }
+        };
+        setTimeout(function () {
+            xhttp.open("POST", url + document.getElementById("page").value + "/" + document.getElementById("search").value, true);
+            xhttp.send();
+        }, 500);
+    }
+</script>

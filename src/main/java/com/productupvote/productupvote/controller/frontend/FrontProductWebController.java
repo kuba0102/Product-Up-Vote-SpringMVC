@@ -82,7 +82,7 @@ public class FrontProductWebController extends AppController {
         model.addAttribute(super.DIRECTORY, "frontend/index/index-products");
         model.addAttribute(super.PAGE_TITLE_ID, "ProductUpVote");
         model.addAttribute(super.USER, userService.getCurrentUser());
-        model.addAttribute("products", productService.approvedProducts("yes"));
+        model.addAttribute("products", productService.approvedProducts("yes", ""));
         return this.FRONTEND_INDEX;
     }
 
