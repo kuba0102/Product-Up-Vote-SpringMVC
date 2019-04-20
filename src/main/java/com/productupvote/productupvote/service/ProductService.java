@@ -63,12 +63,13 @@ public class ProductService {
     }
 
     /**
-     * This method gets user submitted products.
-     *
+     * This method gets certain users products.
+     * @param id user id to find products for.
+     * @param search search term.
      * @return list of products.
      */
-    public List<Product> myProducts() {
+    public List<Product> myProducts(String id, String search) {
 
-        return productRepository.findByUser(userService.getCurrentUser());
+        return productRepository.findByUserAndNameIsContainingIgnoreCase(userService.getCurrentUser(),search);
     }
 }

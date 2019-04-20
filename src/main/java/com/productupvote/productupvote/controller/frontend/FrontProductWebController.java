@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 /**
  * FrontLoginWebController
  * This class controls requests for:
@@ -97,7 +99,9 @@ public class FrontProductWebController extends AppController {
         model.addAttribute(super.DIRECTORY, "frontend/product/product-my-products");
         model.addAttribute(super.PAGE_TITLE_ID, "My Products");
         model.addAttribute(super.USER, userService.getCurrentUser());
-        model.addAttribute("products", productService.myProducts());
+        model.addAttribute("page", "my");
+        model.addAttribute("url", "/product-search/");
+        model.addAttribute("products", productService.myProducts(null,""));
 
         return this.FRONTEND_INDEX;
     }
@@ -112,10 +116,15 @@ public class FrontProductWebController extends AppController {
      */
     @PostMapping("/product-search/{searchType}/{search}")
     public String searchProduct(Model model, @PathVariable("searchType") String searchType, @PathVariable("search") String search) {
-
+        List<Product> products = null;
         if (searchType.equals("approved")) {
-            model.addAttribute("products", productService.approvedProducts("yes", search));
+            products = productService.approvedProducts("yes", search);
+        }else if (searchType.equals("my")){
+            products = productService.myProducts(null, search);
+            model.addAttribute("products", products);
+            return "all-fragments/product/fragment-product-list-2";
         }
+        model.addAttribute("products", products);
         return "all-fragments/product/fragment-product-list-index";
     }
 
