@@ -101,7 +101,7 @@ public class FrontProductWebController extends AppController {
         model.addAttribute(super.USER, userService.getCurrentUser());
         model.addAttribute("page", "my");
         model.addAttribute("url", "/product-search/");
-        model.addAttribute("products", productService.myProducts(null,""));
+        model.addAttribute("products", productService.myProducts(null, ""));
 
         return this.FRONTEND_INDEX;
     }
@@ -119,7 +119,7 @@ public class FrontProductWebController extends AppController {
         List<Product> products = null;
         if (searchType.equals("approved")) {
             products = productService.approvedProducts("yes", search);
-        }else if (searchType.equals("my")){
+        } else if (searchType.equals("my")) {
             products = productService.myProducts(null, search);
             model.addAttribute("products", products);
             return "all-fragments/product/fragment-product-list-2";
@@ -128,4 +128,21 @@ public class FrontProductWebController extends AppController {
         return "all-fragments/product/fragment-product-list-index";
     }
 
+    /**
+     * This method up votes product and refreshes product list.
+     *
+     * @param model      supply attributes used for rendering views.
+     * @param productId  id of the product to up vote.
+     * @param searchType type product to search.
+     * @param search     product search term.
+     * @return directory path of the html page to render.
+     */
+    @PostMapping("/up-vote/{id}/{searchType}/{search}")
+    public String addVote(Model model, @PathVariable("id") int productId, @PathVariable("searchType") String searchType, @PathVariable("search") String search) {
+        if (!userService.checkLogin(false)) return this.LOGIN_REDIRECT;
+        if (search.equals("null")) search = "";
+        System.out.println("FrontProductWebController: UpVoting Product" + "Product id: " + productId);
+        productService.addVote(productId);
+        return searchProduct(model, searchType, search);
+    }
 }

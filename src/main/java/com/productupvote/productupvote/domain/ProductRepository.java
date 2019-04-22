@@ -16,5 +16,4 @@ public interface ProductRepository extends CrudRepository<Product, Integer> {
     Product findById(int id);
 
     List<Product> findByUserAndNameIsContainingIgnoreCase(User user, String name);
-
 }

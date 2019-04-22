@@ -14,7 +14,7 @@
             <div class="alert alert-warning" th:text="${message}">
             </div>
           </div>
-          <form th:object="${user}" method="POST">
+          <form th:object="${user}" action="/login" method="POST">
             <div class="form-group">
               <div class="form-label-group">
                 <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="required" autofocus="autofocus" th:field="*{email}">

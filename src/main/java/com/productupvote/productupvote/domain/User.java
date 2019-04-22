@@ -35,6 +35,11 @@ public class User {
     private Date dateUpdated;
     private Date dateOnline;
     private boolean backend;
+    private int votes;
+
+    public User() {
+        this.votes = 10;
+    }
 
     //Getters and Setters
     public Integer getId() {
@@ -125,6 +130,13 @@ public class User {
         this.backend = backend;
     }
 
+    public int getVotes() {
+        return votes;
+    }
+
+    public void setVotes(int votes) {
+        this.votes = votes;
+    }
     @Override
     public String toString() {
         return "User{" +

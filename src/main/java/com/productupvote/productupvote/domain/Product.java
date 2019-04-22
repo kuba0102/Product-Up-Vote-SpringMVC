@@ -46,11 +46,13 @@ public class Product {
     private String image;
     @NotEmpty
     private String approved;
+    private int upVotes;
 
     public Product() {
         List<Tag> newTags = new ArrayList<>();
         this.tags = newTags;
         this.approved = "no";
+        this.upVotes =0;
     }
 
     //Getters and Setters
@@ -108,5 +110,13 @@ public class Product {
 
     public void setTags(List<Tag> tags) {
         this.tags = tags;
+    }
+
+    public int getUpVotes() {
+        return upVotes;
+    }
+
+    public void setUpVotes(int upVotes) {
+        this.upVotes = upVotes;
     }
 }

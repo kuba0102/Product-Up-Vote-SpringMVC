@@ -2,6 +2,7 @@ package com.productupvote.productupvote.service;
 
 import com.productupvote.productupvote.domain.Product;
 import com.productupvote.productupvote.domain.ProductRepository;
+import com.productupvote.productupvote.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,6 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -71,5 +73,23 @@ public class ProductService {
     public List<Product> myProducts(String id, String search) {
 
         return productRepository.findByUserAndNameIsContainingIgnoreCase(userService.getCurrentUser(),search);
+    }
+
+    /**
+     * This method check if user has enough votes, votes up product.
+     * @param productId id of the product to up vote.
+     * @return true if voted  up and false if not.
+     */
+    public boolean addVote(int productId) {
+        User user  = userService.getCurrentUser();
+        if(user.getVotes() != 0) {
+            Product product = productRepository.findById(productId);
+            product.setUpVotes(product.getUpVotes() + 1);
+            user.setVotes(user.getVotes() - 1);
+            productRepository.save(product);
+            userService.save(user);
+            return true;
+        }
+        return false;
     }
 }
