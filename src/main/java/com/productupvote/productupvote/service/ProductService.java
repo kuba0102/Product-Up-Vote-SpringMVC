@@ -12,7 +12,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
@@ -60,29 +59,48 @@ public class ProductService {
      */
     public void updateApproveStatus(String id) {
         Product product = productRepository.findById(Integer.parseInt(id));
+        product.setDateApproved(new Date());
         product.setApproved("yes");
         productRepository.save(product);
     }
 
     /**
      * This method gets certain users products.
-     * @param id user id to find products for.
+     *
+     * @param id     user id to find products for.
      * @param search search term.
      * @return list of products.
      */
-    public List<Product> myProducts(String id, String search) {
+    public List<Product> myProducts(String id, String search, String filter, String descAsc) {
 
-        return productRepository.findByUserAndNameIsContainingIgnoreCase(userService.getCurrentUser(),search);
+        User user = userService.getCurrentUser();
+        if (filter != null) {
+            if (filter.equals("id")) {
+                if (descAsc.equals("desc")) return productRepository.findByUserOrderByIdDesc(user);
+                return productRepository.findByUserOrderByIdAsc(user);
+            } else if (filter.equals("name")) {
+                if (descAsc.equals("desc")) return productRepository.findByUserOrderByNameDesc(user);
+                return productRepository.findByUserOrderByNameAsc(user);
+            } else if (filter.equals("approved")) {
+                if (descAsc.equals("desc")) return productRepository.findByUserOrderByApprovedDesc(user);
+                return productRepository.findByUserOrderByApprovedAsc(user);
+            } else if (filter.equals("dateApproved")) {
+                if (descAsc.equals("desc")) return productRepository.findByUserOrderByDateApprovedDesc(user);
+                return productRepository.findByUserOrderByDateApprovedAsc(user);
+            }
+        }
+        return productRepository.findByUserAndNameIsContainingIgnoreCaseOrderByIdDesc(user, search);
     }
 
     /**
      * This method check if user has enough votes, votes up product.
+     *
      * @param productId id of the product to up vote.
      * @return true if voted  up and false if not.
      */
     public boolean addVote(int productId) {
-        User user  = userService.getCurrentUser();
-        if(user.getVotes() != 0) {
+        User user = userService.getCurrentUser();
+        if (user.getVotes() != 0) {
             Product product = productRepository.findById(productId);
             product.setUpVotes(product.getUpVotes() + 1);
             user.setVotes(user.getVotes() - 1);

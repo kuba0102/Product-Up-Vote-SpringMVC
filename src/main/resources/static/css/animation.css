@@ -1,0 +1,9 @@
+.img-fluid.img-thumbnail:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.th-filter:hover {
+  color:gray;
+  cursor: pointer;
+}

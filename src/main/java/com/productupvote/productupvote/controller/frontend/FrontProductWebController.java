@@ -101,7 +101,7 @@ public class FrontProductWebController extends AppController {
         model.addAttribute(super.USER, userService.getCurrentUser());
         model.addAttribute("page", "my");
         model.addAttribute("url", "/product-search/");
-        model.addAttribute("products", productService.myProducts(null, ""));
+        model.addAttribute("products", productService.myProducts(null, "", null, null));
 
         return this.FRONTEND_INDEX;
     }
@@ -120,7 +120,7 @@ public class FrontProductWebController extends AppController {
         if (searchType.equals("approved")) {
             products = productService.approvedProducts("yes", search);
         } else if (searchType.equals("my")) {
-            products = productService.myProducts(null, search);
+            products = productService.myProducts(null, search, null, null);
             model.addAttribute("products", products);
             return "all-fragments/product/fragment-product-list-2";
         }
@@ -144,5 +144,20 @@ public class FrontProductWebController extends AppController {
         System.out.println("FrontProductWebController: UpVoting Product" + "Product id: " + productId);
         productService.addVote(productId);
         return searchProduct(model, searchType, search);
+    }
+
+    /**
+     * This method up votes product and refreshes product list.
+     *
+     * @param model  supply attributes used for rendering views.
+     * @param filter filter option.
+     * @return directory path of the html page to render.
+     */
+    @PostMapping("/filter/{id}/{descAsc}")
+    public String addVote(Model model, @PathVariable("id") String filter, @PathVariable("descAsc") String descAsc) {
+        if (!userService.checkLogin(false)) return this.LOGIN_REDIRECT;
+        System.out.println("FrontProductWebController: Applying filter");
+        model.addAttribute("products", productService.myProducts(null, null, filter, descAsc));
+        return "all-fragments/product/fragment-product-list-2";
     }
 }

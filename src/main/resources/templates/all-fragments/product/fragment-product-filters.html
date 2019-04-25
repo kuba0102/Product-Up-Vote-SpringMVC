@@ -1,0 +1,36 @@
+<div id="filters">
+    <table class="table" id="filterTable">
+        <thead>
+        <tr>
+            <th class="th-filter" id="id" scope="col" onclick="filter(this.id)">Id</th>
+            <th class="th-filter" id="name"  scope="col" onclick="filter(this.id)">Name</th>
+            <th class="th-filter" id="approved" scope="col" onclick="filter(this.id)">Approved</th>
+            <th class="th-filter" id="dateApproved" scope="col" onclick="filter(this.id)">Date Approved</th>
+            <th class="th-filter" scope="col">
+                <select class="form-control" id="ascDscSelection">
+                    <option value="asc" selected>ASC</option>
+                    <option value="desc">DESC</option>
+                </select>
+            </th>
+        </tr>
+        </thead>
+    </table>
+</div>
+
+<script>
+    function filter(id) {
+        var e = document.getElementById("ascDscSelection");
+        var descAsc = e.options[e.selectedIndex].value;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("products").innerHTML =
+                    this.responseText;
+            }
+        };
+        setTimeout(function () {
+            xhttp.open("POST", "/filter/" + id + "/" + descAsc, true);
+            xhttp.send();
+        }, 500);
+    }
+</script>

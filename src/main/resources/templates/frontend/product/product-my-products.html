@@ -9,8 +9,14 @@
     </div>
 </div>
 <div class="container">
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8">
+            <div th:insert="all-fragments/product/fragment-product-filters.html"></div>
+        </div>
+    </div>
     <div id="products">
-
-<div th:insert="all-fragments/product/fragment-product-list-2.html"></div>
+        <div th:insert="all-fragments/product/fragment-product-list-2.html"></div>
     </div>
 </div>

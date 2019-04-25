@@ -6,17 +6,27 @@
         var xhttp = new XMLHttpRequest();
         page = document.getElementById("page").value;
         search = document.getElementById("search").value;
-        if(search == ""){
-            search =  "null";
+        if (search == "") {
+            search = "null";
         }
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("products").innerHTML =
                     this.responseText;
+                var container = document.getElementById("votesCount");
+                var content = container.getAttribute("name");
+                if (content != 0) {
+                    content = content - 1;
+                    container.innerText = "Votes: " + content;
+                    container.setAttribute("name", content);
+                }
+                else {
+                    alert("No votes left");
+                }
             }
         };
         setTimeout(function () {
-            xhttp.open("POST", "/up-vote/" + id +"/" + page + "/" + search, true);
+            xhttp.open("POST", "/up-vote/" + id + "/" + page + "/" + search, true);
             xhttp.send();
         }, 500);
     }

@@ -1,7 +1,14 @@
+<style>
+    /*.img-fluid.img-thumbnail:hover {*/
+        /*opacity: 0.5;*/
+    /*}*/
+</style>
 <div class="row text-center text-lg-left">
     <div th:each="product : ${products}" class="col-lg-3 col-md-4 col-xs-6">
         <a class="d-block mb-4 h-100">
-            <img class="img-fluid img-thumbnail" th:src="@{${product.image}}" alt="" th:text="${product.name}">
+            <div class="overlay">
+                <img class="img-fluid img-thumbnail" th:src="@{${product.image}}" alt="" th:text="${product.name}">
+            </div>
             <div th:insert="all-fragments/product/fragment-up-vote.html"></div>
         </a>
     </div>

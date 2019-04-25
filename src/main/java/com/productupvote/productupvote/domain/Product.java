@@ -1,13 +1,11 @@
 package com.productupvote.productupvote.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -47,12 +45,16 @@ public class Product {
     @NotEmpty
     private String approved;
     private int upVotes;
+    private Date dateSubmitted;
+    private Date dateApproved;
 
     public Product() {
         List<Tag> newTags = new ArrayList<>();
         this.tags = newTags;
         this.approved = "no";
-        this.upVotes =0;
+        this.upVotes = 0;
+        this.dateSubmitted = new Date();
+        this.dateApproved = null;
     }
 
     //Getters and Setters
@@ -118,5 +120,21 @@ public class Product {
 
     public void setUpVotes(int upVotes) {
         this.upVotes = upVotes;
+    }
+
+    public Date getDateSubmitted() {
+        return dateSubmitted;
+    }
+
+    public void setDateSubmitted(Date dateSubmitted) {
+        this.dateSubmitted = dateSubmitted;
+    }
+
+    public Date getDateApproved() {
+        return dateApproved;
+    }
+
+    public void setDateApproved(Date dateApproved) {
+        this.dateApproved = dateApproved;
     }
 }

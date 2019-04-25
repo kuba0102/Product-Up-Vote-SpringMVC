@@ -13,3 +13,17 @@ INSERT INTO products (up_votes, name, description, approved, user_id, image) VAL
 INSERT INTO products (up_votes, name, description, approved, user_id, image) VALUES (27, 'Test3', 'Test3 Description', 'no', 2, 'src/products_img/1555438511170Camila_web.png');
 INSERT INTO products (up_votes, name, description, approved, user_id, image) VALUES (8, 'Test4', 'Test4 Description', 'no', 1, 'src/products_img/1555438511170Camila_web.png');
 INSERT INTO products (up_votes, name, description, approved, user_id, image) VALUES (32 ,'Test5', 'Test5 Description', 'no', 1, 'src/products_img/1555438511170Camila_web.png');
+INSERT INTO products (up_votes, name, description, approved, user_id, image) VALUES ( 23, 'Tes6', 'Test Description', 'yes', 1, 'src/products_img/1555438511170Camila_web.png');
+INSERT INTO products (up_votes, name, description, approved, user_id, image) VALUES ( 23, 'Tes7', 'Test Description', 'yes', 1, 'src/products_img/1555438511170Camila_web.png');
+INSERT INTO products (up_votes, name, description, approved, user_id, image) VALUES ( 23, 'Tes8', 'Test Description', 'yes', 1, 'src/products_img/1555438511170Camila_web.png');
+INSERT INTO products (up_votes, name, description, approved, user_id, image) VALUES ( 23, 'Tes9', 'Test Description', 'yes', 1, 'src/products_img/1555438511170Camila_web.png');
+INSERT INTO products (up_votes, name, description, approved, user_id, image) VALUES ( 23, 'Test10', 'Test Description', 'yes', 1, 'src/products_img/1555438511170Camila_web.png');
+INSERT INTO products (up_votes, name, description, approved, user_id, image) VALUES ( 23, 'Test11', 'Test Description', 'yes', 1, 'src/products_img/1555438511170Camila_web.png');
+INSERT INTO products (up_votes, name, description, approved, user_id, image) VALUES ( 23, 'Test12', 'Test Description', 'yes', 1, 'src/products_img/1555438511170Camila_web.png');
+INSERT INTO products (up_votes, name, description, approved, user_id, image) VALUES ( 23, 'Test13', 'Test Description', 'yes', 1, 'src/products_img/1555438511170Camila_web.png');
+INSERT INTO products (up_votes, name, description, approved, user_id, image) VALUES ( 23, 'Test14', 'Test Description', 'yes', 1, 'src/products_img/1555438511170Camila_web.png');
+INSERT INTO products (up_votes, name, description, approved, user_id, image) VALUES ( 23, 'Test15', 'Test Description', 'yes', 1, 'src/products_img/1555438511170Camila_web.png');
+INSERT INTO products (up_votes, name, description, approved, user_id, image) VALUES ( 23, 'Test16', 'Test Description', 'yes', 1, 'src/products_img/1555438511170Camila_web.png');
+INSERT INTO products (up_votes, name, description, approved, user_id, image) VALUES ( 23, 'Test17', 'Test Description', 'yes', 1, 'src/products_img/1555438511170Camila_web.png');
+INSERT INTO products (up_votes, name, description, approved, user_id, image) VALUES ( 23, 'Test18', 'Test Description', 'yes', 1, 'src/products_img/1555438511170Camila_web.png');
+INSERT INTO products (up_votes, name, description, approved, user_id, image) VALUES ( 23, 'Test19', 'Test Description', 'yes', 1, 'src/products_img/1555438511170Camila_web.png');
