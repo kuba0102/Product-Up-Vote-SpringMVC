@@ -48,6 +48,12 @@ public class Product {
     private Date dateSubmitted;
     private Date dateApproved;
 
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "product")
+    @JsonIgnore
+    private List<Offer> offer;
+
     public Product() {
         List<Tag> newTags = new ArrayList<>();
         this.tags = newTags;
@@ -136,5 +142,13 @@ public class Product {
 
     public void setDateApproved(Date dateApproved) {
         this.dateApproved = dateApproved;
+    }
+
+    public List<Offer> getOffer() {
+        return offer;
+    }
+
+    public void setOffer(List<Offer> offer) {
+        this.offer = offer;
     }
 }

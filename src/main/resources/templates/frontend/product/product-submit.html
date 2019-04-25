@@ -15,6 +15,7 @@
                             </div>
                         </div>
                         <form th:object="${product}" method="POST" enctype="multipart/form-data">
+                            <!--Product main details-->
                             <div class="form-group">
                                 <div class="form-row">
                                     <div class="col-md-6">
@@ -22,7 +23,7 @@
                                             <label for="name">Product Name</label>
                                             <input type="text" id="name" name="name" class="form-control"
                                                    placeholder="Product Name" required="required"
-                                            th:value="*{name}">
+                                                   th:value="*{name}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -34,6 +35,24 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!--Product pricing-->
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-label-group">
+                                            <label for="sourcePrice">Source Price</label>
+                                            <input type="number" id="sourcePrice" name="sourcePrice" class="form-control"
+                                                   placeholder="Source Price" required="required">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-label-group">
+                                            <label for="name">Market Price</label>
+                                            <input type="number" id="marketPrice" name="marketPrice" class="form-control"
+                                                   placeholder="Market Price" required="required">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Product Image-->
                                 <div class="form-row">
                                     <div class="col-md-6">
                                         <div class="form-label-group">

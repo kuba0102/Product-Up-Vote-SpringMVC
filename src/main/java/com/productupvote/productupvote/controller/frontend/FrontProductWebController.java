@@ -1,6 +1,7 @@
 package com.productupvote.productupvote.controller.frontend;
 
 import com.productupvote.productupvote.controller.AppController;
+import com.productupvote.productupvote.domain.Offer;
 import com.productupvote.productupvote.domain.Product;
 import com.productupvote.productupvote.service.ProductService;
 import com.productupvote.productupvote.service.UserService;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -54,7 +56,9 @@ public class FrontProductWebController extends AppController {
      */
     @PostMapping("/submit-product")
     public String displayProductForm(Model model, @ModelAttribute("product") Product product,
-                                     @RequestParam("imageFile") MultipartFile image) {
+                                     @RequestParam("imageFile") MultipartFile image,
+                                     @RequestParam("marketPrice") double marketPrice,
+                                     @RequestParam("sourcePrice") double sourcePrice) {
         if (!userService.checkLogin(false)) return this.LOGIN_REDIRECT;
         if (!image.getContentType().equals("image/png")) {
             model.addAttribute("error", "Only PNG images accepted.");
@@ -62,6 +66,15 @@ public class FrontProductWebController extends AppController {
         }
         try {
             System.out.println("FrontProductWebController: Submitting Product: " + product.getName());
+            // Adding offer to product.
+            List<Offer> offers = new ArrayList<>();
+            Offer offer = new Offer();
+            offer.setComment("New Submission");
+            offer.setMarketPrice(marketPrice);
+            offer.setSourcePrice(sourcePrice);
+            offer.setProduct(product);
+            offers.add(offer);
+            product.setOffer(offers);
             productService.save(product, image);
         } catch (Exception e) {
             e.printStackTrace();
