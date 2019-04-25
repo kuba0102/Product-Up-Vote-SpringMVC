@@ -22,7 +22,7 @@
             }
         };
         setTimeout(function () {
-            xhttp.open("GET", "/backend/product-approve/" + id + "/" + page, true);
+            xhttp.open("POST", "/backend/product-approve/" + id + "/" + page, true);
             xhttp.send();
         }, 500);
     }

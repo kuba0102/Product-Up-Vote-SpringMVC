@@ -97,7 +97,7 @@ public class FrontProductWebController extends AppController {
         model.addAttribute(super.USER, userService.getCurrentUser());
         model.addAttribute("page", "approved");
         model.addAttribute("url", "/product-search/");
-        model.addAttribute("products", productService.approvedProducts("yes", ""));
+        model.addAttribute("products", productService.approvedProducts("yes", true,""));
         return this.FRONTEND_INDEX;
     }
 
@@ -115,6 +115,7 @@ public class FrontProductWebController extends AppController {
         model.addAttribute(super.USER, userService.getCurrentUser());
         model.addAttribute("page", "my");
         model.addAttribute("url", "/product-search/");
+        model.addAttribute("offer", new Offer());
         model.addAttribute("products", productService.myProducts(null, "", null, null));
 
         return this.FRONTEND_INDEX;
@@ -131,8 +132,9 @@ public class FrontProductWebController extends AppController {
     @PostMapping("/product-search/{searchType}/{search}")
     public String searchProduct(Model model, @PathVariable("searchType") String searchType, @PathVariable("search") String search) {
         List<Product> products = null;
+        model.addAttribute("offer", new Offer());
         if (searchType.equals("approved")) {
-            products = productService.approvedProducts("yes", search);
+            products = productService.approvedProducts("yes",true, search);
         } else if (searchType.equals("my")) {
             products = productService.myProducts(null, search, null, null);
             model.addAttribute("products", products);
@@ -172,6 +174,28 @@ public class FrontProductWebController extends AppController {
         if (!userService.checkLogin(false)) return this.LOGIN_REDIRECT;
         System.out.println("FrontProductWebController: Applying filter");
         model.addAttribute("products", productService.myProducts(null, null, filter, descAsc));
+        model.addAttribute("offer", new Offer());
+        return "all-fragments/product/fragment-product-list-2";
+    }
+
+    /**
+     * This method updates the product page.
+     *
+     * @param model supply attributes used for rendering views.
+     * @param id    id of the product to edit.
+     * @param page  which type of page its is.
+     * @return directory path of the html page to render.
+     */
+    @PostMapping("/product/product-approve/{id}/{page}/{search}")
+    public String updateUserApproveProduct(Model model, @PathVariable("id") String id,
+                                           @PathVariable("page") String page,
+                                           @PathVariable("search") String search) {
+        if (!userService.checkLogin(true)) return this.BACKEND_LOGIN_REDIRECT;
+        if(search.equals("null")) search = "";
+        System.out.println("FrontProductWebController: User approving product with id: " + id);
+        productService.updateApproveStatus(id, false);
+        if (page.equals("my")) model.addAttribute("products", productService.myProducts(null, search, null, null));
+        model.addAttribute("offer", new Offer());
         return "all-fragments/product/fragment-product-list-2";
     }
 }

@@ -13,7 +13,9 @@ public interface ProductRepository extends CrudRepository<Product, Integer> {
 
     List<Product> findAllByNameIsContainingIgnoreCase(String name);
 
-    List<Product> findByApprovedAndNameIsContainingIgnoreCase(String approved, String name);
+    List<Product> findByApprovedAndUserApprovedAndNameIsContainingIgnoreCase(String approved, boolean userApproved, String name);
+
+    List<Product> findByApprovedAndNameIsContainingIgnoreCase(String approved, String search);
 
     // Product filters
     List<Product> findByUserOrderByIdDesc(User user);
