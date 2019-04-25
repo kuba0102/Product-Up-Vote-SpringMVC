@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -44,6 +45,8 @@ public class Product {
     private String image;
     @NotEmpty
     private String approved;
+    @NotNull
+    private Boolean userApproved;
     private int upVotes;
     private Date dateSubmitted;
     private Date dateApproved;
@@ -52,12 +55,13 @@ public class Product {
             fetch = FetchType.LAZY,
             mappedBy = "product")
     @JsonIgnore
-    private List<Offer> offer;
+    private List<Offer> offers;
 
     public Product() {
         List<Tag> newTags = new ArrayList<>();
         this.tags = newTags;
         this.approved = "no";
+        this.userApproved = false;
         this.upVotes = 0;
         this.dateSubmitted = new Date();
         this.dateApproved = null;
@@ -144,11 +148,19 @@ public class Product {
         this.dateApproved = dateApproved;
     }
 
-    public List<Offer> getOffer() {
-        return offer;
+    public List<Offer> getOffers() {
+        return offers;
     }
 
-    public void setOffer(List<Offer> offer) {
-        this.offer = offer;
+    public void setOffers(List<Offer> offers) {
+        this.offers = offers;
+    }
+
+    public Boolean getUserApproved() {
+        return userApproved;
+    }
+
+    public void setUserApproved(Boolean userApproved) {
+        this.userApproved = userApproved;
     }
 }

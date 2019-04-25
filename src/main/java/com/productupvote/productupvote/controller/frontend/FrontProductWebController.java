@@ -74,7 +74,8 @@ public class FrontProductWebController extends AppController {
             offer.setSourcePrice(sourcePrice);
             offer.setProduct(product);
             offers.add(offer);
-            product.setOffer(offers);
+            offer.setUser(userService.getCurrentUser());
+            product.setOffers(offers);
             productService.save(product, image);
         } catch (Exception e) {
             e.printStackTrace();

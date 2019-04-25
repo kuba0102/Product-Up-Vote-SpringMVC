@@ -8,8 +8,42 @@
             <button type="button" class="btn btn-info" data-toggle="collapse"
                     th:data-target="'#description'+${product.id}">Description
             </button>
+            <button type="button" class="btn btn-info" data-toggle="collapse"
+                    th:data-target="'#offers'+${product.id}">Show Offers
+            </button>
             <div th:id="'description'+${product.id}" class="collapse"
                  th:text="${product.description}"></div>
+            <div th:id="'offers'+${product.id}" class="collapse">
+
+                <div th:each="offer:${product.offers}">
+                    <table class="table table-hover">
+                        <tbody>
+                        <tr>
+                            <td th:text="'Source Price: ' + ${offer.sourcePrice}"></td>
+                            <td th:text="'MarketPrice: '+ ${offer.sourcePrice}"></td>
+                            <td th:text="'Comment: ' + ${offer.comment}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--Offers form-->
+                <form th:object="${offer}" action="/offer" method="POST"
+                      th:if="${product.approved != 'yes'}">
+                    <input type="hidden" id="productId" name="productId" class="form-control" th:value="${product.id}">
+                    <input type="hidden" id="page" name="page" class="form-control" th:value="${page}">
+                    <h4>New Offer</h4>
+                    <label for="sourcePrice">Source Price</label>
+                    <input type="number" id="sourcePrice" name="sourcePrice" class="form-control"
+                           placeholder="Source Price" required="required" th:value="*{sourcePrice}">
+                    <label for="marketPrice">Market Price</label>
+                    <input type="number" id="marketPrice" name="marketPrice" class="form-control"
+                           placeholder="Market Price" required="required" th:value="*{marketPrice}">
+                    <label for="comment">Comment</label>
+                    <input type="text" id="comment" name="comment" class="form-control"
+                           placeholder="Comment" required="required" th:value="*{comment}">
+                    <input type="submit" value="Submit Offer">
+                </form>
+            </div>
             <div class="card-footer">
                 <h5 class="card-title" th:text="'Approved: '+${product.approved}"></h5>
                 <a th:if="${product.approved == 'no'}" class="btn btn-success" role="button"

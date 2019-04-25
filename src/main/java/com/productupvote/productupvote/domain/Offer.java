@@ -28,6 +28,11 @@ public class Offer {
     @JoinColumn(name = "product_id", nullable = true)
     private Product product;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = true)
+    @NotNull
+    private User user;
+
     @NotNull
     private double sourcePrice;
     @NotNull
@@ -85,5 +90,13 @@ public class Offer {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

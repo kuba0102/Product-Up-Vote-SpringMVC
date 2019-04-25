@@ -1,6 +1,7 @@
 package com.productupvote.productupvote.controller.backend;
 
 import com.productupvote.productupvote.controller.AppController;
+import com.productupvote.productupvote.domain.Offer;
 import com.productupvote.productupvote.service.PermissionService;
 import com.productupvote.productupvote.service.ProductService;
 import com.productupvote.productupvote.service.UserService;
@@ -48,6 +49,7 @@ public class BackProductWebController extends AppController {
         model.addAttribute("url", "/backend/product-search/");
         model.addAttribute("products", productService.approvedProducts("no", ""));
         model.addAttribute(super.USER, userService.getCurrentUser());
+        model.addAttribute("offer", new Offer());
         return this.BACKEND_INDEX;
     }
 
@@ -89,6 +91,7 @@ public class BackProductWebController extends AppController {
         model.addAttribute("page", "all");
         model.addAttribute("url", "/backend/product-search/");
         model.addAttribute("products", productService.approvedProducts("*", ""));
+        model.addAttribute("offer", new Offer());
         return this.BACKEND_INDEX;
     }
 
@@ -109,6 +112,7 @@ public class BackProductWebController extends AppController {
             model.addAttribute("products", productService.approvedProducts("no", search));
         }
         if (searchType.equals("all")) model.addAttribute("products", productService.approvedProducts("*", search));
+        model.addAttribute("offer", new Offer());
         return "all-fragments/product/fragment-product-list";
     }
 }

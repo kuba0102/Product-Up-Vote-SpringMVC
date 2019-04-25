@@ -38,6 +38,7 @@ public class ProductService {
         Files.write(path, bytes);
         product.setUser(userService.getCurrentUser());
         product.setImage(springPath);
+        product.setUserApproved(true);
         productRepository.save(product);
     }
 
@@ -109,5 +110,15 @@ public class ProductService {
             return true;
         }
         return false;
+    }
+
+    /**
+     * This method looks for product by id.
+     *
+     * @param productId id of the product.
+     * @return returns product match.
+     */
+    public Product findById(int productId) {
+        return productRepository.findById(productId);
     }
 }
