@@ -1,9 +1,9 @@
 package com.productupvote.productupvote.controller.frontend;
 
 import com.productupvote.productupvote.controller.AppController;
+import com.productupvote.productupvote.controller.FilterWebController;
 import com.productupvote.productupvote.domain.Offer;
 import com.productupvote.productupvote.domain.Product;
-import com.productupvote.productupvote.domain.User;
 import com.productupvote.productupvote.service.ProductService;
 import com.productupvote.productupvote.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +29,8 @@ public class FrontProductWebController extends AppController {
     UserService userService;
     @Autowired
     ProductService productService;
+    @Autowired
+    FilterWebController filterWebController;
 
 
     /**
@@ -98,7 +100,7 @@ public class FrontProductWebController extends AppController {
         model.addAttribute(super.USER, userService.getCurrentUser());
         model.addAttribute("page", "approved");
         model.addAttribute("url", "/product-search/");
-        model.addAttribute("products", productService.approvedProducts("yes", true, "", null,null));
+        model.addAttribute("products", productService.approvedProducts("yes", true, "", null, null));
         return this.FRONTEND_INDEX;
     }
 
@@ -152,6 +154,8 @@ public class FrontProductWebController extends AppController {
      * @param productId  id of the product to up vote.
      * @param searchType type product to search.
      * @param search     product search term.
+     * @param filter     product filter to apply.
+     * @param descAsc    product order to apply.
      * @return directory path of the html page to render.
      */
     @PostMapping("/up-vote/{id}/{searchType}/{search}/{filter}/{descAsc}")
@@ -164,36 +168,7 @@ public class FrontProductWebController extends AppController {
         if (search.equals("null")) search = "";
         System.out.println("FrontProductWebController: UpVoting Product" + "Product id: " + productId);
         productService.addVote(productId);
-        return filterProduct(model,searchType, search, filter,descAsc);
-    }
-
-    /**
-     * This method up votes product and refreshes product list.
-     *
-     * @param model  supply attributes used for rendering views.
-     * @param filter filter option.
-     * @return directory path of the html page to render.
-     */
-    @PostMapping("/filter/{searchType}/{search}/{id}/{descAsc}")
-    public String filterProduct(Model model,
-                                @PathVariable("searchType") String searchType,
-                                @PathVariable("search") String search,
-                                @PathVariable("id") String filter,
-                                @PathVariable("descAsc") String descAsc) {
-        if (!userService.checkLogin(false)) return this.LOGIN_REDIRECT;
-        model.addAttribute("offer", new Offer());
-        System.out.println("FrontProductWebController: Applying filter");
-        if (search.equals("null")) search = "";
-        if (searchType.equals("my")) {
-            System.out.println("FrontProductWebController: Filters for my products");
-            model.addAttribute("products", productService.myProducts(search, filter, descAsc));
-        } else if (searchType.equals("approved")) {
-            System.out.println("FrontProductWebController: Filters for approved products");
-            model.addAttribute("products", productService.approvedProducts("yes",true, search, filter, descAsc));
-            return "all-fragments/product/fragment-product-list-index";
-        }
-
-        return "all-fragments/product/fragment-product-list-2";
+        return filterWebController.filterProduct(model, searchType, search, filter, descAsc);
     }
 
     /**

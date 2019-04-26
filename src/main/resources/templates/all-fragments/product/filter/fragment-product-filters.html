@@ -1,11 +1,20 @@
+<style>
+    /*Filters my products*/
+    .th-filter:hover {
+        color:gray;
+        cursor: pointer;
+    }
+</style>
 <div id="filters">
     <table class="table" id="filterTable">
         <thead>
         <tr>
+            <th><h3>Filter:</h3></th>
             <th class="th-filter" id="id" scope="col" onclick="filter(this.id)">Id</th>
             <th class="th-filter" id="name"  scope="col" onclick="filter(this.id)">Name</th>
             <th class="th-filter" id="approved" scope="col" onclick="filter(this.id)">Approved</th>
             <th class="th-filter" id="dateApproved" scope="col" onclick="filter(this.id)">Date Approved</th>
+            <th class="th-filter" id="top" scope="col" onclick="filter(this.id)">By Votes</th>
             <th class="th-filter" scope="col">
                 <select class="form-control" id="ascDscSelection">
                     <option value="asc" selected>ASC</option>

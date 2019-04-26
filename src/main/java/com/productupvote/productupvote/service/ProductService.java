@@ -43,29 +43,93 @@ public class ProductService {
     }
 
     /**
-     * This method returns list of products.
+     * This method looks for approved products
      *
-     * @param approved search term for approved column.
-     * @return param: yes = all approved, no = not approved, wait = on wait list.
+     * @param approved     product approval.
+     * @param userApproved user approval.
+     * @param search       search for the product
+     * @param filter       current active filter.
+     * @param descAsc      order of the products.
+     * @return list of products.
      */
-    public List<Product> approvedProducts(String approved, boolean userApproved,String search, String filter, String descAsc) {
-        if(filter == null) {
+    public List<Product> approvedProducts(String approved, boolean userApproved, String search, String filter, String descAsc) {
+        if (filter == null) {
+            // Backend product list with no filter
             if (approved.equals("*")) return productRepository.findAllByNameIsContainingIgnoreCase(search);
             else if (approved.equals("no"))
+                // Frontend index page with no filter
                 return productRepository.findByApprovedAndNameIsContainingIgnoreCase(approved, search);
-        }else{
-            if(filter.equals("top")) {
-                if (descAsc.equals("desc")) return productRepository.findByApprovedAndUserApprovedAndNameIsContainingIgnoreCaseOrderByUpVotesDesc(approved, userApproved, search);
-                return productRepository.findByApprovedAndUserApprovedAndNameIsContainingIgnoreCaseOrderByUpVotesAsc(approved, userApproved, search);
+        } else {
+            // Backend product list with filter
+            if (approved.equals("no")) {
+                if (filter.equals("id")) {
+                    if (descAsc.equals("desc"))
+                        return productRepository.findByApprovedAndNameIsContainingIgnoreCaseOrderByIdDesc(approved, search);
+                    return productRepository.findByApprovedAndNameIsContainingIgnoreCaseOrderByIdAsc(approved, search);
+                } else if (filter.equals("name")) {
+                    if (descAsc.equals("desc"))
+                        return productRepository.findByApprovedAndNameIsContainingIgnoreCaseOrderByNameDesc(approved, search);
+                    return productRepository.findByApprovedAndNameIsContainingIgnoreCaseOrderByNameAsc(approved, search);
+                } else if (filter.equals("approved")) {
+                    if (descAsc.equals("desc"))
+                        return productRepository.findByApprovedAndNameIsContainingIgnoreCaseOrderByDateApprovedDesc(approved, search);
+                    return productRepository.findByApprovedAndNameIsContainingIgnoreCaseOrderByDateApprovedAsc(approved, search);
+                } else if (filter.equals("dateApproved")) {
+                    if (descAsc.equals("desc"))
+                        return productRepository.findByApprovedAndNameIsContainingIgnoreCaseOrderByApprovedDesc(approved, search);
+                    return productRepository.findByApprovedAndNameIsContainingIgnoreCaseOrderByApprovedAsc(approved, search);
+                } else if (filter.equals("top")) {
+                    if (descAsc.equals("desc"))
+                        return productRepository.findByApprovedAndNameIsContainingIgnoreCaseOrderByUpVotesDesc(approved, search);
+                    return productRepository.findByApprovedAndNameIsContainingIgnoreCaseOrderByUpVotesAsc(approved, search);
+                } else if (filter.equals("name")) {
+                    if (descAsc.equals("desc"))
+                        return productRepository.findByApprovedAndNameIsContainingIgnoreCaseOrderByNameDesc(approved, search);
+                    return productRepository.findByApprovedAndNameIsContainingIgnoreCaseOrderByNameAsc(approved, search);
+                }
             }
+            if (approved.equals("*")) {
+                if (filter.equals("id")) {
+                    if (descAsc.equals("desc"))
+                        return productRepository.findByNameIsContainingIgnoreCaseOrderByIdDesc(search);
+                    return productRepository.findByNameIsContainingIgnoreCaseOrderByIdAsc(search);
+                } else if (filter.equals("name")) {
+                    if (descAsc.equals("desc"))
+                        return productRepository.findByNameIsContainingIgnoreCaseOrderByNameDesc(search);
+                    return productRepository.findByNameIsContainingIgnoreCaseOrderByNameAsc(search);
+                } else if (filter.equals("approved")) {
+                    if (descAsc.equals("desc"))
+                        return productRepository.findByNameIsContainingIgnoreCaseOrderByDateApprovedDesc(search);
+                    return productRepository.findByNameIsContainingIgnoreCaseOrderByDateApprovedAsc(search);
+                } else if (filter.equals("dateApproved")) {
+                    if (descAsc.equals("desc"))
+                        return productRepository.findByNameIsContainingIgnoreCaseOrderByApprovedDesc(search);
+                    return productRepository.findByNameIsContainingIgnoreCaseOrderByApprovedAsc(search);
+                } else if (filter.equals("top")) {
+                    if (descAsc.equals("desc"))
+                        return productRepository.findByNameIsContainingIgnoreCaseOrderByUpVotesDesc(search);
+                    return productRepository.findByNameIsContainingIgnoreCaseOrderByUpVotesAsc(search);
+                }
+            }
+            // Frontend index page with filter
+            if (filter.equals("top")) {
+                if (descAsc.equals("desc"))
+                    return productRepository.findByApprovedAndUserApprovedAndNameIsContainingIgnoreCaseOrderByUpVotesDesc(approved, userApproved, search);
+                return productRepository.findByApprovedAndUserApprovedAndNameIsContainingIgnoreCaseOrderByUpVotesAsc(approved, userApproved, search);
+            } else if (filter.equals("name")) {
+                if (descAsc.equals("desc"))
+                    return productRepository.findByApprovedAndUserApprovedAndNameIsContainingIgnoreCaseOrderByNameDesc(approved, userApproved, search);
+                return productRepository.findByApprovedAndUserApprovedAndNameIsContainingIgnoreCaseOrderByNameAsc(approved, userApproved, search);
+            }
+
         }
-        return productRepository.findByApprovedAndUserApprovedAndNameIsContainingIgnoreCase(approved, userApproved, search);
+        return productRepository.findByApprovedAndUserApprovedAndNameIsContainingIgnoreCaseOrderByUpVotesDesc(approved, userApproved, search);
     }
 
     /**
      * This method updates approve or userApprove column in the row.
      *
-     * @param id product id to update approve status.
+     * @param id      product id to update approve status.
      * @param backend true if backend user false if not.
      */
     public void updateApproveStatus(String id, Boolean backend) {
@@ -85,7 +149,6 @@ public class ProductService {
     /**
      * This method gets certain users products.
      *
-     * @param id     user id to find products for.
      * @param search search term.
      * @return list of products.
      */
@@ -93,21 +156,26 @@ public class ProductService {
         User user = userService.getCurrentUser();
         if (filter != null) {
             if (filter.equals("id")) {
-                if (descAsc.equals("desc")) return productRepository.findByUserAndNameIsContainingIgnoreCaseOrderByIdDesc(user, search);
+                if (descAsc.equals("desc"))
+                    return productRepository.findByUserAndNameIsContainingIgnoreCaseOrderByIdDesc(user, search);
                 return productRepository.findByUserAndNameIsContainingIgnoreCaseOrderByIdAsc(user, search);
             } else if (filter.equals("name")) {
-                if (descAsc.equals("desc")) return productRepository.findByUserAndNameIsContainingIgnoreCaseOrderByNameDesc(user, search);
+                if (descAsc.equals("desc"))
+                    return productRepository.findByUserAndNameIsContainingIgnoreCaseOrderByNameDesc(user, search);
                 return productRepository.findByUserAndNameIsContainingIgnoreCaseOrderByNameAsc(user, search);
             } else if (filter.equals("approved")) {
-                if (descAsc.equals("desc")) return productRepository.findByUserAndNameIsContainingIgnoreCaseOrderByDateApprovedDesc(user, search);
+                if (descAsc.equals("desc"))
+                    return productRepository.findByUserAndNameIsContainingIgnoreCaseOrderByDateApprovedDesc(user, search);
                 return productRepository.findByUserAndNameIsContainingIgnoreCaseOrderByDateApprovedAsc(user, search);
             } else if (filter.equals("dateApproved")) {
-                if (descAsc.equals("desc")) return productRepository.findByUserAndNameIsContainingIgnoreCaseOrderByApprovedDesc(user, search);
+                if (descAsc.equals("desc"))
+                    return productRepository.findByUserAndNameIsContainingIgnoreCaseOrderByApprovedDesc(user, search);
                 return productRepository.findByUserAndNameIsContainingIgnoreCaseOrderByApprovedAsc(user, search);
             }
         }
         return productRepository.findByUserAndNameIsContainingIgnoreCaseOrderByIdDesc(user, search);
     }
+
 
     /**
      * This method check if user has enough votes, votes up product.

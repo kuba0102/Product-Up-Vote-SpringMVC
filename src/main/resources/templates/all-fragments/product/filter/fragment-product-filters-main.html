@@ -1,97 +1,13 @@
-<style>
-    ul.ks-cboxtags {
-        list-style: none;
-        padding: 20px;
-    }
-    ul.ks-cboxtags li{
-        display: inline;
-    }
-    ul.ks-cboxtags li label{
-        display: inline-block;
-        background-color: rgba(255, 255, 255, .9);
-        border: 2px solid rgba(139, 139, 139, .3);
-        color: #adadad;
-        border-radius: 25px;
-        white-space: nowrap;
-        margin: 3px 0px;
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        -webkit-tap-highlight-color: transparent;
-        transition: all .2s;
-    }
-
-    ul.ks-cboxtags li label {
-        padding: 8px 12px;
-        cursor: pointer;
-    }
-
-    ul.ks-cboxtags li label::before {
-        display: inline-block;
-        font-style: normal;
-        font-variant: normal;
-        text-rendering: auto;
-        -webkit-font-smoothing: antialiased;
-        font-family: "Font Awesome 5 Free";
-        font-weight: 900;
-        font-size: 12px;
-        padding: 2px 6px 2px 2px;
-        content: "\f067";
-        transition: transform .3s ease-in-out;
-    }
-
-    ul.ks-cboxtags li input[type="radio"]:checked + label::before {
-        content: "\f00c";
-        transform: rotate(-360deg);
-        transition: transform .3s ease-in-out;
-    }
-
-    ul.ks-cboxtags li input[type="radio"]:checked + label {
-        border: 2px solid #1bdbf8;
-        background-color: #12bbd4;
-        color: #fff;
-        transition: all .2s;
-    }
-
-    ul.ks-cboxtags li input[type="radio"] {
-        display: absolute;
-    }
-    ul.ks-cboxtags li input[type="radio"] {
-        position: absolute;
-        opacity: 0;
-    }
-    ul.ks-cboxtags li input[type="radio"]:focus + label {
-        border: 2px solid #e9a1ff;
-    }
-</style>
-<ul class="ks-cboxtags">
+<ul class="filter-radio">
     <li><input type="radio" name="filter" id="top" value="top" onclick="filter(this.id)">
         <label for="top">Top Votes </label></li>
-    <li><input type="radio" name="filter" id="name" value="name">
+    <li><input type="radio" name="filter" id="name" value="name" onclick="filter(this.id)">
         <label for="name">By Name</label></li>
     <select class="form-control" id="ascDscSelection">
         <option value="asc" selected>ASC</option>
         <option value="desc">DESC</option>
     </select>
 </ul>
-<!--<div id="filters">-->
-    <!--<table class="table" id="filterTable">-->
-        <!--<thead>-->
-        <!--<tr>-->
-            <!--<th class="th-filter" id="top" scope="col" onclick="filter(this.id)">Top</th>-->
-
-            <!--<th class="th-filter" scope="col">-->
-                <!--<select class="form-control" id="ascDscSelection">-->
-                    <!--<option value="asc" selected>ASC</option>-->
-                    <!--<option value="desc">DESC</option>-->
-                <!--</select>-->
-            <!--</th>-->
-        <!--</tr>-->
-        <!--</thead>-->
-    <!--</table>-->
-<!--</div>-->
 
 <script>
     function filter(id) {
