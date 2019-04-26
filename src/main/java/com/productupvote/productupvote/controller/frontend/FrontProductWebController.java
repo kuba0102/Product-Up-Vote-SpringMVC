@@ -169,11 +169,23 @@ public class FrontProductWebController extends AppController {
      * @param filter filter option.
      * @return directory path of the html page to render.
      */
-    @PostMapping("/filter/{id}/{descAsc}")
-    public String addVote(Model model, @PathVariable("id") String filter, @PathVariable("descAsc") String descAsc) {
+    @PostMapping("/filter/{page}/{search}/{id}/{descAsc}")
+    public String filterProduct(Model model,
+                                @PathVariable("page") String page,
+                                @PathVariable("search") String search,
+                                @PathVariable("id") String filter,
+                                @PathVariable("descAsc") String descAsc) {
         if (!userService.checkLogin(false)) return this.LOGIN_REDIRECT;
         System.out.println("FrontProductWebController: Applying filter");
-        model.addAttribute("products", productService.myProducts(null, null, filter, descAsc));
+        if(search.equals("null")) search = "";
+        if(page.equals("my")){
+            System.out.println("FrontProductWebController: Filters for my products");
+            model.addAttribute("products", productService.myProducts(null, search, filter, descAsc));
+        }else if(page.equals("approved")){
+            System.out.println("FrontProductWebController: Filters for approved products");
+           // model.addAttribute("products", productService.productFilters());
+        }
+
         model.addAttribute("offer", new Offer());
         return "all-fragments/product/fragment-product-list-2";
     }

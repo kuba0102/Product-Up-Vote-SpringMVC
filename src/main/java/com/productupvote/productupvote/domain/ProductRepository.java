@@ -18,23 +18,20 @@ public interface ProductRepository extends CrudRepository<Product, Integer> {
     List<Product> findByApprovedAndNameIsContainingIgnoreCase(String approved, String search);
 
     // Product filters
-    List<Product> findByUserOrderByIdDesc(User user);
-
-    List<Product> findByUserOrderByIdAsc(User user);
-
-    List<Product> findByUserOrderByNameDesc(User user);
-
-    List<Product> findByUserOrderByNameAsc(User user);
-
-    List<Product> findByUserOrderByDateApprovedDesc(User user);
-
-    List<Product> findByUserOrderByDateApprovedAsc(User user);
-
-    List<Product> findByUserOrderByApprovedDesc(User user);
-
-    List<Product> findByUserOrderByApprovedAsc(User user);
-
     List<Product> findByUserAndNameIsContainingIgnoreCaseOrderByIdDesc(User user, String name);
 
+    List<Product> findByUserAndNameIsContainingIgnoreCaseOrderByIdAsc(User user, String name);
+
+    List<Product> findByUserAndNameIsContainingIgnoreCaseOrderByNameDesc(User user, String name);
+
+    List<Product> findByUserAndNameIsContainingIgnoreCaseOrderByNameAsc(User user, String name);
+
+    List<Product> findByUserAndNameIsContainingIgnoreCaseOrderByDateApprovedDesc(User user, String name);
+
+    List<Product> findByUserAndNameIsContainingIgnoreCaseOrderByDateApprovedAsc(User user, String name);
+
+    List<Product> findByUserAndNameIsContainingIgnoreCaseOrderByApprovedDesc(User user, String name);
+
+    List<Product> findByUserAndNameIsContainingIgnoreCaseOrderByApprovedAsc(User user, String name);
 
 }

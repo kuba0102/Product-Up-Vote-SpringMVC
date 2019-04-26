@@ -86,17 +86,17 @@ public class ProductService {
         User user = userService.getCurrentUser();
         if (filter != null) {
             if (filter.equals("id")) {
-                if (descAsc.equals("desc")) return productRepository.findByUserOrderByIdDesc(user);
-                return productRepository.findByUserOrderByIdAsc(user);
+                if (descAsc.equals("desc")) return productRepository.findByUserAndNameIsContainingIgnoreCaseOrderByIdDesc(user, search);
+                return productRepository.findByUserAndNameIsContainingIgnoreCaseOrderByIdAsc(user, search);
             } else if (filter.equals("name")) {
-                if (descAsc.equals("desc")) return productRepository.findByUserOrderByNameDesc(user);
-                return productRepository.findByUserOrderByNameAsc(user);
+                if (descAsc.equals("desc")) return productRepository.findByUserAndNameIsContainingIgnoreCaseOrderByNameDesc(user, search);
+                return productRepository.findByUserAndNameIsContainingIgnoreCaseOrderByNameAsc(user, search);
             } else if (filter.equals("approved")) {
-                if (descAsc.equals("desc")) return productRepository.findByUserOrderByApprovedDesc(user);
-                return productRepository.findByUserOrderByApprovedAsc(user);
+                if (descAsc.equals("desc")) return productRepository.findByUserAndNameIsContainingIgnoreCaseOrderByDateApprovedDesc(user, search);
+                return productRepository.findByUserAndNameIsContainingIgnoreCaseOrderByDateApprovedAsc(user, search);
             } else if (filter.equals("dateApproved")) {
-                if (descAsc.equals("desc")) return productRepository.findByUserOrderByDateApprovedDesc(user);
-                return productRepository.findByUserOrderByDateApprovedAsc(user);
+                if (descAsc.equals("desc")) return productRepository.findByUserAndNameIsContainingIgnoreCaseOrderByApprovedDesc(user, search);
+                return productRepository.findByUserAndNameIsContainingIgnoreCaseOrderByApprovedAsc(user, search);
             }
         }
         return productRepository.findByUserAndNameIsContainingIgnoreCaseOrderByIdDesc(user, search);
