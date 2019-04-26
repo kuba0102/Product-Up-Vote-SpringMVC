@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Date;
@@ -27,6 +25,9 @@ public class FrontLoginWebController extends AppController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    FrontProductWebController frontProductWebController;
 
     /**
      * This method returns register forms.
@@ -88,7 +89,6 @@ public class FrontLoginWebController extends AppController {
      *
      * @param model   supply attributes used for rendering views.
      * @param user    user object which stores user input.
-     * @param request request information for HTTP Servlets.
      * @return directory path of the html page to render.
      */
     @PostMapping("/login")
@@ -129,5 +129,39 @@ public class FrontLoginWebController extends AppController {
     public String logoutUser(Model model) {
         userService.cleanSession();
         return displayLoginForm(model, new User());
+    }
+
+    /**
+     * This method updates users information.
+     * @param model supply attributes used for rendering views.
+     * @param user user to update.
+     * @param confPass password confirmation.
+     * @return directory path of the html page to render.
+     */
+    @PostMapping("/update-user")
+    public String updateUserDetails(Model model, @ModelAttribute("user") User user,
+                                    @RequestParam("confPass") String confPass){
+        if(!userService.checkLogin(false)) return super.LOGIN_REDIRECT;
+        if(userService.getCurrentUser().getId() != user.getId()) {
+            model.addAttribute("formMsg", "Can't update this user");
+            return frontProductWebController.displayProducts(model);
+        }
+        User updatedUser = userService.findUserById(user.getId());
+        System.out.println(user.getPassword()+" "+confPass);
+
+            if (user.getPassword().equals(confPass)) {
+                if(!PassUtil.verifyUserPassword(user.getPassword(), updatedUser.getPassword(), updatedUser.getSalt())) {
+                    user.setSalt(PassUtil.getSalt(30));
+                    user.setPassword(PassUtil.generateSecurePassword(user.getPassword(), user.getSalt()));
+                }
+            } else {
+                model.addAttribute("formMsg", "Password did not match");
+            }
+
+        user.setDateUpdated(new Date());
+        userService.save(user);
+        userService.setUserSession(userService.findUserById(user.getId()));
+        model.addAttribute("formMsg", "User has been updated");
+        return frontProductWebController.displayProducts(model);
     }
 }

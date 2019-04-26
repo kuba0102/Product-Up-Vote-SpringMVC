@@ -1,0 +1,66 @@
+<form th:object="${user}" action="/update-user" method="POST">
+    <div class="form-group">
+        <div class="form-row">
+            <div class="col-md-6">
+                <div class="form-label-group">
+                    <label for="inputId">User Id</label>
+                    <input type="text" id="inputId" class="form-control" placeholder="User Id"
+                           required="required" th:field="*{id}" readonly>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-label-group">
+                    <label for="inputUsername">Username</label>
+                    <input type="text" id="inputUsername" class="form-control" placeholder="Username"
+                           required="required"
+                           autofocus="autofocus" th:field="*{username}">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="form-row">
+            <div class="col-md-6">
+                <div class="form-label-group">
+                    <label for="firstName">First name</label>
+                    <input type="text" id="firstName" class="form-control" placeholder="First name"
+                           required="required"
+                           th:field="*{name}">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-label-group">
+                    <label for="surname">Last name</label>
+                    <input type="text" id="surname" class="form-control" placeholder="Last name" required="required"
+                           th:field="*{surname}">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="form-label-group">
+            <label for="inputEmail">Email address</label>
+            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="required"
+                   th:field="*{email}" readonly>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="form-row">
+            <div class="col-md-6">
+                <div class="form-label-group">
+                    <label for="inputPassword">Password</label>
+                    <input type="password" id="inputPassword" class="form-control" placeholder="New or Current Password"
+                           th:field="*{password}" required>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-label-group">
+                    <label for="confirmPassword">Confirm password</label>
+                    <input type="password" id="confirmPassword" name="confPass" class="form-control"
+                           placeholder="Confirm password" required>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="submit" value="Update My Details">
+</form>

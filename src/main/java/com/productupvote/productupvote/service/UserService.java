@@ -97,4 +97,13 @@ public class UserService {
         HttpSession session = getSession();
         session.invalidate();
     }
+
+    /**
+     * Find user by id.
+     * @param userId user id.
+     * @return user.
+     */
+    public User findUserById(Integer userId) {
+        return userRepository.findUserById(userId);
+    }
 }
