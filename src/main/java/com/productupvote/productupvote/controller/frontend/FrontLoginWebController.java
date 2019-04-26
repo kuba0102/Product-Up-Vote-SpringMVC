@@ -76,8 +76,9 @@ public class FrontLoginWebController extends AppController {
      */
     @GetMapping("/login")
     public String displayLoginForm(Model model, User user) {
-        model.addAttribute(super.PAGE_TITLE_ID, "Login");
+        model.addAttribute(super.PAGE_TITLE_ID, "Login To ProductUpVote");
         model.addAttribute(super.USER, user);
+        model.addAttribute("url", "/login");
         return "login/login";
     }
 

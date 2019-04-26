@@ -91,6 +91,7 @@ public class BackLoginWebController extends AppController {
         if (userService.checkLogin(true)) return super.BACKEND_HOMEPAGE_REDIRECT;
         model.addAttribute(super.PAGE_TITLE_ID, "Backend Login");
         model.addAttribute(super.USER, user);
+        model.addAttribute("url", "/backend/login");
         return "login/login";
     }
 
@@ -100,7 +101,6 @@ public class BackLoginWebController extends AppController {
      *
      * @param model   supply attributes used for rendering views.
      * @param user    user object which stores user input.
-     * @param request request information for HTTP Servlets.
      * @return directory path of the html page to render.
      */
     @PostMapping("/login")
