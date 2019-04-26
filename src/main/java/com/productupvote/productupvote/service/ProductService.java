@@ -48,10 +48,18 @@ public class ProductService {
      * @param approved search term for approved column.
      * @return param: yes = all approved, no = not approved, wait = on wait list.
      */
-    public List<Product> approvedProducts(String approved, boolean userApproved,String search) {
-        if (approved.equals("*")) return productRepository.findAllByNameIsContainingIgnoreCase(search);
-        else if (approved.equals("no")) return productRepository.findByApprovedAndNameIsContainingIgnoreCase(approved,search);
-        return productRepository.findByApprovedAndUserApprovedAndNameIsContainingIgnoreCase(approved, userApproved,search);
+    public List<Product> approvedProducts(String approved, boolean userApproved,String search, String filter, String descAsc) {
+        if(filter == null) {
+            if (approved.equals("*")) return productRepository.findAllByNameIsContainingIgnoreCase(search);
+            else if (approved.equals("no"))
+                return productRepository.findByApprovedAndNameIsContainingIgnoreCase(approved, search);
+        }else{
+            if(filter.equals("top")) {
+                if (descAsc.equals("desc")) return productRepository.findByApprovedAndUserApprovedAndNameIsContainingIgnoreCaseOrderByUpVotesDesc(approved, userApproved, search);
+                return productRepository.findByApprovedAndUserApprovedAndNameIsContainingIgnoreCaseOrderByUpVotesAsc(approved, userApproved, search);
+            }
+        }
+        return productRepository.findByApprovedAndUserApprovedAndNameIsContainingIgnoreCase(approved, userApproved, search);
     }
 
     /**
@@ -81,8 +89,7 @@ public class ProductService {
      * @param search search term.
      * @return list of products.
      */
-    public List<Product> myProducts(String id, String search, String filter, String descAsc) {
-
+    public List<Product> myProducts(String search, String filter, String descAsc) {
         User user = userService.getCurrentUser();
         if (filter != null) {
             if (filter.equals("id")) {

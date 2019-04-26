@@ -47,7 +47,7 @@ public class BackProductWebController extends AppController {
         model.addAttribute(super.PAGE_TITLE_ID, "Approve Product");
         model.addAttribute("page", "approve");
         model.addAttribute("url", "/backend/product-search/");
-        model.addAttribute("products", productService.approvedProducts("no",false, ""));
+        model.addAttribute("products", productService.approvedProducts("no",false, "", null, null));
         model.addAttribute(super.USER, userService.getCurrentUser());
         model.addAttribute("offer", new Offer());
         return this.BACKEND_INDEX;
@@ -70,8 +70,8 @@ public class BackProductWebController extends AppController {
             return super.displayUnauthorised(model, "No permission to approve product.");
         System.out.println("BackendProductWebController: Approving product with id: " + id);
         productService.updateApproveStatus(id, true);
-        if (page.equals("approve")) model.addAttribute("products", productService.approvedProducts("no", false,""));
-        else if (page.equals("all")) model.addAttribute("products", productService.approvedProducts("*", true,""));
+        if (page.equals("approve")) model.addAttribute("products", productService.approvedProducts("no", false,"", null, null));
+        else if (page.equals("all")) model.addAttribute("products", productService.approvedProducts("*", true,"", null, null));
         model.addAttribute("offer", new Offer());
         return "all-fragments/product/fragment-product-list";
     }
@@ -91,7 +91,7 @@ public class BackProductWebController extends AppController {
         model.addAttribute(super.PAGE_TITLE_ID, "Submitted Products");
         model.addAttribute("page", "all");
         model.addAttribute("url", "/backend/product-search/");
-        model.addAttribute("products", productService.approvedProducts("*", true,""));
+        model.addAttribute("products", productService.approvedProducts("*", true,"", null, null));
         model.addAttribute("offer", new Offer());
         return this.BACKEND_INDEX;
     }
@@ -110,9 +110,9 @@ public class BackProductWebController extends AppController {
         if (!permissionService.getUserPermissions(userService.getCurrentUser().getId()).isProductView())
             return super.displayUnauthorised(model, "No permission to view product.");
         if (searchType.equals("approve")) {
-            model.addAttribute("products", productService.approvedProducts("no", false, search));
+            model.addAttribute("products", productService.approvedProducts("no", false, search, null, null));
         }
-        if (searchType.equals("all")) model.addAttribute("products", productService.approvedProducts("*", true, search));
+        if (searchType.equals("all")) model.addAttribute("products", productService.approvedProducts("*", true, search, null, null));
         model.addAttribute("offer", new Offer());
         return "all-fragments/product/fragment-product-list";
     }

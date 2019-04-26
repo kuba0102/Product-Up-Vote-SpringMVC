@@ -3,6 +3,7 @@ package com.productupvote.productupvote.controller.frontend;
 import com.productupvote.productupvote.controller.AppController;
 import com.productupvote.productupvote.domain.Offer;
 import com.productupvote.productupvote.domain.Product;
+import com.productupvote.productupvote.domain.User;
 import com.productupvote.productupvote.service.ProductService;
 import com.productupvote.productupvote.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,7 +98,7 @@ public class FrontProductWebController extends AppController {
         model.addAttribute(super.USER, userService.getCurrentUser());
         model.addAttribute("page", "approved");
         model.addAttribute("url", "/product-search/");
-        model.addAttribute("products", productService.approvedProducts("yes", true,""));
+        model.addAttribute("products", productService.approvedProducts("yes", true, "", null,null));
         return this.FRONTEND_INDEX;
     }
 
@@ -116,7 +117,7 @@ public class FrontProductWebController extends AppController {
         model.addAttribute("page", "my");
         model.addAttribute("url", "/product-search/");
         model.addAttribute("offer", new Offer());
-        model.addAttribute("products", productService.myProducts(null, "", null, null));
+        model.addAttribute("products", productService.myProducts("", null, null));
 
         return this.FRONTEND_INDEX;
     }
@@ -134,9 +135,9 @@ public class FrontProductWebController extends AppController {
         List<Product> products = null;
         model.addAttribute("offer", new Offer());
         if (searchType.equals("approved")) {
-            products = productService.approvedProducts("yes",true, search);
+            products = productService.approvedProducts("yes", true, search, null, null);
         } else if (searchType.equals("my")) {
-            products = productService.myProducts(null, search, null, null);
+            products = productService.myProducts(search, null, null);
             model.addAttribute("products", products);
             return "all-fragments/product/fragment-product-list-2";
         }
@@ -153,13 +154,17 @@ public class FrontProductWebController extends AppController {
      * @param search     product search term.
      * @return directory path of the html page to render.
      */
-    @PostMapping("/up-vote/{id}/{searchType}/{search}")
-    public String addVote(Model model, @PathVariable("id") int productId, @PathVariable("searchType") String searchType, @PathVariable("search") String search) {
+    @PostMapping("/up-vote/{id}/{searchType}/{search}/{filter}/{descAsc}")
+    public String addVote(Model model, @PathVariable("id") int productId,
+                          @PathVariable("searchType") String searchType,
+                          @PathVariable("search") String search,
+                          @PathVariable("filter") String filter,
+                          @PathVariable("descAsc") String descAsc) {
         if (!userService.checkLogin(false)) return this.LOGIN_REDIRECT;
         if (search.equals("null")) search = "";
         System.out.println("FrontProductWebController: UpVoting Product" + "Product id: " + productId);
         productService.addVote(productId);
-        return searchProduct(model, searchType, search);
+        return filterProduct(model,searchType, search, filter,descAsc);
     }
 
     /**
@@ -169,24 +174,25 @@ public class FrontProductWebController extends AppController {
      * @param filter filter option.
      * @return directory path of the html page to render.
      */
-    @PostMapping("/filter/{page}/{search}/{id}/{descAsc}")
+    @PostMapping("/filter/{searchType}/{search}/{id}/{descAsc}")
     public String filterProduct(Model model,
-                                @PathVariable("page") String page,
+                                @PathVariable("searchType") String searchType,
                                 @PathVariable("search") String search,
                                 @PathVariable("id") String filter,
                                 @PathVariable("descAsc") String descAsc) {
         if (!userService.checkLogin(false)) return this.LOGIN_REDIRECT;
+        model.addAttribute("offer", new Offer());
         System.out.println("FrontProductWebController: Applying filter");
-        if(search.equals("null")) search = "";
-        if(page.equals("my")){
+        if (search.equals("null")) search = "";
+        if (searchType.equals("my")) {
             System.out.println("FrontProductWebController: Filters for my products");
-            model.addAttribute("products", productService.myProducts(null, search, filter, descAsc));
-        }else if(page.equals("approved")){
+            model.addAttribute("products", productService.myProducts(search, filter, descAsc));
+        } else if (searchType.equals("approved")) {
             System.out.println("FrontProductWebController: Filters for approved products");
-           // model.addAttribute("products", productService.productFilters());
+            model.addAttribute("products", productService.approvedProducts("yes",true, search, filter, descAsc));
+            return "all-fragments/product/fragment-product-list-index";
         }
 
-        model.addAttribute("offer", new Offer());
         return "all-fragments/product/fragment-product-list-2";
     }
 
@@ -203,10 +209,11 @@ public class FrontProductWebController extends AppController {
                                            @PathVariable("page") String page,
                                            @PathVariable("search") String search) {
         if (!userService.checkLogin(true)) return this.BACKEND_LOGIN_REDIRECT;
-        if(search.equals("null")) search = "";
+        if (search.equals("null")) search = "";
         System.out.println("FrontProductWebController: User approving product with id: " + id);
         productService.updateApproveStatus(id, false);
-        if (page.equals("my")) model.addAttribute("products", productService.myProducts(null, search, null, null));
+        if (page.equals("my"))
+            model.addAttribute("products", productService.myProducts(search, null, null));
         model.addAttribute("offer", new Offer());
         return "all-fragments/product/fragment-product-list-2";
     }

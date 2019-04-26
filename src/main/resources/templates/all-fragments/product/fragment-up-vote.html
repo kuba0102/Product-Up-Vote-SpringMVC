@@ -4,6 +4,16 @@
 <script>
     function upVote(id) {
         var xhttp = new XMLHttpRequest();
+        var e = document.getElementById("ascDscSelection");
+        var descAsc = e.options[e.selectedIndex].value;
+        var els = document.getElementsByName("filter");
+        var filter;
+        for (var i=0;i<els.length;i++){
+            if ( els[i].checked ) {
+                filter = els[i].value;
+                alert(filter);
+            }
+        }
         page = document.getElementById("page").value;
         search = document.getElementById("search").value;
         if (search == "") {
@@ -26,7 +36,7 @@
             }
         };
         setTimeout(function () {
-            xhttp.open("POST", "/up-vote/" + id + "/" + page + "/" + search, true);
+            xhttp.open("POST", "/up-vote/" + id + "/" + page + "/" + search+ "/" + filter + "/" + descAsc, true);
             xhttp.send();
         }, 500);
     }

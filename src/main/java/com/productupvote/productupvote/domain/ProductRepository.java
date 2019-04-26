@@ -33,5 +33,8 @@ public interface ProductRepository extends CrudRepository<Product, Integer> {
     List<Product> findByUserAndNameIsContainingIgnoreCaseOrderByApprovedDesc(User user, String name);
 
     List<Product> findByUserAndNameIsContainingIgnoreCaseOrderByApprovedAsc(User user, String name);
+    
+    List<Product> findByApprovedAndUserApprovedAndNameIsContainingIgnoreCaseOrderByUpVotesDesc(String approved, Boolean userApproved, String search);
 
+    List<Product> findByApprovedAndUserApprovedAndNameIsContainingIgnoreCaseOrderByUpVotesAsc(String approved, boolean userApproved, String search);
 }
