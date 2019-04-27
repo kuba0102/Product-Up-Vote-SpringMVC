@@ -2,13 +2,10 @@
 <div class="row">
     <div class="col-xl-6 col-sm-6 mb-3">
         <div class="container">
-            <div class="card card-register mx-auto mt-5">
+            <div class="card card-register mt-5">
                 <div class="card-body">
                     <form>
-                        <div class="input-group">
-                            <h3><span class="label label-primary">Search User: </span></h3>
-                            <input type="text" id="search" onkeypress="loadSearch()">
-                        </div>
+                    <h3><span class="label label-primary">Search User: <input type="text" id="search" onkeypress="loadSearch()"></span></h3>
                     </form>
                     <div id="allUsers">
                         <div th:insert="backend/fragments/ajax/ajax-all-users.html"></div>
