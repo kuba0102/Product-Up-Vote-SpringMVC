@@ -26,12 +26,15 @@
                                                    th:value="*{name}">
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-12">
                                         <div class="form-label-group">
                                             <label for="description">Description</label>
-                                            <input type="text" id="description" name="description" class="form-control"
+                                            <textarea  class="form-control" rows="5" id="description" name="description"
                                                    placeholder="Description" required="required"
-                                                   th:value="*{description}">
+                                                   th:value="*{description}"></textarea>
                                         </div>
                                     </div>
                                 </div>
