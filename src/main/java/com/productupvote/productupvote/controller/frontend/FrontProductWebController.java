@@ -137,10 +137,10 @@ public class FrontProductWebController extends AppController {
         List<Product> products = null;
         model.addAttribute("offer", new Offer());
         if (searchType.equals("approved")) {
-            products = productService.approvedProducts("yes", true, search, null, null);
+            model.addAttribute("products", productService.approvedProducts("yes", true, search, null, null));
+            return "all-fragments/product/fragment-product-list-index";
         } else if (searchType.equals("my")) {
-            products = productService.myProducts(search, null, null);
-            model.addAttribute("products", products);
+            model.addAttribute("products", productService.myProducts(search, null, null));
             return "all-fragments/product/fragment-product-list-2";
         }else if(searchType.equals("myUpvoted")) {
             model.addAttribute("products", productService.myUpVotedProducts(search, null, null));
