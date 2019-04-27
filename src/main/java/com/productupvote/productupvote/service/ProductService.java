@@ -163,14 +163,16 @@ public class ProductService {
                 if (descAsc.equals("desc"))
                     return productRepository.findByUserAndNameIsContainingIgnoreCaseOrderByNameDesc(user, search);
                 return productRepository.findByUserAndNameIsContainingIgnoreCaseOrderByNameAsc(user, search);
-            } else if (filter.equals("approved")) {
+            } else if (filter.equals("dateApproved")) {
                 if (descAsc.equals("desc"))
                     return productRepository.findByUserAndNameIsContainingIgnoreCaseOrderByDateApprovedDesc(user, search);
                 return productRepository.findByUserAndNameIsContainingIgnoreCaseOrderByDateApprovedAsc(user, search);
-            } else if (filter.equals("dateApproved")) {
+            } else if (filter.equals("approved")) {
                 if (descAsc.equals("desc"))
                     return productRepository.findByUserAndNameIsContainingIgnoreCaseOrderByApprovedDesc(user, search);
                 return productRepository.findByUserAndNameIsContainingIgnoreCaseOrderByApprovedAsc(user, search);
+            } else if(filter.equals("meApproved")) {
+                return productRepository.findByUserAndNameIsContainingIgnoreCaseAndUserApprovedOrderByDateSubmittedDesc(user, search, false);
             }
         }
         return productRepository.findByUserAndNameIsContainingIgnoreCaseOrderByIdDesc(user, search);
@@ -208,9 +210,9 @@ public class ProductService {
 
     public List<Product> myUpVotedProducts(String search, String filter, String descAsc) {
         User user = userService.findUserById(userService.getCurrentUser().getId());
-        if(search.equals("")){
+        if (search.equals("")) {
             return user.getUpVotedProducts();
-        }else{
+        } else {
             return user.getUpVotedByFilters(search, filter, descAsc);
         }
     }

@@ -33,7 +33,9 @@ public interface ProductRepository extends CrudRepository<Product, Integer> {
     List<Product> findByUserAndNameIsContainingIgnoreCaseOrderByApprovedDesc(User user, String name);
 
     List<Product> findByUserAndNameIsContainingIgnoreCaseOrderByApprovedAsc(User user, String name);
-    
+
+    List<Product> findByUserAndNameIsContainingIgnoreCaseAndUserApprovedOrderByDateSubmittedDesc(User user, String name, boolean userApproved);
+
     List<Product> findByApprovedAndUserApprovedAndNameIsContainingIgnoreCaseOrderByUpVotesDesc(String approved, Boolean userApproved, String search);
 
     List<Product> findByApprovedAndUserApprovedAndNameIsContainingIgnoreCaseOrderByUpVotesAsc(String approved, boolean userApproved, String search);
@@ -41,6 +43,7 @@ public interface ProductRepository extends CrudRepository<Product, Integer> {
     List<Product> findByApprovedAndUserApprovedAndNameIsContainingIgnoreCaseOrderByNameDesc(String approved, boolean userApproved, String search);
 
     List<Product> findByApprovedAndUserApprovedAndNameIsContainingIgnoreCaseOrderByNameAsc(String approved, boolean userApproved, String search);
+
 
     List<Product> findByApprovedAndNameIsContainingIgnoreCaseOrderByUpVotesDesc(String approved, String search);
 
@@ -81,4 +84,6 @@ public interface ProductRepository extends CrudRepository<Product, Integer> {
     List<Product> findByApprovedAndNameIsContainingIgnoreCaseOrderByApprovedDesc(String approved, String search);
 
     List<Product> findByApprovedAndNameIsContainingIgnoreCaseOrderByApprovedAsc(String approved, String search);
+
+
 }

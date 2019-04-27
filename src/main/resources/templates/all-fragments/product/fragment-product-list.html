@@ -5,10 +5,22 @@
                 <h4 class="card-title" th:text="${product.name}"></h4>
                 <img th:src="@{'/'+${product.getImage()}}" class="img-responsive" style="width:100%" alt="Image">
 
-                <button type="button" class="btn btn-info" data-toggle="collapse"
-                        th:data-target="'#description'+${product.id}">Description
-                </button>
-                <div th:insert="all-fragments/product/fragment-product-offers.html"></div>
+                <div class="row">
+                    <table class="table table-borderless">
+                        <thead>
+                        <tr>
+                            <th>
+                                <button type="button" class="btn btn-info" data-toggle="collapse"
+                                        th:data-target="'#description'+${product.id}">Description
+                                </button>
+                            </th>
+                            <th th:insert="all-fragments/product/fragment-product-offers.html"></th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div th:id="'description'+${product.id}" class="collapse"
+                     th:text="${product.description}"></div>
             </div>
             <div class="card-footer">
                 <h5 class="card-title" th:text="'Approved: '+${product.approved}"></h5>

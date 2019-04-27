@@ -1,8 +1,6 @@
 <button type="button" class="btn btn-info" data-toggle="collapse"
         th:data-target="'#offers'+${product.id}">Show Offers
 </button>
-<div th:id="'description'+${product.id}" class="collapse"
-     th:text="${product.description}"></div>
 <div th:id="'offers'+${product.id}" class="collapse">
 
     <div th:each="offer:${product.offers}">
