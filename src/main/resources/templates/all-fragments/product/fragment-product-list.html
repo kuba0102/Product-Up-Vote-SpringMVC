@@ -1,8 +1,40 @@
 <div class="row">
     <div class="col-sm-4" th:if="${!products.isEmpty()}" th:each="product : ${products}">
         <div class="card">
+            <div class="card-header">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Date Submitted</th>
+                        <th>User</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td th:text="${product.name}"></td>
+                        <td th:text="${product.dateSubmitted}"></td>
+                        <td th:text="${product.user.username}"></td>
+                    </tr>
+                    <tr>
+                        <td th:if="${product.userApproved == true}" class="table-success"
+                            th:text="'Accepted By user: '+${product.userApproved}"></td>
+                        <td th:if="${product.userApproved == false}" class="table-danger"
+                            th:text="'Accepted By user: '+${product.userApproved}"></td>
+
+                        <td th:if="${product.approved.equals('yes')}" class="table-success"
+                            th:text="'Approved By admin: '+${product.approved}"></td>
+                        <td th:if="${product.approved.equals('no')}" class="table-danger"
+                            th:text="'Approved By admin: '+${product.approved}"></td>
+                        <td>
+                            <a th:if="${product.approved == 'no'}" class="btn btn-success" role="button"
+                               th:id="${product.getId()}" onclick="update(this.id)">Approve</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
             <div class="card-body">
-                <h4 class="card-title" th:text="${product.name}"></h4>
                 <img th:src="@{'/'+${product.getImage()}}" class="img-responsive" style="width:100%" alt="Image">
 
                 <div class="row">
@@ -21,12 +53,6 @@
                 </div>
                 <div th:id="'description'+${product.id}" class="collapse"
                      th:text="${product.description}"></div>
-            </div>
-            <div class="card-footer">
-                <h5 class="card-title" th:text="'Approved: '+${product.approved}"></h5>
-                <a th:if="${product.approved == 'no'}" class="btn btn-success" role="button"
-                   th:id="${product.getId()}"
-                   onclick="update(this.id)">Approve</a>
             </div>
         </div>
     </div>
