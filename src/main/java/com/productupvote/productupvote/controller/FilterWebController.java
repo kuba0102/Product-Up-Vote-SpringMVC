@@ -54,6 +54,10 @@ public class FilterWebController extends AppController {
             System.out.println("FrontProductWebController: Filters for approve products");
             model.addAttribute("products", productService.approvedProducts("no", true, search, filter, descAsc));
             return "all-fragments/product/fragment-product-list";
+        } else if (searchType.equals("myUpvoted")){
+            System.out.println("FrontProductWebController: Filters for my up voted products");
+            model.addAttribute("products", productService.myUpVotedProducts(search, filter, descAsc));
+            return "all-fragments/product/fragment-product-list-index";
         }
 
         return "all-fragments/product/fragment-product-list-2";

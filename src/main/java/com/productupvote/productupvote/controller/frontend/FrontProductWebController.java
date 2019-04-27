@@ -142,8 +142,10 @@ public class FrontProductWebController extends AppController {
             products = productService.myProducts(search, null, null);
             model.addAttribute("products", products);
             return "all-fragments/product/fragment-product-list-2";
+        }else if(searchType.equals("myUpvoted")) {
+            model.addAttribute("products", productService.myUpVotedProducts(search, null, null));
+            return "all-fragments/product/fragment-product-list-index";
         }
-        model.addAttribute("products", products);
         return "all-fragments/product/fragment-product-list-index";
     }
 
@@ -166,6 +168,7 @@ public class FrontProductWebController extends AppController {
                           @PathVariable("descAsc") String descAsc) {
         if (!userService.checkLogin(false)) return this.LOGIN_REDIRECT;
         if (search.equals("null")) search = "";
+        userService.addMyUpVoted(productId);
         System.out.println("FrontProductWebController: UpVoting Product" + "Product id: " + productId);
         productService.addVote(productId);
         return filterWebController.filterProduct(model, searchType, search, filter, descAsc);
@@ -191,5 +194,24 @@ public class FrontProductWebController extends AppController {
             model.addAttribute("products", productService.myProducts(search, null, null));
         model.addAttribute("offer", new Offer());
         return "all-fragments/product/fragment-product-list-2";
+    }
+
+    /**
+     * This method display home page will accepted products.
+     *
+     * @param model supply attributes used for rendering views.
+     * @return directory path of the html page to render.
+     */
+    @GetMapping("/my-up-voted")
+    public String displayMyUpVotedProducts(Model model) {
+        if (!userService.checkLogin(false)) return this.LOGIN_REDIRECT;
+        model.addAttribute(super.DIRECTORY, "frontend/product/product-my-upvoted");
+        model.addAttribute(super.PAGE_TITLE_ID, "MyUpVoted");
+        model.addAttribute(super.USER, userService.getCurrentUser());
+        model.addAttribute("page", "myUpvoted");
+        model.addAttribute("url", "/product-search/");
+        model.addAttribute("products", productService.myUpVotedProducts("", null, ""));
+        System.out.println("FrontProductWebController: Getting my up voted products");
+        return this.FRONTEND_INDEX;
     }
 }

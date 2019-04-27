@@ -2,7 +2,8 @@ package com.productupvote.productupvote.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.util.Date;
+import java.util.*;
+
 /**
  * User
  * This is a User class that will be used to store and return User information.
@@ -36,6 +37,12 @@ public class User {
     private Date dateOnline;
     private boolean backend;
     private int votes;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_product",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "product_id"))
+    private List<Product> upVotedProducts;
 
     public User() {
         this.votes = 10;
@@ -137,6 +144,15 @@ public class User {
     public void setVotes(int votes) {
         this.votes = votes;
     }
+
+    public List<Product> getUpVotedProducts() {
+        return upVotedProducts;
+    }
+
+    public void setUpVotedProducts(List<Product> upVotedProducts) {
+        this.upVotedProducts = upVotedProducts;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -151,5 +167,26 @@ public class User {
                 ", dateUpdated=" + dateUpdated +
                 ", dateOnline=" + dateOnline +
                 '}';
+    }
+
+    public List<Product> getUpVotedByFilters(String search, String filter, String descAsc) {
+        List<Product> products = new ArrayList<>();
+        for (Product p : upVotedProducts) {
+
+            if (!search.equals("")) {
+                if (p.getName().toLowerCase().contains(search.toLowerCase())) {
+                    if (!products.contains(p)) products.add(p);
+                }
+            } else {
+                products = upVotedProducts;
+            }
+        }
+        if (filter != null) {
+            if (filter.equals("name")) products.sort(Comparator.comparing(Product::getName));
+            if (filter.equals("top")) products.sort(Comparator.comparing(Product::getUpVotes));
+            if (descAsc.equals("desc")) Collections.reverse(products);
+        }
+
+        return products;
     }
 }

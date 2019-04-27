@@ -1,5 +1,6 @@
 package com.productupvote.productupvote.service;
 
+import com.productupvote.productupvote.domain.Product;
 import com.productupvote.productupvote.domain.User;
 import com.productupvote.productupvote.domain.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ import java.util.List;
 public class UserService {
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    ProductService productService;
 
     /**
      * This method saves new user in database.
@@ -105,5 +109,18 @@ public class UserService {
      */
     public User findUserById(Integer userId) {
         return userRepository.findUserById(userId);
+    }
+
+    /**
+     * This method add user up voted product.
+     * @param productId id of the product to add to the list.
+     */
+    public void addMyUpVoted(int productId) {
+        Product product = productService.findById(productId);
+        User user = findUserById(getCurrentUser().getId());
+        if(!user.getUpVotedProducts().contains(product)) {
+            user.getUpVotedProducts().add(product);
+            save(user);
+        }
     }
 }

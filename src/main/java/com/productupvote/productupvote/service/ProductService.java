@@ -205,4 +205,13 @@ public class ProductService {
     public Product findById(int productId) {
         return productRepository.findById(productId);
     }
+
+    public List<Product> myUpVotedProducts(String search, String filter, String descAsc) {
+        User user = userService.findUserById(userService.getCurrentUser().getId());
+        if(search.equals("")){
+            return user.getUpVotedProducts();
+        }else{
+            return user.getUpVotedByFilters(search, filter, descAsc);
+        }
+    }
 }
