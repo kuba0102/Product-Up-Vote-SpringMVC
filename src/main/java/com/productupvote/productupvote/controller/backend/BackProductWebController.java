@@ -61,15 +61,15 @@ public class BackProductWebController extends AppController {
      * @param page  which type of page its is.
      * @return directory path of the html page to render.
      */
-    @PostMapping("/product-approve/{id}/{page}")
-    public String updateToApproveProduct(Model model, @PathVariable("id") String id, @PathVariable("page") String page) {
+    @PostMapping("/product-approve/{id}/{page}/{approveStatus}")
+    public String updateToApproveProduct(Model model, @PathVariable("id") String id, @PathVariable("page") String page, @PathVariable("approveStatus") String approveStatus) {
         if (!userService.checkLogin(true)) return this.BACKEND_LOGIN_REDIRECT;
         if (!permissionService.getUserPermissions(userService.getCurrentUser().getId()).isProductView())
             return super.displayUnauthorised(model, "No permission to view product.");
         if (!permissionService.getUserPermissions(userService.getCurrentUser().getId()).isProductApprove())
             return super.displayUnauthorised(model, "No permission to approve product.");
         System.out.println("BackendProductWebController: Approving product with id: " + id);
-        productService.updateApproveStatus(id, true);
+        productService.updateApproveStatus(id, true, approveStatus);
         if (page.equals("approve")) model.addAttribute("products", productService.approvedProducts("no", false,"", null, null));
         else if (page.equals("all")) model.addAttribute("products", productService.approvedProducts("*", true,"", null, null));
         model.addAttribute("offer", new Offer());

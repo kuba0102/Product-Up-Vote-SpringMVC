@@ -19,7 +19,7 @@
     </div>
 </div>
 <script>
-    function update(id) {
+    function approve(id) {
         page = document.getElementById("page").value;
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -29,7 +29,21 @@
             }
         };
         setTimeout(function () {
-            xhttp.open("POST", "/backend/product-approve/" + id + "/" + page, true);
+            xhttp.open("POST", "/backend/product-approve/" + id + "/" + page +"/yes", true);
+            xhttp.send();
+        }, 500);
+    }
+    function disapprove(id) {
+        page = document.getElementById("page").value;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("products").innerHTML =
+                    this.responseText;
+            }
+        };
+        setTimeout(function () {
+            xhttp.open("POST", "/backend/product-approve/" + id + "/" + page +"/disapproved", true);
             xhttp.send();
         }, 500);
     }

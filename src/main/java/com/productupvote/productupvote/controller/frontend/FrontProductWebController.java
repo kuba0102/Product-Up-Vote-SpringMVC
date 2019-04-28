@@ -182,14 +182,15 @@ public class FrontProductWebController extends AppController {
      * @param page  which type of page its is.
      * @return directory path of the html page to render.
      */
-    @PostMapping("/product/product-approve/{id}/{page}/{search}")
+    @PostMapping("/product/product-approve/{id}/{page}/{search}/{approveStatus}")
     public String updateUserApproveProduct(Model model, @PathVariable("id") String id,
                                            @PathVariable("page") String page,
-                                           @PathVariable("search") String search) {
+                                           @PathVariable("search") String search,
+                                           @PathVariable String approveStatus) {
         if (!userService.checkLogin(true)) return this.BACKEND_LOGIN_REDIRECT;
         if (search.equals("null")) search = "";
         System.out.println("FrontProductWebController: User approving product with id: " + id);
-        productService.updateApproveStatus(id, false);
+        productService.updateApproveStatus(id, false, approveStatus);
         if (page.equals("my"))
             model.addAttribute("products", productService.myProducts(search, null, null));
         model.addAttribute("offer", new Offer());

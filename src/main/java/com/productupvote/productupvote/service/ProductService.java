@@ -132,11 +132,11 @@ public class ProductService {
      * @param id      product id to update approve status.
      * @param backend true if backend user false if not.
      */
-    public void updateApproveStatus(String id, Boolean backend) {
+    public void updateApproveStatus(String id, Boolean backend,String statusApprove) {
         Product product = productRepository.findById(Integer.parseInt(id));
         if (backend) {
             product.setDateApproved(new Date());
-            product.setApproved("yes");
+            product.setApproved(statusApprove);
             productRepository.save(product);
         } else {
             if (product.getUser().getId() == userService.getCurrentUser().getId()) {
