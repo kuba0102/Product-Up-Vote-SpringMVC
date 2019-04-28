@@ -23,7 +23,7 @@ import java.util.Date;
 /**
  * BackLoginWebController
  * This class controls requests for:
- * Login, logout, add user and backend homepage.
+ * displayAddUserForm, addNewUserForm, displayBackendLoginForm, loginForm, displayHome, logoutUser and addBasicUser.
  *
  * @author U1554969 Jakub Chruslicki
  */

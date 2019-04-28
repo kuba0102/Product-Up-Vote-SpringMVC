@@ -6,7 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+/**
+ * PermissionService
+ * Service class for Permissions.
+ * Methods:
+ * save, findAllPermissions, getUserPermissions and getCurrentUserPermission.
+ *
+ * @author U1554969 Jakub Chruslicki
+ */
 @Service
 public class PermissionService {
     @Autowired

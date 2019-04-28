@@ -11,6 +11,15 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+/**
+ * ProductService
+ * Service class for Products.
+ * Methods:
+ * save, findUserByEmail, findAllUsers, getSession, getCurrentUser, checkLogin, userSearch, setUserSession,
+ * cleanSession, findUserById and addMyUpVoted.
+ *
+ * @author U1554969 Jakub Chruslicki
+ */
 @Service
 public class UserService {
     @Autowired

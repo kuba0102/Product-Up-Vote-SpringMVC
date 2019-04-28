@@ -1,7 +1,12 @@
 package com.productupvote.productupvote.controller;
 
 import org.springframework.ui.Model;
-
+/**
+ * AppController
+ * This class controls sets up basic urls and variables.
+ *
+ * @author U1554969 Jakub Chruslicki
+ */
 public class AppController {
 
     // Protected variables

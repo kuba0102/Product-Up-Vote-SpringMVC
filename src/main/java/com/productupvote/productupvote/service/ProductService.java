@@ -13,7 +13,14 @@ import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
 
-
+/**
+ * ProductService
+ * Service class for Products.
+ * Methods:
+ * save, approvedProducts, updateApproveStatus, myProducts, addVote, findById and myUpVotedProducts.
+ *
+ * @author U1554969 Jakub Chruslicki
+ */
 @Service
 public class ProductService {
     @Autowired
@@ -132,7 +139,7 @@ public class ProductService {
      * @param id      product id to update approve status.
      * @param backend true if backend user false if not.
      */
-    public void updateApproveStatus(String id, Boolean backend,String statusApprove) {
+    public void updateApproveStatus(String id, Boolean backend, String statusApprove) {
         Product product = productRepository.findById(Integer.parseInt(id));
         if (backend) {
             product.setDateApproved(new Date());
@@ -171,7 +178,7 @@ public class ProductService {
                 if (descAsc.equals("desc"))
                     return productRepository.findByUserAndNameIsContainingIgnoreCaseOrderByApprovedDesc(user, search);
                 return productRepository.findByUserAndNameIsContainingIgnoreCaseOrderByApprovedAsc(user, search);
-            } else if(filter.equals("meApproved")) {
+            } else if (filter.equals("meApproved")) {
                 return productRepository.findByUserAndNameIsContainingIgnoreCaseAndUserApprovedOrderByDateSubmittedDesc(user, search, false);
             }
         }

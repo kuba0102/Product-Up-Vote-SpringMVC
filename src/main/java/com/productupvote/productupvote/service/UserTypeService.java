@@ -7,6 +7,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * ProductService
+ * Service class for Products.
+ * Methods:
+ * save and findAll.
+ *
+ * @author U1554969 Jakub Chruslicki
+ */
 @Service
 public class UserTypeService {
     @Autowired

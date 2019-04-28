@@ -5,17 +5,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 /**
- * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  * Product
- * This is a User class that will be used to store and return User information.
+ * This is a Product class that will be used to store and return Product information.
  * It has variables and each variable has a getter and setter.
- * Variables: Integer id, String username, String name, String surname, String email, String password,
- * String salt, Date dateCreated, Date dateUpdated, Date dateOnline and boolean backend.
+ * Variables: Integer id, User user, String name, String description, String image, String approved,
+ * Boolean userApproved, int upVotes, Date dateSubmitted and Date dateApproved.
  *
  * @author U1554969 Jakub Chruslicki
  */
@@ -32,11 +30,6 @@ public class Product {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToMany(cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            mappedBy = "product")
-    @JsonIgnore
-    private List<Tag> tags;
     @NotEmpty
     private String name;
     @NotEmpty
@@ -58,8 +51,6 @@ public class Product {
     private List<Offer> offers;
 
     public Product() {
-        List<Tag> newTags = new ArrayList<>();
-        this.tags = newTags;
         this.approved = "no";
         this.userApproved = false;
         this.upVotes = 0;
@@ -114,14 +105,6 @@ public class Product {
 
     public void setApproved(String approved) {
         this.approved = approved;
-    }
-
-    public List<Tag> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<Tag> tags) {
-        this.tags = tags;
     }
 
     public int getUpVotes() {

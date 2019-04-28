@@ -7,10 +7,9 @@ import java.util.Date;
 
 /**
  * Offer
- * This is a User class that will be used to store and return Offer information.
+ * This is a Offer class that will be used to store and return Offer information.
  * It has variables and each variable has a getter and setter.
- * Variables: Integer id, String comment, Product product, double sourcePrice and double markPrice.
- * String salt, Date dateCreated, Date dateUpdated, Date dateOnline and boolean backend.
+ * Variables: Integer id, Product product, User user, double sourcePrice, double marketPrice and Date date.
  *
  * @author U1554969 Jakub Chruslicki
  */

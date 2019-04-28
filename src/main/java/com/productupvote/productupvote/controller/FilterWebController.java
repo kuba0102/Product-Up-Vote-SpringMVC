@@ -21,7 +21,6 @@ public class FilterWebController extends AppController {
     @Autowired
     ProductService productService;
 
-
     /**
      * @param model      supply attributes used for rendering views.
      * @param searchType type product to search.

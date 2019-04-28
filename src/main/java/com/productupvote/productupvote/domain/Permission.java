@@ -8,7 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 /**
  * Permission
- * This is a User class that will be used to store and return User information.
+ * This is a Permission class that will be used to store and return Permission information.
  * It has variables and each variable has a getter and setter.
  * Variables: Integer id, User user, UserType userType,  boolean userEdit, boolean userView,
  * boolean userDelete, boolean userAdd,  boolean productApprove, boolean productEdit, boolean productView, 

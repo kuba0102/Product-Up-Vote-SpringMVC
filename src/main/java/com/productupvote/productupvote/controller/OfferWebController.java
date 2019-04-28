@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * OfferWebController
- * This class controls requests for:
- * displayToApproveProduct, updateToApproveProduct and displayAllSubmitted.
+ * This class controls requests controls product offers:
+ * addOffer.
  *
  * @author U1554969 Jakub Chruslicki
  */

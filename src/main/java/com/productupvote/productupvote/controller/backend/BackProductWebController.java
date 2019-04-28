@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * BackendProductWebController
  * This class controls requests for:
- * displayToApproveProduct, updateToApproveProduct and displayAllSubmitted.
+ * displayToApproveProduct, updateToApproveProduct, displayAllSubmitted and searchProduct.
  *
  * @author U1554969 Jakub Chruslicki
  */

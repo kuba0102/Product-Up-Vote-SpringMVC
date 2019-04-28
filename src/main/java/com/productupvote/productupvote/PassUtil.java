@@ -1,13 +1,13 @@
 package com.appsdeveloperblog.encryption;
 
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Random;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
 
 public class PassUtil {
 
@@ -50,8 +50,7 @@ public class PassUtil {
     }
 
     public static boolean verifyUserPassword(String providedPassword,
-                                             String securedPassword, String salt)
-    {
+                                             String securedPassword, String salt) {
         boolean returnValue = false;
 
         // Generate New secure password with the same salt

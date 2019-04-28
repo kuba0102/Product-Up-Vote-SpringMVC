@@ -18,7 +18,8 @@ import java.util.List;
 /**
  * FrontLoginWebController
  * This class controls requests for:
- * displayProductForm, displayProductForm, displayProducts and displayMyProducts.
+ * displayProductForm, displayProductForm, displayProducts, displayMyProducts, searchProduct, addVote,
+ * updateUserApproveProduct and displayMyUpVotedProducts.
  *
  * @author U1554969 Jakub Chruslicki
  */

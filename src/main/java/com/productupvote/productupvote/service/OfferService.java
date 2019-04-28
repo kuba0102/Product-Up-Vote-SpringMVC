@@ -5,7 +5,14 @@ import com.productupvote.productupvote.domain.OfferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+/**
+ * OfferService
+ * Service class for offers.
+ * Methods:
+ * save.
+ *
+ * @author U1554969 Jakub Chruslicki
+ */
 @Service
 public class OfferService {
     @Autowired
