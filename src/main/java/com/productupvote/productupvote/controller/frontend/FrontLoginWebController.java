@@ -3,12 +3,16 @@ package com.productupvote.productupvote.controller.frontend;
 import com.appsdeveloperblog.encryption.PassUtil;
 import com.productupvote.productupvote.controller.AppController;
 import com.productupvote.productupvote.domain.User;
+import com.productupvote.productupvote.service.PermissionService;
 import com.productupvote.productupvote.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.Date;
@@ -16,7 +20,7 @@ import java.util.Date;
 /**
  * FrontLoginWebController
  * This class controls requests for:
- * login, logout, register and delete user.
+ * displayRegisterForm, registerForm, displayLoginForm, loginForm, logoutUser and updateUserDetails.
  *
  * @author U1554969 Jakub Chruslicki
  */
@@ -28,6 +32,9 @@ public class FrontLoginWebController extends AppController {
 
     @Autowired
     FrontProductWebController frontProductWebController;
+
+    @Autowired
+    PermissionService permissionService;
 
     /**
      * This method returns register forms.
@@ -87,8 +94,8 @@ public class FrontLoginWebController extends AppController {
      * This method gets user object with data and checks the database if this user already exists.
      * If user exists verifies the password and creates new user session.
      *
-     * @param model   supply attributes used for rendering views.
-     * @param user    user object which stores user input.
+     * @param model supply attributes used for rendering views.
+     * @param user  user object which stores user input.
      * @return directory path of the html page to render.
      */
     @PostMapping("/login")
@@ -131,33 +138,32 @@ public class FrontLoginWebController extends AppController {
         return displayLoginForm(model, new User());
     }
 
+
     /**
      * This method updates users information.
-     * @param model supply attributes used for rendering views.
-     * @param user user to update.
+     *
+     * @param model    supply attributes used for rendering views.
+     * @param user     user to update.
      * @param confPass password confirmation.
      * @return directory path of the html page to render.
      */
     @PostMapping("/update-user")
     public String updateUserDetails(Model model, @ModelAttribute("user") User user,
-                                    @RequestParam("confPass") String confPass){
-        if(!userService.checkLogin(false)) return super.LOGIN_REDIRECT;
-        if(userService.getCurrentUser().getId() != user.getId()) {
+                                    @RequestParam("confPass") String confPass) {
+        User updatedUser = userService.findUserById(user.getId());
+        if (!userService.checkLogin(false)) return super.LOGIN_REDIRECT;
+        if (userService.getCurrentUser().getId() != user.getId()) {
             model.addAttribute("formMsg", "Can't update this user");
             return frontProductWebController.displayProducts(model);
         }
-        User updatedUser = userService.findUserById(user.getId());
-        System.out.println(user.getPassword()+" "+confPass);
-
-            if (user.getPassword().equals(confPass)) {
-                if(!PassUtil.verifyUserPassword(user.getPassword(), updatedUser.getPassword(), updatedUser.getSalt())) {
-                    user.setSalt(PassUtil.getSalt(30));
-                    user.setPassword(PassUtil.generateSecurePassword(user.getPassword(), user.getSalt()));
-                }
-            } else {
-                model.addAttribute("formMsg", "Password did not match");
+        if (user.getPassword().equals(confPass)) {
+            if (!PassUtil.verifyUserPassword(user.getPassword(), updatedUser.getPassword(), updatedUser.getSalt())) {
+                user.setSalt(PassUtil.getSalt(30));
+                user.setPassword(PassUtil.generateSecurePassword(user.getPassword(), user.getSalt()));
             }
-
+        } else {
+            model.addAttribute("formMsg", "Password did not match");
+        }
         user.setDateUpdated(new Date());
         userService.save(user);
         userService.setUserSession(userService.findUserById(user.getId()));

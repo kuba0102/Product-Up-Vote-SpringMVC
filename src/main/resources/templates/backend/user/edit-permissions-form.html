@@ -1,23 +1,20 @@
-<!-- New user forms -->
-<div class="row">
-    <!--<div class="col-xl-3 col-sm-6 mb-3">-->
-    <div class="container">
-        <div class="card card-register mx-auto mt-5">
-            <div class="card-header">Set Permission</div>
-            <div class="card-body">
-                <div th:if="${error != null}">
-                    <div class="alert alert-warning" th:text="${error}">
-                    </div>
-                </div>
-                <div th:insert="backend/fragments/forms/fragment-perm-form"></div>
-            </div>
+<!-- Permission form -->
+<div class="container">
+    <div class="card card-register mx-auto mt-5">
+        <div class="card-header">
+            <p>
+                <label>Setting Permissions for:</label>
+            </p>
+            <p>
+            <label th:text="'Username: ' + ${perm.user.username}"></label>
+            </p>
+            <p>
+                <label th:text="'Email: ' + ${perm.user.email}"></label>
+            </p>
+        </div>
+        <div class="card-body">
+            <div th:insert="backend/fragments/forms/fragment-perm-form"></div>
         </div>
     </div>
-    <!--</div>-->
 </div>
 
-<!-- Sticky Footer -->
-<div th:insert="backend/fragments/fragment-sticky-footer.html"></div>
-</div>
-</div>
-<!-- /.content-wrapper -->

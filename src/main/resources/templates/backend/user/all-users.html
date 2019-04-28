@@ -4,6 +4,14 @@
         <div class="container">
             <div class="card card-register mt-5">
                 <div class="card-body">
+                    <!--Messages-->
+                    <div th:if="${error != null}">
+                        <div class="alert alert-warning" th:text="${error}">
+                        </div>
+                    </div>
+                    <div class="alert alert-success" role="alert" th:if="${message != null}" th:text="${message}">
+                    </div>
+                    <!--Form-->
                     <form>
                     <h3><span class="label label-primary">Search User: <input type="text" id="search" onkeypress="loadSearch()"></span></h3>
                     </form>
@@ -14,6 +22,11 @@
             </div>
         </div>
     </div>
+    <div class="col-xl-6 col-sm-6 mb-3">
+        <div class="container" id="forms">
+        </div>
+    </div>
+
 </div>
 
 
@@ -28,6 +41,27 @@
         };
         setTimeout(function () {
             xhttp.open("POST", "/backend/all-users/" + document.getElementById("search").value, true);
+            xhttp.send();
+        }, 500);
+    }
+
+    function loadForms(id, userId) {
+        var xhttp = new XMLHttpRequest();
+        var url;
+        if(id == "perm"){
+            url = "/backend/permission/" + userId;
+        }else if(id == "update"){
+            url = "/backend/update-user/"+ userId;
+        }
+        alert(url);
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("forms").innerHTML =
+                    this.responseText;
+            }
+        };
+        setTimeout(function () {
+            xhttp.open("GET", url, true);
             xhttp.send();
         }, 500);
     }

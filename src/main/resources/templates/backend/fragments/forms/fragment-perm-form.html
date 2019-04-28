@@ -1,9 +1,6 @@
-<div class="alert alert-success" role="alert" th:if="${message != null}" th:text="${message}">
-</div>
-<form th:object="${perm}" method="POST">
+<form th:object="${perm}" action="/backend/permission" method="POST">
     <input type="hidden" th:field="*{id}"/>
     <input type="hidden" th:field="*{user}"/>
-
     <!--User Settings-->
     <table class="table table-hover">
         <h3><label>User Settings</label></h3>

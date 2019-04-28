@@ -2,7 +2,8 @@
 <ul class="list-group" id="all-users" th:if="${!users.isEmpty()}" th:each="user: ${users}">
     <li class="list-group-item"
        th:text=" 'User ID: ' + ${user.id} + ' -------- Name: ' + ${user.name} + ' -------- Last Name: '+ ${user.surname} "></li>
-    <a class="btn btn-primary" th:href="@{'/backend/permission/' + ${user.id}}" role="button">Set Permissions</a>
+    <a class="btn btn-primary" id="perm" th:name="${user.id}" onclick="loadForms(this.id, this.name)" role="button">Set Permissions</a>
+    <a class="btn btn-primary" id="update" th:name="${user.id}" onclick="loadForms(this.id, this.name)" role="button">Update User</a>
 </ul>
 <ul class="list-group" th:if="${users.isEmpty()}">
     <a>No Users Found</a>
