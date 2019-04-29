@@ -19,7 +19,7 @@ import java.util.List;
  * FrontLoginWebController
  * This class controls requests for:
  * displayProductForm, displayProductForm, displayProducts, displayMyProducts, searchProduct, addVote,
- * updateUserApproveProduct and displayMyUpVotedProducts.
+ * updateUserApproveProduct, displayMyUpVotedProducts and removeProduct.
  *
  * @author U1554969 Jakub Chruslicki
  */
@@ -222,6 +222,12 @@ public class FrontProductWebController extends AppController {
         return this.FRONTEND_INDEX;
     }
 
+    /**
+     * This method removes product and displays correct page.
+     * @param model supply attributes used for rendering views.
+     * @param productId id of the product to remove.
+     * @return directory path of the html page to render.
+     */
     @PostMapping("/product/remove/{productId}")
     public String removeProduct(Model model, @PathVariable Integer productId) {
         try {

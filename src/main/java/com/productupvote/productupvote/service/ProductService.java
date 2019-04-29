@@ -227,6 +227,10 @@ public class ProductService {
         }
     }
 
+    /**
+     * This method removes certain product from the database.
+     * @param product product to remove.
+     */
     public void remove(Product product) {
 
         productRepository.delete(product);
