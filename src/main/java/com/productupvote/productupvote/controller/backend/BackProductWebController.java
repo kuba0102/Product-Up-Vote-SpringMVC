@@ -4,14 +4,19 @@ import com.productupvote.productupvote.controller.AppController;
 import com.productupvote.productupvote.domain.Offer;
 import com.productupvote.productupvote.service.PermissionService;
 import com.productupvote.productupvote.service.ProductService;
+import com.productupvote.productupvote.service.ReportService;
 import com.productupvote.productupvote.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.io.IOException;
 
 /**
  * BackendProductWebController
@@ -30,6 +35,8 @@ public class BackProductWebController extends AppController {
     ProductService productService;
     @Autowired
     PermissionService permissionService;
+    @Autowired
+    ReportService reportService;
 
 
     /**
@@ -115,5 +122,18 @@ public class BackProductWebController extends AppController {
         if (searchType.equals("all")) model.addAttribute("products", productService.approvedProducts("*", true, search, null, null));
         model.addAttribute("offer", new Offer());
         return "all-fragments/product/fragment-product-list";
+    }
+
+    /**
+     * This method allows user to download product reports.
+     * @return download file.
+     * @throws IOException
+     */
+    @GetMapping("/product-approve/download")
+    public ResponseEntity<InputStreamResource> startDownload() throws IOException {
+        if (userService.checkLogin(true) && permissionService.getCurrentUserPermission().isProductView()) {
+                return reportService.downloadCSV(reportService.saveFile(reportService.getTopProducts()));
+        }
+        return null;
     }
 }

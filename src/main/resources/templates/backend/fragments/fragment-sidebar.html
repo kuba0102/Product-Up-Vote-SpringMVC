@@ -15,17 +15,29 @@
                 <h6 class="dropdown-header">Submitted Products:</h6>
                 <a class="dropdown-item" th:href="@{/backend/product-submitted}">All Submitted Products</a>
                 <a class="dropdown-item" th:href="@{/backend/product-approve}">To Approve Products</a>
-                <a class="dropdown-item" href="login.html">Approved Products</a>
-                <a class="dropdown-item" href="register.html">Disapproved products</a>
-                <a class="dropdown-item" href="register.html">Amend Products</a>
+                <!--<a class="dropdown-item" href="login.html">Approved Products</a>-->
+                <!--<a class="dropdown-item" href="register.html">Disapproved products</a>-->
+                <!--<a class="dropdown-item" href="register.html">Amend Products</a>-->
             </div>
         </li>
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" id="pagesDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Users</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="pagesDropdown3">
+                <h6 class="dropdown-header">Users:</h6>
+                <a class="dropdown-item" th:href="@{/backend/add-user}">Add New User</a>
+                <a class="dropdown-item" th:href="@{/backend/all-users}">All Users</a>
+                <!--<a class="dropdown-item" href="blank.html">User History</a>-->
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-fw fa-folder"></i>
                 <span>Products</span>
             </a>
-            <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <div class="dropdown-menu" aria-labelledby="pagesDropdown1">
                 <h6 class="dropdown-header">Products:</h6>
                 <a class="dropdown-item" href="#">Add Product</a>
                 <a class="dropdown-item" href="#">Remove Product</a>
@@ -36,29 +48,17 @@
             </div>
         </li>
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-fw fa-folder"></i>
                 <span>Orders</span>
             </a>
-            <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <div class="dropdown-menu" aria-labelledby="pagesDropdown2">
                 <h6 class="dropdown-header">Orders:</h6>
                 <a class="dropdown-item" href="404.html">All orders</a>
                 <a class="dropdown-item" href="blank.html">New Orders</a>
                 <a class="dropdown-item" href="blank.html">Create Order</a>
                 <a class="dropdown-item" href="blank.html">Cancel Order</a>
                 <a class="dropdown-item" href="blank.html">Returns</a>
-            </div>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>Users</span>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                <h6 class="dropdown-header">Users:</h6>
-                <a class="dropdown-item" th:href="@{/backend/add-user}">Add New User</a>
-                <a class="dropdown-item" th:href="@{/backend/all-users}">All Users</a>
-                <a class="dropdown-item" href="blank.html">User History</a>
             </div>
         </li>
         <li class="nav-item">
