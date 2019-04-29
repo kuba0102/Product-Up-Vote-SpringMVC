@@ -24,14 +24,13 @@
 
                         <td th:if="${product.approved.equals('yes')}" class="table-success"
                             th:text="'Approved By admin: '+${product.approved}"></td>
-                        <td th:if="${(product.approved == 'no') || (product.approved == 'disapproved')}" class="table-danger"
+                        <td th:if="${(product.approved == 'no') || (product.approved == 'disapproved')}"
+                            class="table-danger"
                             th:text="'Approved By admin: '+${product.approved}"></td>
-                        <td th:if="${product.approved == 'no'}">
-                            <a  class="btn btn-success" role="button"
+                        <td>
+                            <a th:if="${product.approved == 'no'}" class="btn btn-success" role="button"
                                th:id="${product.getId()}" onclick="approve(this.id)">Approve</a>
-                        </td>
-                        <td th:if="${product.approved != 'disapproved'}">
-                            <a  class="btn btn-warning" role="button"
+                            <a th:if="${product.approved != 'disapproved'}" class="btn btn-warning" role="button"
                                th:id="${product.getId()}" onclick="disapprove(this.id)">Disapprove</a>
                         </td>
                     </tr>

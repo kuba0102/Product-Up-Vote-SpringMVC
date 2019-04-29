@@ -151,6 +151,9 @@ public class ProductService {
                 productRepository.save(product);
             }
         }
+        if((product.getUserApproved()) && (product.getApproved().equals("yes"))){
+            userService.addVotes( "+",15, product.getUser().getId());
+        }
     }
 
     /**

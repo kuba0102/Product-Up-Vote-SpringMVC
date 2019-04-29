@@ -1,4 +1,4 @@
-<form th:object="${user}" action="/backend/add-user" method="POST">
+<form th:object="${user}" method="POST">
     <div class="form-group">
         <div class="form-label-group">
             <label for="inputUsername">Username</label>
@@ -25,10 +25,15 @@
         </div>
     </div>
     <div class="form-group">
-        <div class="form-label-group">
-            <label for="inputEmail">Email address</label>
-            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="required"
-                   th:field="*{email}">
+        <div class="form-row">
+            <div class="col-md-6">
+                <div class="form-label-group">
+                    <label for="inputEmail">Email address</label>
+                    <input type="email" id="inputEmail" class="form-control" placeholder="Email address"
+                           required="required"
+                           th:field="*{email}">
+                </div>
+            </div>
         </div>
     </div>
     <div class="form-group">

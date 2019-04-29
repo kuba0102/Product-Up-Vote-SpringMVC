@@ -4,11 +4,13 @@ import com.productupvote.productupvote.domain.Product;
 import com.productupvote.productupvote.domain.User;
 import com.productupvote.productupvote.domain.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,7 +18,7 @@ import java.util.List;
  * Service class for Products.
  * Methods:
  * save, findUserByEmail, findAllUsers, getSession, getCurrentUser, checkLogin, userSearch, setUserSession,
- * cleanSession, findUserById and addMyUpVoted.
+ * cleanSession, findUserById, addMyUpVoted addVoteDailyLogin, addVotes and checkCurrentUserVotes.
  *
  * @author U1554969 Jakub Chruslicki
  */
@@ -83,7 +85,12 @@ public class UserService {
         User user = getCurrentUser();
         if (backend) {
             if (user != null) {
-                if (user.isBackend()) return true; // returns true if user is logged in and has backend access.
+                if (user.isBackend()) {
+                    return true; // returns true if user is logged in and has backend access.
+                }
+                else{
+                    return false;
+                }
             } else return false;
         }
         return user != null;
@@ -139,5 +146,57 @@ public class UserService {
             user.getUpVotedProducts().add(product);
             save(user);
         }
+    }
+
+    /**
+     * This method add votes for user if correct tine has passed.
+     *
+     * @param user user to add votes to.
+     * @return updated user.
+     */
+    public User addVoteDailyLogin(User user) {
+        try {
+            long lastLoginTime = user.getDateOnline().getTime() + 43200000; ///12 hours
+            Date currentDate = new Date();
+            System.out.println(lastLoginTime < currentDate.getTime());
+            if (lastLoginTime < currentDate.getTime()) {
+                System.out.println("Adding votes to user:" + user.getUsername());
+                user.setVotes(user.getVotes() + 10);
+            }
+            return user;
+        } catch (Exception e) {
+            System.out.println("No last login date");
+            return user;
+        }
+    }
+
+    /**
+     * This method adds or takes away votes.
+     * @param operation which operation to do.
+     * @param votes number of votes.
+     * @param id id of user.
+     */
+    public void addVotes(String operation, int votes, int id){
+        User user = findUserById(id);
+        if(operation.equals("+")) {
+            user.setVotes(user.getVotes() + votes);
+        }else if(operation.equals("-"))
+        {
+            user.setVotes(user.getVotes() - votes);
+        }
+        save(user);
+        setUserSession(user);
+    }
+
+    /**
+     * Checks if current user can use votes.
+     * @param votes number of votes to check.
+     * @return true if user can user votes and false if can not user votes.
+     */
+    public boolean checkCurrentUserVotes(int votes){
+        if((getCurrentUser().getVotes() - votes) < 0){
+            return false;
+        }else return true;
+
     }
 }

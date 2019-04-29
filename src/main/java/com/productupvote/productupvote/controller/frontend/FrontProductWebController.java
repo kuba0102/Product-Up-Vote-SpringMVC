@@ -68,6 +68,10 @@ public class FrontProductWebController extends AppController {
             model.addAttribute("error", "Only PNG images accepted.");
             return displayProductForm(model);
         }
+        if(!userService.checkCurrentUserVotes(5)){
+            model.addAttribute("error", "Not enough votes.");
+            return displayProductForm(model);
+        }
         try {
             System.out.println("FrontProductWebController: Submitting Product: " + product.getName());
             // Adding offer to product.
@@ -80,6 +84,7 @@ public class FrontProductWebController extends AppController {
             offers.add(offer);
             offer.setUser(userService.getCurrentUser());
             product.setOffers(offers);
+            userService.addVotes("-", 5, userService.getCurrentUser().getId());
             productService.save(product, image);
         } catch (Exception e) {
             e.printStackTrace();

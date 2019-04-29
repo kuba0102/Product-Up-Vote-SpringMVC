@@ -106,10 +106,11 @@ public class FrontLoginWebController extends AppController {
             System.out.println("FrontLoginWebController - User found" + tempUser.getEmail());
             if (tempUser != null) {
                 if (PassUtil.verifyUserPassword(user.getPassword(), tempUser.getPassword(), tempUser.getSalt())) {
-                    model.addAttribute("message", "Success");
+                    tempUser = userService.addVoteDailyLogin(tempUser); // Add votes if correct time has passed.
                     tempUser.setDateOnline(new Date());
                     userService.save(tempUser);
                     userService.setUserSession(tempUser);
+                    model.addAttribute("message", "Success");
                     System.out.println("FrontLoginWebController - Message: Success Login");
                     return super.HOMEPAGE_REDIRECT;
                 } else {
