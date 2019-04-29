@@ -68,7 +68,7 @@ public class FrontProductWebController extends AppController {
             model.addAttribute("error", "Only PNG images accepted.");
             return displayProductForm(model);
         }
-        if(!userService.checkCurrentUserVotes(5)){
+        if (!userService.checkCurrentUserVotes(5)) {
             model.addAttribute("error", "Not enough votes.");
             return displayProductForm(model);
         }
@@ -148,7 +148,7 @@ public class FrontProductWebController extends AppController {
         } else if (searchType.equals("my")) {
             model.addAttribute("products", productService.myProducts(search, null, null));
             return "all-fragments/product/fragment-product-list-2";
-        }else if(searchType.equals("myUpvoted")) {
+        } else if (searchType.equals("myUpvoted")) {
             model.addAttribute("products", productService.myUpVotedProducts(search, null, null));
             return "all-fragments/product/fragment-product-list-index";
         }
@@ -220,5 +220,20 @@ public class FrontProductWebController extends AppController {
         model.addAttribute("products", productService.myUpVotedProducts("", null, ""));
         System.out.println("FrontProductWebController: Getting my up voted products");
         return this.FRONTEND_INDEX;
+    }
+
+    @PostMapping("/product/remove/{productId}")
+    public String removeProduct(Model model, @PathVariable Integer productId) {
+        try {
+            Product product = productService.findById(productId);
+            if (product.getUser().getId() == userService.getCurrentUser().getId()) {
+                productService.remove(product);
+                System.out.println("FrontProductWebController: Product removed");
+            }
+            return "redirect:/product-my";
+        } catch (Exception e) {
+            System.out.println(e);
+            return displayMyProducts(model);
+        }
     }
 }

@@ -226,4 +226,9 @@ public class ProductService {
             return user.getUpVotedByFilters(search, filter, descAsc);
         }
     }
+
+    public void remove(Product product) {
+
+        productRepository.delete(product);
+    }
 }

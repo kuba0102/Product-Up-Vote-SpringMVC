@@ -38,6 +38,11 @@
                     </a>
                     <a class="list-group-item" th:insert="all-fragments/product/fragment-product-offers.html"></a>
                     <a class="list-group-item" th:if="${!product.userApproved}"> <button th:id="${product.id}" type="button" class="btn-success" onclick="acceptOffer(this.id)">Accept Offer</button></a>
+                    <a class="list-group-item" th:if="${product.approved == 'no'}">
+                        <form th:action="'/product/remove/' + ${product.id}" method="post">
+                            <input type="submit" class="btn-warning" value="Remove">
+                        </form>
+                    </a>
                 </div>
             </div>
         </div>
