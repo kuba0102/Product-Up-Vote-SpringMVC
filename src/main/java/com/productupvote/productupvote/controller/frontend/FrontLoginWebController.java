@@ -60,16 +60,21 @@ public class FrontLoginWebController extends AppController {
      */
     @PostMapping("/register")
     public String registerForm(Model model, @Valid @ModelAttribute("user") User user, BindingResult bindingResult) {
-        if (!bindingResult.hasErrors() && user.getPassword().equals(user.getSalt())) {
-            user.setSalt(PassUtil.getSalt(30));
-            user.setPassword(PassUtil.generateSecurePassword(user.getPassword(), user.getSalt()));
-            user.setDateCreated(new Date());
-            user.setBackend(false);
-            userService.save(user);
-            System.out.println(user.toString());
-        } else {
-            model.addAttribute("error", "Password did not match.");
-            System.out.println("FrontLoginWebController - Binding result error");
+        if(userService.findUserByEmail(user.getEmail()) == null) {
+            if (!bindingResult.hasErrors() && user.getPassword().equals(user.getSalt())) {
+                user.setSalt(PassUtil.getSalt(30));
+                user.setPassword(PassUtil.generateSecurePassword(user.getPassword(), user.getSalt()));
+                user.setDateCreated(new Date());
+                user.setBackend(false);
+                userService.save(user);
+                System.out.println(user.toString());
+            } else {
+                model.addAttribute("error", "Password did not match.");
+                System.out.println("FrontLoginWebController - Binding result error");
+                return this.displayRegisterForm(model, user);
+            }
+        }else{
+            model.addAttribute("error", "Email already exists.");
             return this.displayRegisterForm(model, user);
         }
         return super.LOGIN_REDIRECT;
