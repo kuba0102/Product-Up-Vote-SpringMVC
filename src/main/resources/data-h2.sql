@@ -34,3 +34,6 @@ INSERT INTO products (up_votes, name, description, approved, user_approved, user
 INSERT INTO products (up_votes, name, description, approved, user_approved, user_id, image, date_submitted) VALUES ( 25, 'Test17', 'Test Description', 'yes', true, 3, 'src/products_img/1555438511170Camila_web.png', '2019-04-27 14:42:21.017');
 INSERT INTO products (up_votes, name, description, approved, user_approved, user_id, image, date_submitted) VALUES ( 75, 'Test18', 'Test Description', 'yes', true, 3, 'src/products_img/1555438511170Camila_web.png', '2019-04-27 14:42:21.017');
 INSERT INTO products (up_votes, name, description, approved, user_approved, user_id, image, date_submitted) VALUES ( 23, 'Test19', 'Test Description', 'yes', true, 3, 'src/products_img/1555438511170Camila_web.png', '2019-04-27 14:42:21.017');
+INSERT INTO products (APPROVED, DATE_SUBMITTED,	DESCRIPTION,	IMAGE,	NAME,	UP_VOTES,	USER_APPROVED,	USER_ID) VALUES ('no',	'2019-04-30 19:02:55.305',	'This is final year project product submission test.',	'src/products_img/1556647375314paul_web.png',	'Final Year Project Test',	0,	TRUE,	5);
+
+INSERT INTO offers (OFFER_ID,COMMENT,DATE,MARKET_PRICE,SOURCE_PRICE,PRODUCT_ID,USER_ID) VALUES (1,	'New Submission',	'2019-04-30 19:02:55.31',	67.0,	59.0, 20,	5);

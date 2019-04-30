@@ -53,7 +53,6 @@
         }else if(id == "update"){
             url = "/backend/update-user/"+ userId;
         }
-        alert(url);
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("forms").innerHTML =

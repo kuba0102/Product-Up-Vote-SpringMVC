@@ -111,6 +111,11 @@ public class BackLoginWebController extends AppController {
             User tempUser = userService.findUserByEmail(user.getEmail());
             System.out.println("BackLoginWebController - Positive Result: User found: " + tempUser.getEmail());
             if (tempUser != null) {
+                if(!tempUser.isBackend()){
+                    model.addAttribute("message", "No backend access granted.");
+                    System.out.println("Permissions error");
+                    return this.displayBackendLoginForm(model, user);
+                }
                 if (PassUtil.verifyUserPassword(user.getPassword(), tempUser.getPassword(), tempUser.getSalt()) && tempUser.isBackend()) {
                     model.addAttribute("message", "Success Login");
                     tempUser.setDateOnline(new Date());
