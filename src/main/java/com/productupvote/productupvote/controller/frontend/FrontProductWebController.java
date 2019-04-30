@@ -193,7 +193,7 @@ public class FrontProductWebController extends AppController {
                                            @PathVariable("page") String page,
                                            @PathVariable("search") String search,
                                            @PathVariable String approveStatus) {
-        if (!userService.checkLogin(true)) return this.BACKEND_LOGIN_REDIRECT;
+        if (!userService.checkLogin(false)) return this.BACKEND_LOGIN_REDIRECT;
         if (search.equals("null")) search = "";
         System.out.println("FrontProductWebController: User approving product with id: " + id);
         productService.updateApproveStatus(id, false, approveStatus);

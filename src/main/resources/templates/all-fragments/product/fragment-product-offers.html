@@ -16,7 +16,7 @@
     </div>
     <!--Offers form-->
     <form th:object="${offer}" action="/offer" method="POST"
-          th:if="${(product.approved != 'yes') && (product.userApproved != 'yes')}">
+          th:if="${(product.approved != 'yes') || (product.userApproved != true)}">
         <input type="hidden" id="productId" name="productId" class="form-control" th:value="${product.id}">
         <input type="hidden" id="page" name="page" class="form-control" th:value="${page}">
         <h4>Send New Offer</h4>
