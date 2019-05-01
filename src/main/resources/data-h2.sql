@@ -1,7 +1,7 @@
 INSERT INTO users (votes, username, name, surname, email, password, salt, backend) VALUES (10, 'kuba0102','jakub', 'chruslicki', 'kuba0102@gmail.com', 'rFpnSq9b1qZb6SvalA0Z1EPqtZbyL1ajWWY27p5SzX8=', 'zVtX4KvmgxLb2ZwRhKAy3WHjl4h9j9', true);
 INSERT INTO users (votes, username, name, surname, email, password, salt, backend) VALUES (10, 'BasicUser','Basic', 'User', 'basic@gmail.com', 'rFpnSq9b1qZb6SvalA0Z1EPqtZbyL1ajWWY27p5SzX8=', 'zVtX4KvmgxLb2ZwRhKAy3WHjl4h9j9', true);
 INSERT INTO users (votes, username, name, surname, email, password, salt, backend) VALUES (10, 'Customer','Customer', 'User', 'customer@gmail.com', 'rFpnSq9b1qZb6SvalA0Z1EPqtZbyL1ajWWY27p5SzX8=', 'zVtX4KvmgxLb2ZwRhKAy3WHjl4h9j9', false);
-INSERT INTO users (votes, username, name, surname, email, password, salt, backend) VALUES (10, 'User','User', 'User', 'customer@gmail.com', 'rFpnSq9b1qZb6SvalA0Z1EPqtZbyL1ajWWY27p5SzX8=', 'zVtX4KvmgxLb2ZwRhKAy3WHjl4h9j9', false);
+INSERT INTO users (votes, username, name, surname, email, password, salt, backend) VALUES (10, 'User','User', 'User', 'customer2@gmail.com', 'rFpnSq9b1qZb6SvalA0Z1EPqtZbyL1ajWWY27p5SzX8=', 'zVtX4KvmgxLb2ZwRhKAy3WHjl4h9j9', false);
 INSERT INTO users (votes, username, name, surname, email, password, salt, backend) VALUES (10, 'test@gmail.com','test', 'test', 'test@gmail.com', 'rFpnSq9b1qZb6SvalA0Z1EPqtZbyL1ajWWY27p5SzX8=', 'zVtX4KvmgxLb2ZwRhKAy3WHjl4h9j9', false);
 
 

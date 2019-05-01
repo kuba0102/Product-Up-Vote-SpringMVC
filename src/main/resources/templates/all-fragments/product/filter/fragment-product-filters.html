@@ -2,19 +2,24 @@
     <table class="table" id="filterTable">
         <thead>
         <tr>
-            <th><h3>Filter:</h3></th>
-            <th class="th-filter" id="id" scope="col" onclick="filter(this.id)">Id</th>
-            <th class="th-filter" id="name"  scope="col" onclick="filter(this.id)">Name</th>
-            <th class="th-filter" id="approved" scope="col" onclick="filter(this.id)">Admin Approved</th>
-            <th class="th-filter" th:if="${page.equals('my')}" id="meApproved" scope="col" onclick="filter(this.id)">To Accept</th>
-            <th class="th-filter" id="dateApproved" scope="col" onclick="filter(this.id)">Date Approved</th>
-            <th class="th-filter" id="top" scope="col" onclick="filter(this.id)">By Votes</th>
-            <th class="th-filter" scope="col">
-                <select class="form-control" id="ascDscSelection">
-                    <option value="asc">ASC</option>
-                    <option value="desc" selected>DESC</option>
+            <ul class="filter-radio">
+                <li><input type="radio" name="filter" id="id" value="id" onclick="filter(this.id)">
+                    <label for="id">Id</label></li>
+                <li><input type="radio" name="filter" id="name" value="name" onclick="filter(this.id)">
+                    <label for="name">By Name</label></li>
+                <li><input type="radio" name="filter" id="approved" value="approved" onclick="filter(this.id)">
+                    <label for="approved">Admin Approved</label></li>
+                <li><input th:if="${page.equals('my')}" type="radio" name="filter" id="meApproved" value="meApproved" onclick="filter(this.id)">
+                    <label for="meApproved">To Accept</label></li>
+                <li><input type="radio" name="filter" id="dateApproved" value="dateApproved" onclick="filter(this.id)">
+                    <label for="dateApproved">Date Approved</label></li>
+                <li><input type="radio" name="filter" id="top" value="top" onclick="filter(this.id)">
+                    <label for="top">Votes</label></li>
+                <select class="form-control" id="ascDscSelection" onchange="filter(this.id)">
+                    <option value="asc" selected>ASC</option>
+                    <option value="desc">DESC</option>
                 </select>
-            </th>
+            </ul>
         </tr>
         </thead>
     </table>
@@ -29,6 +34,9 @@
         var search = document.getElementById("search").value;
         if (search == "") {
             search = "null";
+        }
+        if(id == "ascDscSelection"){
+            id = document.querySelector('input[name="filter"]:checked').value;
         }
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
