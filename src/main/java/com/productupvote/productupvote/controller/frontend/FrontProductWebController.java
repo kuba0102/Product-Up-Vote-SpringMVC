@@ -65,10 +65,12 @@ public class FrontProductWebController extends AppController {
                                      @RequestParam("sourcePrice") double sourcePrice) {
         if (!userService.checkLogin(false)) return this.LOGIN_REDIRECT;
         if (!image.getContentType().equals("image/png")) {
+            model.addAttribute("product", product);
             model.addAttribute("error", "Only PNG images accepted.");
             return displayProductForm(model);
         }
         if (!userService.checkCurrentUserVotes(5)) {
+            model.addAttribute("product", product);
             model.addAttribute("error", "Not enough votes.");
             return displayProductForm(model);
         }

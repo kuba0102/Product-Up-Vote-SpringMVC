@@ -23,7 +23,7 @@
                                             <label for="name">Product Name</label>
                                             <input type="text" id="name" name="name" class="form-control"
                                                    placeholder="Product Name" required="required"
-                                                   th:value="*{name}">
+                                                   th:value="${name}">
                                         </div>
                                     </div>
 
@@ -34,7 +34,7 @@
                                             <label for="description">Description</label>
                                             <textarea class="form-control" rows="5" id="description" name="description"
                                                       placeholder="Description" required="required"
-                                                      th:value="*{description}"></textarea>
+                                                      th:value="${description}"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -44,7 +44,7 @@
                                         <div class="form-label-group">
                                             <label for="sourcePrice">Source Price</label>
                                             <input type="number" id="sourcePrice" name="sourcePrice"
-                                                   class="form-control"
+                                                   class="form-control" th:value="${sourcePrice}"
                                                    placeholder="Source Price" required="required">
                                         </div>
                                     </div>
@@ -52,7 +52,7 @@
                                         <div class="form-label-group">
                                             <label for="marketPrice">Market Price</label>
                                             <input type="number" id="marketPrice" name="marketPrice"
-                                                   class="form-control"
+                                                   class="form-control" th:value="${marketPrice}"
                                                    placeholder="Market Price" required="required">
                                         </div>
                                     </div>
@@ -98,7 +98,7 @@
                         <p>
                             <bold>Image:</bold>
                             Image is the most important part of this submission. If we like the image we will certainly
-                            accept the product.
+                            accept the product. Only PNG accepted at the moment.
                         </p>
                     </div>
                 </div>
