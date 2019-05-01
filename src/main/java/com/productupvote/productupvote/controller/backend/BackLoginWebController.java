@@ -48,10 +48,11 @@ public class BackLoginWebController extends AppController {
     @GetMapping("/add-user")
     public String displayAddUserForm(Model model, User user) {
         if (!userService.checkLogin(true)) return super.BACKEND_LOGIN_REDIRECT;
-        if(!permissionService.getCurrentUserPermission().isUserAdd()) return super.displayUnauthorised(model, "Unauthorised to add user");
+        if(!permissionService.getCurrentUserPermission().isUserAdd()) return super.displayUnauthorised(model, "null","Unauthorised to add user");
         model.addAttribute(super.DIRECTORY, "backend/user/add-user-form");
         model.addAttribute(super.PAGE_TITLE_ID, "Add New User");
-        model.addAttribute(super.USER, user);
+        model.addAttribute("newUser", user);
+        model.addAttribute(super.USER, userService.getCurrentUser());
         return "backend/index/index-backend";
     }
 
@@ -65,7 +66,7 @@ public class BackLoginWebController extends AppController {
      */
     @PostMapping("/add-user")
     public String addNewUserForm(Model model, @Valid @ModelAttribute("user") User user, BindingResult bindingResult) {
-        if(!permissionService.getCurrentUserPermission().isUserAdd()) return super.displayUnauthorised(model, "Unauthorised to add user");
+        if(!permissionService.getCurrentUserPermission().isUserAdd()) return super.displayUnauthorised(model, "ajax","Unauthorised to add user");
         if (!bindingResult.hasErrors() && user.getPassword().equals(user.getSalt())) {
             user.setSalt(PassUtil.getSalt(30));
             user.setPassword(PassUtil.generateSecurePassword(user.getPassword(), user.getSalt()));
@@ -149,7 +150,7 @@ public class BackLoginWebController extends AppController {
         if (!userService.checkLogin(true)) return super.BACKEND_LOGIN_REDIRECT;
         model.addAttribute(super.DIRECTORY, "backend/index/index");
         model.addAttribute(super.PAGE_TITLE_ID, "Home");
-        model.addAttribute(super.USER, user);
+        model.addAttribute(super.USER, userService.getCurrentUser());
         return "backend/index/index-backend";
     }
 

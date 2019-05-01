@@ -28,9 +28,15 @@ public class AppController {
      * @param error error message to display.
      * @return directory path of the html page to render.
      */
-    protected String displayUnauthorised(Model model, String error){
+    protected String displayUnauthorised(Model model, String type, String error){
         model.addAttribute("error", error);
-        return "backend/error/unauthorised";
+        if(type.equals("ajax")){
+            return "backend/error/ajax-error";
+        }else
+        {
+            return "backend/error/unauthorised";
+        }
+
     }
 
 }

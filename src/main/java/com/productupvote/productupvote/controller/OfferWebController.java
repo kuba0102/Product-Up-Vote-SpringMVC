@@ -50,7 +50,7 @@ public class OfferWebController extends AppController {
     @PostMapping("/offer")
     public String addOffer(Model model, @ModelAttribute("offer") Offer offer, @RequestParam("productId") Integer productId, @RequestParam("page") String page) {
         if (!userService.checkLogin(false)) return this.LOGIN_REDIRECT;
-        if (!permissionService.getCurrentUserPermission().isProductApprove()) return super.displayUnauthorised(model, "No permission to approve product.");
+        if (!permissionService.getCurrentUserPermission().isProductApprove()) return super.displayUnauthorised(model, "null","No permission to approve product.");
         Product product = productService.findById(productId);
         if(userService.getCurrentUser().getId() == product.getUser().getId()) {
             product.setUserApproved(true);

@@ -42,10 +42,12 @@ public class BackUserWebController extends AppController {
     @GetMapping("/permission/{userId}")
     public String displayEditPermissionForm(Model model, @PathVariable("userId") Integer userId) {
         if (!userService.checkLogin(true)) return super.BACKEND_LOGIN_REDIRECT;
-        if (!permissionService.getUserPermissions(userService.getCurrentUser().getId()).isUserEdit()) return super.displayUnauthorised(model, "No permission for user edit.");
+        if (!permissionService.getCurrentUserPermission().isUserEdit())
+            return super.displayUnauthorised(model, "ajax","No permission for user edit.");
         String[] bools = {"false", "true"};
         model.addAttribute(super.PERM, permissionService.getUserPermissions(userId));
         model.addAttribute("bools", bools);
+        model.addAttribute(super.USER, userService.getCurrentUser());
         System.out.println("BackUserWebController: Returning Perm Form");
         return "backend/user/edit-permissions-form";
     }
@@ -53,15 +55,15 @@ public class BackUserWebController extends AppController {
     /**
      * This method set new permissions.
      *
-     * @param model  supply attributes used for rendering views.
-     * @param perm   Permission object that will be used to update user permissions.
+     * @param model supply attributes used for rendering views.
+     * @param perm  Permission object that will be used to update user permissions.
      * @return directory path of the html page to render.
      */
     @PostMapping("/permission")
     public String updatingPermissions(Model model, @ModelAttribute("perm") Permission perm) {
         if (!userService.checkLogin(true)) return super.BACKEND_LOGIN_REDIRECT;
-        if (!permissionService.getUserPermissions(userService.getCurrentUser().getId()).isUserEdit())
-            return super.displayUnauthorised(model, "No permission for user edit.");
+        if (!permissionService.getCurrentUserPermission().isUserEdit())
+            return super.displayUnauthorised(model, "null", "No permission for user edit.");
         Permission tempPerm = permissionService.getUserPermissions(perm.getUser().getId());
         perm.setUserType(tempPerm.getUserType());
         permissionService.save(perm);
@@ -79,11 +81,12 @@ public class BackUserWebController extends AppController {
     @GetMapping("/all-users")
     public String displayAllUsers(Model model) {
         if (!userService.checkLogin(true)) return super.BACKEND_LOGIN_REDIRECT;
-        if (!permissionService.getUserPermissions(userService.getCurrentUser().getId()).isUserView())
-            return super.displayUnauthorised(model, "No permission for user view.");
+        if (!permissionService.getCurrentUserPermission().isUserView())
+            return super.displayUnauthorised(model, "ajax","No permission for user view.");
         model.addAttribute(super.DIRECTORY, "backend/user/all-users");
         model.addAttribute(super.PAGE_TITLE_ID, "All Users");
         model.addAttribute("users", userService.findAllUsers());
+        model.addAttribute(super.USER, userService.getCurrentUser());
 
         return "backend/index/index-backend";
     }
@@ -97,6 +100,8 @@ public class BackUserWebController extends AppController {
      */
     @PostMapping("/all-users/{search}")
     public String displaySearchUsers(Model model, @PathVariable("search") String search) {
+        if (!permissionService.getCurrentUserPermission().isUserView())
+            return super.displayUnauthorised(model, "null","No permission for user view.");
         model.addAttribute("users", userService.userSearch(search));
         return "backend/fragments/ajax/ajax-all-users.html";
     }
@@ -109,6 +114,8 @@ public class BackUserWebController extends AppController {
      */
     @GetMapping("/update-user/{userId}")
     public String displayUpdateUserForm(Model model, @PathVariable("userId") Integer userId) {
+        if (!permissionService.getCurrentUserPermission().isUserEdit())
+            return super.displayUnauthorised(model, "ajax","No user permissions to edit.");
         model.addAttribute("userToUpdate", userService.findUserById(userId));
         model.addAttribute("user", userService.getCurrentUser());
         return "backend/product/fragment-user-update-form";
@@ -116,18 +123,21 @@ public class BackUserWebController extends AppController {
 
     /**
      * This method updates user as admin.
+     *
      * @param model supply attributes used for rendering views.
-     * @param user user to update.
+     * @param user  user to update.
      * @return directory path of the html page to render.
      */
     @PostMapping("/update-user")
-    public String updateUserDetails(Model model, @ModelAttribute("user") User user){
-        if(!userService.checkLogin(true)) return super.LOGIN_REDIRECT;
-        if(!permissionService.getCurrentUserPermission().isUserEdit()) return super.displayUnauthorised(model, "No user permissions to edit");
+    public String updateUserDetails(Model model, @ModelAttribute("user") User user) {
+        if (!userService.checkLogin(true)) return super.LOGIN_REDIRECT;
+        if (!permissionService.getCurrentUserPermission().isUserEdit())
+            return super.displayUnauthorised(model, "null","No user permissions to edit.");
         User tmpUser = userService.findUserById(user.getId());
         user.setDateUpdated(new Date());
         user.setSalt(tmpUser.getSalt());
         user.setPassword(tmpUser.getPassword());
+        user.setBackend(tmpUser.isBackend());
         userService.save(user);
         model.addAttribute("message", "User has been updated");
 

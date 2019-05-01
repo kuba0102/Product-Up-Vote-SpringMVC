@@ -49,7 +49,7 @@ public class BackProductWebController extends AppController {
     public String displayToApproveProduct(Model model) {
         if (!userService.checkLogin(true)) return this.BACKEND_LOGIN_REDIRECT;
         if (!permissionService.getUserPermissions(userService.getCurrentUser().getId()).isProductApprove())
-            return super.displayUnauthorised(model, "No permission to approve product.");
+            return super.displayUnauthorised(model, "null","No permission to approve product.");
         model.addAttribute(super.DIRECTORY, "backend/product/fragment-products");
         model.addAttribute(super.PAGE_TITLE_ID, "Approve Product");
         model.addAttribute("page", "approve");
@@ -72,9 +72,9 @@ public class BackProductWebController extends AppController {
     public String updateToApproveProduct(Model model, @PathVariable("id") String id, @PathVariable("page") String page, @PathVariable("approveStatus") String approveStatus) {
         if (!userService.checkLogin(true)) return this.BACKEND_LOGIN_REDIRECT;
         if (!permissionService.getUserPermissions(userService.getCurrentUser().getId()).isProductView())
-            return super.displayUnauthorised(model, "No permission to view product.");
+            return super.displayUnauthorised(model, "ajax","No permission to view product.");
         if (!permissionService.getUserPermissions(userService.getCurrentUser().getId()).isProductApprove())
-            return super.displayUnauthorised(model, "No permission to approve product.");
+            return super.displayUnauthorised(model, "ajax","No permission to approve product.");
         System.out.println("BackendProductWebController: Approving product with id: " + id);
         productService.updateApproveStatus(id, true, approveStatus);
         if (page.equals("approve")) model.addAttribute("products", productService.approvedProducts("no", false,"", null, null));
@@ -93,13 +93,14 @@ public class BackProductWebController extends AppController {
     public String displayAllSubmitted(Model model) {
         if (!userService.checkLogin(true)) return this.BACKEND_LOGIN_REDIRECT;
         if (!permissionService.getUserPermissions(userService.getCurrentUser().getId()).isProductView())
-            return super.displayUnauthorised(model, "No permission to view product.");
+            return super.displayUnauthorised(model, "null","No permission to view product.");
         model.addAttribute(super.DIRECTORY, "backend/product/fragment-products");
         model.addAttribute(super.PAGE_TITLE_ID, "Submitted Products");
         model.addAttribute("page", "all");
         model.addAttribute("url", "/backend/product-search/");
         model.addAttribute("products", productService.approvedProducts("*", true,"", null, null));
         model.addAttribute("offer", new Offer());
+        model.addAttribute(super.USER, userService.getCurrentUser());
         return this.BACKEND_INDEX;
     }
 
@@ -115,7 +116,7 @@ public class BackProductWebController extends AppController {
     public String searchProduct(Model model, @PathVariable("searchType") String searchType, @PathVariable("search") String search) {
         if (!userService.checkLogin(true)) return this.BACKEND_LOGIN_REDIRECT;
         if (!permissionService.getUserPermissions(userService.getCurrentUser().getId()).isProductView())
-            return super.displayUnauthorised(model, "No permission to view product.");
+            return super.displayUnauthorised(model, "ajax","No permission to view product.");
         if (searchType.equals("approve")) {
             model.addAttribute("products", productService.approvedProducts("no", false, search, null, null));
         }
